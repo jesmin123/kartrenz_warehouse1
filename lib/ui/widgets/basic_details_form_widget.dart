@@ -30,12 +30,6 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
   TextEditingController _inImageController = TextEditingController();
   TextEditingController _exImageController = TextEditingController();
 
-  String dropdownValue;
-  String dropdownValue2;
-  String stateDropdown;
-  String rtOfficeDropdown;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +40,7 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             DropdownButtonFormField(
-              value: dropdownValue2,
+              value: formData.dropdownValue2,
                 items:  <String>[
                   'Maruti',
                   'BMW',
@@ -59,10 +53,9 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
                       );
                     }).toList(),
                 onChanged: (String newValue) {
-      setState(() {
-        dropdownValue2 = newValue;
-      });
-    },
+                formData.dropdownValue2 = newValue;
+                },
+
               decoration: InputDecoration(
                 labelText: "Car make",
                 labelStyle: AppFontStyle.bodyTextStyle2(APP_BLACK_COLOR)
@@ -70,7 +63,7 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
             ),
             SizedBox(height: 12,),
             DropdownButtonFormField(
-              value: dropdownValue,
+              value: formData.dropdownValue,
               items:  <String>[
                 'Maruti',
                 'BMW',
@@ -83,9 +76,7 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
                 );
               }).toList(),
               onChanged: (String newValue) {
-                setState(() {
-                  dropdownValue = newValue;
-                });
+                formData.dropdownValue = newValue;
               },
               decoration: InputDecoration(
                   labelText: "Car model",
@@ -139,7 +130,7 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
               children: [
                 Flexible(
                   child: DropdownButtonFormField(
-                    value: stateDropdown,
+                    value: formData.stateDropdown,
                     items:  <String>[
                       'kerala',
                       'mumbai',
@@ -152,9 +143,7 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
                       );
                     }).toList(),
                     onChanged: (String newValue) {
-                      setState(() {
-                        stateDropdown = newValue;
-                      });
+                      formData.stateDropdown = newValue;
                     },
                     decoration: InputDecoration(
 
@@ -166,7 +155,7 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
                 SizedBox(width: 12,),
                 Flexible(
                   child: DropdownButtonFormField(
-                    value: rtOfficeDropdown,
+                    value: formData.rtOfficeDropdown,
                     items:  <String>[
                       'Tvm - 01',
                       'Klm - 02',
@@ -179,9 +168,7 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
                       );
                     }).toList(),
                     onChanged: (String newValue) {
-                      setState(() {
-                        rtOfficeDropdown = newValue;
-                      });
+                      formData.rtOfficeDropdown = newValue;
                     },
                     decoration: InputDecoration(
 
@@ -268,7 +255,6 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                         child: Text("Upload", style: AppFontStyle.titleAppBarStyle2(APP_WHITE_COLOR),),
                       ),
-
                     ],
                   ),
                   formData.mainImage!=null? Column(
@@ -440,6 +426,7 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
       allowedExtensions: extensions,
     );
     if(result!=null){
+      //TODO implement multiple files logic
       if(extensions.contains(result.files.first.extension)){
         return result;
       }else{

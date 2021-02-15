@@ -31,6 +31,18 @@ class FormData extends ChangeNotifier{
     notifyListeners();
   }
 
+  String _dropdownValue;
+  String _dropdownValue2;
+  String _stateDropdown;
+  String _rtOfficeDropdown;
+
+
+  String get dropdownValue => _dropdownValue;
+
+  set dropdownValue(String value) {
+    _dropdownValue = value;
+    notifyListeners();
+  }
 
   List<String> _features;
 
@@ -115,6 +127,27 @@ class FormData extends ChangeNotifier{
     List<PlatformFile> documentImagesTemp = documentImages;
     documentImagesTemp.removeAt(index);
     documentImages = documentImagesTemp;
+  }
+
+  String get dropdownValue2 => _dropdownValue2;
+
+  set dropdownValue2(String value) {
+    _dropdownValue2 = value;
+    notifyListeners();
+  }
+
+  String get stateDropdown => _stateDropdown;
+
+  set stateDropdown(String value) {
+    _stateDropdown = value;
+    notifyListeners();
+  }
+
+  String get rtOfficeDropdown => _rtOfficeDropdown;
+
+  set rtOfficeDropdown(String value) {
+    _rtOfficeDropdown = value;
+    notifyListeners();
   }
 }
 

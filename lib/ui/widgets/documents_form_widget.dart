@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:kartenz/constants/app_font_style.dart';
@@ -120,6 +122,57 @@ class _DocumentsFormWidetState extends State<DocumentsFormWidet> {
               decoration: decoration("Duplicate key"),
               controller: _duplicateKeyController,
             ),
+            SizedBox(height: 16,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Main Image :", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
+                RaisedButton(
+                  onPressed: () async {
+                    FilePickerResult filePickerResult = await pickImages();
+                    if(filePickerResult!=null){
+                      formData.documentImages = filePickerResult.files;
+                    }
+                  },
+                  color: PRIMARY_COLOR,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  child: Text("Upload", style: AppFontStyle.titleAppBarStyle2(APP_WHITE_COLOR),),
+                ),
+              ],
+            ),
+            SizedBox(height: 16,),
+            ListView.separated(
+              itemCount: formData.documentImages.length,
+              separatorBuilder: (_,pos){SizedBox(height: 12,);},
+              itemBuilder: (_,pos){
+                return Column(
+                  children: [
+                    Container(
+                      height: 300,
+                      width: 300,
+                      child: Image.file(File(formData.documentImages[pos].path)),
+                    ),
+                    SizedBox(height: 8,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Flexible(
+                          child: TextFormField(
+                            decoration: decoration("Description"),
+                          ),
+                        ),
+                        Flexible(
+                          child: IconButton(icon: Icon(Icons.delete), onPressed: (){
+                            formData.removeFromDocumentImages(pos);
+                          },),
+                        )
+                      ],
+                    )
+
+                  ],
+                );
+              },
+            ),
             SizedBox(height: 32,),
             RatingBar.builder(
     initialRating: 3,
@@ -142,6 +195,21 @@ class _DocumentsFormWidetState extends State<DocumentsFormWidet> {
         )
     );
   }
+
+  Future<FilePickerResult> pickImages() async {
+    List<String> extensions =  ['jpg', 'png', 'jpeg'];
+    FilePickerResult result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+      type: FileType.custom,
+      allowedExtensions: extensions,
+    );
+    if(result!=null){
+        return result;
+    }else{
+      return null;
+    }
+  }
+
 }
 
 InputDecoration decoration(String label){
