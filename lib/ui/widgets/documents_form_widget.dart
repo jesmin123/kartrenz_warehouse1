@@ -126,12 +126,12 @@ class _DocumentsFormWidetState extends State<DocumentsFormWidet> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Main Image :", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
+                Text("Image :", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
                 RaisedButton(
                   onPressed: () async {
                     FilePickerResult filePickerResult = await pickImages();
                     if(filePickerResult!=null){
-                      formData.documentImages = filePickerResult.files;
+                      formData.addToDocumentImages(filePickerResult.files);
                     }
                   },
                   color: PRIMARY_COLOR,
@@ -141,9 +141,13 @@ class _DocumentsFormWidetState extends State<DocumentsFormWidet> {
               ],
             ),
             SizedBox(height: 16,),
-            ListView.separated(
+            formData.documentImages!=null?ListView.separated(
               itemCount: formData.documentImages.length,
-              separatorBuilder: (_,pos){SizedBox(height: 12,);},
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              separatorBuilder: (_,pos){
+                return SizedBox(height: 12,);},
+
               itemBuilder: (_,pos){
                 return Column(
                   children: [
@@ -167,29 +171,43 @@ class _DocumentsFormWidetState extends State<DocumentsFormWidet> {
                           },),
                         )
                       ],
-                    )
-
+                    ),
                   ],
                 );
               },
-            ),
+            ):Container(),
             SizedBox(height: 32,),
             RatingBar.builder(
-    initialRating: 3,
-    minRating: 1,
-    direction: Axis.horizontal,
-    allowHalfRating: true,
-    itemCount: 5,
-    itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
-    itemBuilder: (context, _) => Icon(
-    Icons.star,
-    color: PRIMARY_COLOR,
-    ),
-    onRatingUpdate: (rating) {
-    print(rating);
-    formData.rating = rating;
-    },
-    )
+                 initialRating: 3,
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
+                  itemBuilder: (context, _) => Icon(
+                  Icons.star,
+                  color: PRIMARY_COLOR,
+                        ),
+                   onRatingUpdate: (rating) {
+                   print(rating);
+                   formData.rating = rating;
+                    },
+                    ),
+            SizedBox(height: 32,),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 64),
+              child: RaisedButton(
+                onPressed:(){
+                  formData.activeStep=2;
+                  formData.stepCount=2;
+                },
+                child: Text("Next", style: AppFontStyle.headingTextStyle2(APP_WHITE_COLOR),),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                color: PRIMARY_COLOR,
+
+              ),
+            )
+
 
           ],
         )

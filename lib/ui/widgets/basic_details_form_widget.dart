@@ -291,7 +291,7 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
                         onPressed: () async {
                           FilePickerResult filePickerResult  = await pickImages(true);
                           if(filePickerResult!=null){
-                            formData.interiorImage = filePickerResult.files;
+                            formData.addToInteriorImage(filePickerResult.files);
                           }
                         },
                         color: PRIMARY_COLOR,
@@ -345,7 +345,7 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
                         onPressed: () async {
                           FilePickerResult filePickerResult  = await pickImages(true);
                           if(filePickerResult!=null){
-                            formData.exteriorImage = filePickerResult.files;
+                            formData.addToExteriorImage(filePickerResult.files);
                           }
                         },
                         color: PRIMARY_COLOR,

@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/strings.dart';
+import 'package:kartenz/provider/basic_providers.dart';
 import 'package:kartenz/ui/widgets/admin_contact_tab.dart';
 import 'package:kartenz/ui/widgets/dashboard_widget.dart';
 import 'package:kartenz/ui/widgets/my_profile_tab.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -25,6 +27,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   }
   @override
   Widget build(BuildContext context) {
+    BasicProvider basicProvider = Provider.of(context);
     return WillPopScope(
       onWillPop: ()async{
         showAlert(context);
@@ -80,7 +83,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 )
             )
           ],
-        ),
+        )
       ),
     );
 

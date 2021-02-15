@@ -76,11 +76,17 @@ class FormData extends ChangeNotifier{
 
  List<PlatformFile> _interiorImage;
 
-  List<PlatformFile> get interiorImage => _interiorImage;
+  List<PlatformFile> get interiorImage => _interiorImage!=null?_interiorImage:[];
 
   set interiorImage(List<PlatformFile> value) {
     _interiorImage = value;
     notifyListeners();
+  }
+
+  void addToInteriorImage(List<PlatformFile> newImage){
+    List<PlatformFile> interiorImageTemp  = interiorImage;
+    interiorImageTemp.addAll(newImage);
+    interiorImage = interiorImageTemp;
   }
 
   void removeFromInteriorImage(int index){
@@ -92,11 +98,17 @@ class FormData extends ChangeNotifier{
   List<PlatformFile> _exteriorImage;
 
 
-  List<PlatformFile> get exteriorImage => _exteriorImage;
+  List<PlatformFile> get exteriorImage => _exteriorImage!=null?_exteriorImage:[];
 
   set exteriorImage(List<PlatformFile> value) {
     _exteriorImage = value;
     notifyListeners();
+  }
+
+  void addToExteriorImage(List<PlatformFile> newImage){
+    List<PlatformFile> exteriorImageTemp = exteriorImage;
+    exteriorImageTemp.addAll(newImage);
+    exteriorImage = exteriorImageTemp;
   }
 
   void removeFromExteriorImage(int index){
@@ -114,13 +126,19 @@ class FormData extends ChangeNotifier{
     notifyListeners();
   }
 
-  List<PlatformFile> _documentImages;
+  List<PlatformFile> _documentImages = [];
 
-  List<PlatformFile> get documentImages => _documentImages;
+  List<PlatformFile> get documentImages => _documentImages!=null?_documentImages:[];
 
   set documentImages(List<PlatformFile> value) {
     _documentImages = value;
     notifyListeners();
+  }
+
+  void addToDocumentImages(List<PlatformFile> newFiles){
+    List<PlatformFile> documentImagesTemp = documentImages;
+    documentImagesTemp.addAll(newFiles);
+    documentImages = documentImagesTemp;
   }
 
   void removeFromDocumentImages(int index){
@@ -149,5 +167,6 @@ class FormData extends ChangeNotifier{
     _rtOfficeDropdown = value;
     notifyListeners();
   }
+
 }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kartenz/provider/basic_providers.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:kartenz/ui/pages/cars_page.dart';
 import 'package:kartenz/ui/pages/home_page.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
     return  MultiProvider(
       providers: [
         ChangeNotifierProvider<FormData>(create: (_)=>FormData()),
+        ChangeNotifierProvider<BasicProvider>(create: (_)=>BasicProvider()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
