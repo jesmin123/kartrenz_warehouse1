@@ -10,7 +10,6 @@ class FormData extends ChangeNotifier{
 
   set activeStep(int value) {
     _activeStep = value;
-    notifyListeners();
   }
 
   int _stepCount = 0;

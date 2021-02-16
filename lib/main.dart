@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kartenz/provider/basic_providers.dart';
+import 'package:kartenz/provider/electrical_form_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:kartenz/ui/pages/cars_page.dart';
 import 'package:kartenz/ui/pages/home_page.dart';
@@ -31,16 +32,20 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<FormData>(create: (_)=>FormData()),
         ChangeNotifierProvider<BasicProvider>(create: (_)=>BasicProvider()),
+        ChangeNotifierProvider<ElectricalFormProvider>(create: (_)=>ElectricalFormProvider()),
+
       ],
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.red,
-          backgroundColor: APP_WHITE_COLOR,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
+      child: Consumer<FormData>(
+        builder: (context,basicProvider,child)=> MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.red,
+            backgroundColor: APP_WHITE_COLOR,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          routes: routes,
+          initialRoute: SPLASH_SCREEN_PAGE,
         ),
-        routes: routes,
-        initialRoute: SPLASH_SCREEN_PAGE,
       ),
     );
   }

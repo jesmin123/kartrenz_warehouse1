@@ -245,9 +245,9 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
                         onPressed: (){
                           print("Entered");
                            pickImages(false).then((filePickerResult){
-                             if(filePickerResult!=null){
-                               formData.mainImage = filePickerResult.files.first;
-                             }
+                            if(filePickerResult!=null){
+                              formData.mainImage = filePickerResult.files.first;
+                            }
                           });
 
                         },

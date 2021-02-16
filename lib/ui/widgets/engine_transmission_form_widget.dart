@@ -1,14 +1,15 @@
-import 'dart:io';
-
+ import 'dart:io';
 import 'package:chewie/chewie.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/provider/basic_providers.dart';
+import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
+import '../../provider/form_data_provider.dart';
 
 class EnginetransmissionFormWidget extends StatefulWidget {
   @override
@@ -33,20 +34,18 @@ class _EnginetransmissionFormWidgetState extends State<EnginetransmissionFormWid
 
   @override
   Widget build(BuildContext context) {
-    BasicProvider basicProvider = Provider.of(context);
-    _videoPlayerController = VideoPlayerController.file(File(basicProvider.engineVideo.path));
+    BasicProvider basicProvider = Provider.of<BasicProvider>(context);
+    FormData formData = Provider.of<FormData>(context);
+
+    _videoPlayerController = VideoPlayerController.file(File(basicProvider.engineVideo!=null?basicProvider.engineVideo.path:""));
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,
       aspectRatio:16/12,
       autoPlay: false,
       looping: false,
-      deviceOrientationsAfterFullScreen: [
-        DeviceOrientation.landscapeRight,
-        DeviceOrientation.landscapeLeft,
-        DeviceOrientation.portraitUp,
-        DeviceOrientation.portraitDown,
-      ],
+      allowFullScreen: false
     );
+
     return Form(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,7 +99,7 @@ class _EnginetransmissionFormWidgetState extends State<EnginetransmissionFormWid
             decoration: decoration("Coolant"),
             controller: _coolantController,
           ),
-          SizedBox(height: 12,),
+          SizedBox(height: 24,),
           Text("Images or videos", style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR),),
           Padding(
             padding: const EdgeInsets.only(top: 8,left: 16),
@@ -125,16 +124,106 @@ class _EnginetransmissionFormWidgetState extends State<EnginetransmissionFormWid
                     ),
                   ],
                 ),
-                Column(
+
+              ],
+            ),
+          ),
+          basicProvider.engineVideo!=null?Column(
+            children: [
+              Container(width: 300,height: 300,child: Chewie(controller: _chewieController))
+            ],
+          ):Container(),
+          SizedBox(height: 12,),
+          Padding(
+            padding: const EdgeInsets.only(top: 8,left: 16),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Images :", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
+                    RaisedButton(
+                      onPressed: () async {
+                        print("Entered");
+                       FilePickerResult filePickerResult = await pickImages(['jpg', 'png', 'jpeg'], true);
+                       if(filePickerResult!=null){
+                         basicProvider.addToEngineImages(filePickerResult.files);
+                       }
+                      },
+                      color: PRIMARY_COLOR,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                      child: Text("Upload", style: AppFontStyle.titleAppBarStyle2(APP_WHITE_COLOR),),
+                    ),
+                  ],
+                ),
+
+              ],
+            ),
+          ),
+          SizedBox(height: 12,),
+          basicProvider.engineImages!=null?ListView.separated(
+            shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context, pos){
+                return Column(
                   children: [
                     Container(
-                      width: 300,
+                      child: Image.file(File(basicProvider.engineImages[pos].path)),
                       height: 300,
-                      child: Chewie(controller: _chewieController)
-                    )
+                      width: 300,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Flexible(
+                          child: TextFormField(
+                            decoration: decoration("Description"),
+                          ),
+                        ),
+                        Flexible(
+                          child: IconButton(icon: Icon(Icons.delete), onPressed: (){
+                            basicProvider.removeFromEngineImages(pos);
+                          },),
+                        )
+                      ],
+                    ),
                   ],
-                )
-              ],
+                );
+              },
+              separatorBuilder: (context,pos){
+                return SizedBox(height: 12,);
+              },
+              itemCount: basicProvider.engineImages.length
+          ):Container(),
+          SizedBox(height: 32,),
+          RatingBar.builder(
+            initialRating: 3,
+            minRating: 1,
+            direction: Axis.horizontal,
+            allowHalfRating: true,
+            itemCount: 5,
+            itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
+            itemBuilder: (context, _) => Icon(
+              Icons.star,
+              color: PRIMARY_COLOR,
+            ),
+            onRatingUpdate: (rating) {
+              print(rating);
+
+            },
+          ),
+          SizedBox(height: 32,),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 64),
+            child: RaisedButton(
+              onPressed:(){
+                  formData.activeStep=3;
+                  formData.stepCount=3;
+              },
+              child: Text("Next", style: AppFontStyle.headingTextStyle2(APP_WHITE_COLOR),),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              color: PRIMARY_COLOR,
+
             ),
           )
 
