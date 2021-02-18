@@ -393,7 +393,7 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
                   )
 
                 ],
-              ),
+              ), 
             ),
             SizedBox(height: 32,),
             Padding(

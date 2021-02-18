@@ -95,7 +95,7 @@ class AppFontStyle{
   static TextStyle regularTextStyle(Color color, {num textSize}) {
     return TextStyle(
         color: color,
-        fontSize: 16,
+        fontSize: textSize!=null?textSize:16,
         fontWeight: FontWeight.w400,
         fontFamily: "Exo"
     );
