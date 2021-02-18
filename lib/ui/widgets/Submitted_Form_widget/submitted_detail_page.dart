@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/constant_widgets.dart';
+import 'package:kartenz/constants/strings.dart';
 
 class SubmittedDetailPage extends StatefulWidget {
   @override
@@ -14,7 +15,7 @@ class _SubmittedDetailPageState extends State<SubmittedDetailPage> {
     return Scaffold(
       appBar: appBar(context, "Cars"),
       body: SingleChildScrollView(
-        child: Column( 
+        child: Column(
           children: [
             SizedBox(height: 12,),
             Container(
@@ -87,13 +88,18 @@ class _SubmittedDetailPageState extends State<SubmittedDetailPage> {
                         style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR, textSize: 14.0),textAlign: TextAlign.center,
                       ),
                       SizedBox(height: 32,),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                        Text("View more", style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR)),
-                        SizedBox(height: 8,),
-                        Icon(Icons.arrow_forward_ios_outlined, size: 18,)
-                      ],),
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.pushNamed(context, EXPAND_DETAILS_PAGE);
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                          Text("View more", style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR)),
+                          SizedBox(height: 8,),
+                          Icon(Icons.arrow_forward_ios_outlined, size: 18,)
+                        ],),
+                      ),
 
 
                     ],

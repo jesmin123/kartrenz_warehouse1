@@ -167,6 +167,13 @@ class FormData extends ChangeNotifier{
     notifyListeners();
   }
 
+int _current = 0;
 
+  int get current => _current;
+
+  set current(int value) {
+    _current = value;
+    notifyListeners();
+  }
 }
 
