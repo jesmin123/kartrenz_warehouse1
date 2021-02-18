@@ -21,12 +21,3 @@ class _ExpandDetailPageState extends State<ExpandDetailPage> {
     );
   }
 }
-
-Widget carDetails(String tittle1, String tittle2){
-  return Column(
-    children: [
-      Text(tittle1, style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR, textSize: 16.0)),
-      Text(tittle2, style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR, textSize: 14.0),)
-    ],
-  );
-}
