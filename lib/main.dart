@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kartenz/provider/auth_provider.dart';
 import 'package:kartenz/provider/basic_providers.dart';
 import 'package:kartenz/provider/electrical_form_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
@@ -8,11 +9,10 @@ import 'package:kartenz/ui/pages/login_page.dart';
 import 'package:kartenz/ui/pages/splash_screen_page.dart';
 import 'package:kartenz/ui/widgets/Submitted_Form_widget/expand_details-page.dart';
 import 'package:kartenz/ui/widgets/Submitted_Form_widget/submitted_detail_page.dart';
-import 'file:///F:/AndroidStudioProjects/kartenz/lib/ui/widgets/Upload_Form_Widgets/basic_details_form_widget.dart';
 import 'package:provider/provider.dart';
-
 import 'constants/colors.dart';
 import 'constants/strings.dart';
+import 'ui/widgets/Upload_Form_Widgets/basic_details_form_widget.dart';
 
 void main() {
   runApp(MyApp());
@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<FormData>(create: (_)=>FormData()),
         ChangeNotifierProvider<BasicProvider>(create: (_)=>BasicProvider()),
         ChangeNotifierProvider<ElectricalFormProvider>(create: (_)=>ElectricalFormProvider()),
+        ChangeNotifierProvider<AuthProvider>(create: (_)=>AuthProvider()),
 
       ],
       child: Consumer<FormData>(

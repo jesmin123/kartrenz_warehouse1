@@ -2,9 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
-import 'package:kartenz/constants/constant_widgets.dart';
 import 'package:kartenz/ui/widgets/Submitted_Form_widget/submitted_form_widget.dart';
-import 'package:kartenz/ui/widgets/my_profile_tab.dart';
 import 'package:kartenz/ui/widgets/upload_tab_widget.dart';
 
 class CarsPage extends StatefulWidget {

@@ -3,16 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
-import 'file:///F:/AndroidStudioProjects/kartenz/lib/ui/widgets/Upload_Form_Widgets/basic_details_form_widget.dart';
-import 'file:///F:/AndroidStudioProjects/kartenz/lib/ui/widgets/Upload_Form_Widgets/documents_form_widget.dart';
-import 'file:///F:/AndroidStudioProjects/kartenz/lib/ui/widgets/Upload_Form_Widgets/electricalsFormWidget.dart';
-import 'file:///F:/AndroidStudioProjects/kartenz/lib/ui/widgets/Upload_Form_Widgets/engine_transmission_form_widget.dart';
-import 'file:///F:/AndroidStudioProjects/kartenz/lib/ui/widgets/Upload_Form_Widgets/exterior_form_widget.dart';
-import 'package:kartenz/ui/widgets/my_profile_tab.dart';
-import 'file:///F:/AndroidStudioProjects/kartenz/lib/ui/widgets/Upload_Form_Widgets/steering_form_widget.dart';
 import 'package:provider/provider.dart';
 
 import 'Upload_Form_Widgets/air_conditioning_form_widget.dart';
+import 'Upload_Form_Widgets/basic_details_form_widget.dart';
+import 'Upload_Form_Widgets/documents_form_widget.dart';
+import 'Upload_Form_Widgets/electricalsFormWidget.dart';
+import 'Upload_Form_Widgets/engine_transmission_form_widget.dart';
+import 'Upload_Form_Widgets/exterior_form_widget.dart';
+import 'Upload_Form_Widgets/steering_form_widget.dart';
 
 class UploadTabWidget extends StatefulWidget {
   @override
