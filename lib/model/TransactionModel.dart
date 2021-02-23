@@ -1,24 +1,25 @@
+import 'package:kartenz/model/BrokerModel.dart';
+import 'package:kartenz/model/CarWarehouseModel.dart';
+import 'package:kartenz/model/LoginModel.dart';
+
 class Transaction{
   String date,amount;
-  String lamount,lpaid,ltransactionID;
+  String type,code,ltransactionID;
   bool completed;
   int tAmount;
+  BrokerModel broker;
+  CarWarehouseModel carWarehouseModel;
+  LoginModel loginModel;
 
-  Transaction({this.tAmount,this.date,  this.lamount, this.lpaid,
-    this.ltransactionID,this.amount,this.completed});
+  Transaction({this.tAmount,this.date,  this.type, this.code,
+    this.ltransactionID,this.amount,this.completed,this.broker,this.carWarehouseModel,this.loginModel});
 
-  getLtransactionID(){ return ltransactionID ;}
 
-  getLpaid() {return lpaid; }
-
-  String getLAmount() { return lamount; }
-
-  getAmount(){ return amount; }
-
-  String getDate() {return date; }
 
   factory Transaction.fromJSON(Map<dynamic,dynamic> json){
-    return Transaction(tAmount: json['amount'],completed: json['completed']);
+    return Transaction(amount: json['amount'],completed: json['completed'],code: json['code'],ltransactionID: json['_id'],
+        type: json['type'],broker: BrokerModel.fromJSON(json['broker']),
+        carWarehouseModel: CarWarehouseModel.fromJSON(json['car']),loginModel: LoginModel.fromJSON(json['createdBy']),date: json['createdon']);
   }
 
 }
