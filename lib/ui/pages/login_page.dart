@@ -50,7 +50,6 @@ class _LoginPageState extends State<LoginPage> {
                   }
                   return null;
                 },
-                focusNode: f2,
                 controller: _userName,
                 decoration: InputDecoration(
                   labelStyle: AppFontStyle.bodyTextStyle(PRIMARY_COLOR),
