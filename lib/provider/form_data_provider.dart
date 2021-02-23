@@ -1,8 +1,19 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:kartenz/api/api.dart';
+import 'package:kartenz/model/CompanyModel.dart';
+import 'package:kartenz/model/RespObj.dart';
 
 class FormData extends ChangeNotifier{
 
+  List<Company> _company;
+
+  List<Company> get company => _company;
+
+  set company(List<Company> value) {
+    _company = value;
+    notifyListeners();
+  }
 
   int _activeStep = 0;
 
@@ -175,5 +186,23 @@ int _current = 0;
     _current = value;
     notifyListeners();
   }
+
+  Future getCompany() async{
+    RespObj respObj = await api.getData("company/get/lists");
+    if(respObj.status){
+      List<Company> companyTemp=[];
+      List<dynamic> temp=respObj.data;
+      temp.forEach((element) {
+        Company company=Company.fromJSON(element);
+        companyTemp.add(company);
+      });
+      _company=companyTemp;
+
+  }
+
+
+  }
+
+
 }
 

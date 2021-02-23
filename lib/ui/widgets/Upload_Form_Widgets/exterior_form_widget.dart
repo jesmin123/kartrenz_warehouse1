@@ -7,8 +7,9 @@ import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/provider/electrical_form_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
-import 'file:///F:/AndroidStudioProjects/kartenz/lib/ui/widgets/Upload_Form_Widgets/air_conditioning_form_widget.dart';
 import 'package:provider/provider.dart';
+
+import 'air_conditioning_form_widget.dart';
 
 class ExteriorFormWidget extends StatefulWidget {
   @override
