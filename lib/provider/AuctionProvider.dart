@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:kartenz/api/api.dart';
 import 'package:kartenz/model/BuyModel.dart';
+import 'package:kartenz/model/CarWarehouseModel.dart';
 import 'package:kartenz/model/LoginModel.dart';
 import 'package:kartenz/model/RTOfficeModel.dart';
 import 'package:kartenz/model/RespObj.dart';
@@ -18,8 +19,16 @@ List<Transaction> _transactions;
 List<BuyModel> _buyAll;
 List<StateModel> _stateList;
 List<RTOfficeModel> _listRtOffice;
+List<CarWarehouseModel> _carReport;
 
-List<RTOfficeModel> get listRtOffice => _listRtOffice;
+List<CarWarehouseModel> get carReport => _carReport;
+
+  set carReport(List<CarWarehouseModel> value) {
+    _carReport = value;
+    notifyListeners();
+  }
+
+  List<RTOfficeModel> get listRtOffice => _listRtOffice;
 
   set listRtOffice(List<RTOfficeModel> value) {
     _listRtOffice = value;
@@ -132,5 +141,20 @@ api.postData("rtoffice/state",header: token,mBody: jsonEncode(sendData)).then((r
   }
   listRtOffice=temp;
 });
+}
+Future postCarReport(String token,String id)async{
+    Map sendData={"createdBy": id};
+    List<CarWarehouseModel> temp=[];
+    api.postData("carwarehouse/createdBy",header: token,mBody: jsonEncode(sendData)).then((respObj){
+      if(respObj.status){
+        List<dynamic> data=respObj.data;
+        data.forEach((element) {
+          CarWarehouseModel carWarehouseModel=CarWarehouseModel.fromJSON(element);
+          if(carWarehouseModel!=null){
+            temp.add(carWarehouseModel);
+          }
+        });
+      }
+    } );
 }
 }

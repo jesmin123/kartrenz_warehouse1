@@ -99,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                     auctionProvider.getTransaction(authProvider.loginModel.id, authProvider.loginModel.token);
                     auctionProvider.getBuyAllPurchase( authProvider.loginModel.token);
                     auctionProvider.getStateList(authProvider.loginModel.token);
-                    auctionProvider.postListRt(authProvider.loginModel.token, "5fdafc523121f4001fe27394");
+                    auctionProvider.postListRt(authProvider.loginModel.token, "5fd8459b3121f4001fe2722b");
                 //     Navigator.pushNamed(context, HOME_PAGE);
                   }
                 },
