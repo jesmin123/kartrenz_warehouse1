@@ -102,10 +102,14 @@ class _LoginPageState extends State<LoginPage> {
                     Loader.getLoader(context).show();
                     bool status = await authProvider.login(_userName.text, _password.text);
 
+
                     Loader.getLoader(context).hide();
                     if(status){
                       formData.getCompany();
                       auctionProvider.getAuctionsBuyAll(authProvider.loginModel.token);
+                      auctionProvider.getTransaction(authProvider.loginModel.id, authProvider.loginModel.token);
+                      auctionProvider.getBuyAllPurchase( authProvider.loginModel.token);
+                      auctionProvider.getStateList(authProvider.loginModel.token);
                       Navigator.pushNamed(context, HOME_PAGE);
                     }
                     else{
