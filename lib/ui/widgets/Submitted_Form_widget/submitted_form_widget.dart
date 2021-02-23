@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/strings.dart';
-import 'package:kartenz/provider/form_data_provider.dart';
-import 'package:provider/provider.dart';
+
 
 class SubmittedFormWidget extends StatefulWidget {
   @override
@@ -14,7 +13,7 @@ class SubmittedFormWidget extends StatefulWidget {
 class _SubmittedFormWidgetState extends State<SubmittedFormWidget> {
   @override
   Widget build(BuildContext context) {
-    FormData formData = Provider.of(context);
+
     return ListView.separated(
         separatorBuilder: (_,pos){return SizedBox(height: 12,);},
         itemCount: 6,

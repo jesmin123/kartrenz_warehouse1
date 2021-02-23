@@ -4,12 +4,12 @@ import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/constant_widgets.dart';
 import 'package:kartenz/constants/strings.dart';
 
-class SubmittedDetailPage extends StatefulWidget {
+class AcceptedDetailWidget extends StatefulWidget {
   @override
-  _SubmittedDetailPageState createState() => _SubmittedDetailPageState();
+  _AcceptedDetailWidgetState createState() => _AcceptedDetailWidgetState();
 }
 
-class _SubmittedDetailPageState extends State<SubmittedDetailPage> {
+class _AcceptedDetailWidgetState extends State<AcceptedDetailWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,15 +90,15 @@ class _SubmittedDetailPageState extends State<SubmittedDetailPage> {
                       SizedBox(height: 32,),
                       GestureDetector(
                         onTap: (){
-                          Navigator.pushNamed(context, EXPAND_DETAILS_PAGE);
+                          Navigator.pushNamed(context, EXPANDED_ACCEPTED_WIDGET);
                         },
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                          Text("View more", style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR)),
-                          SizedBox(height: 8,),
-                          Icon(Icons.arrow_forward_ios_outlined, size: 18,)
-                        ],),
+                            Text("View more", style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR)),
+                            SizedBox(height: 8,),
+                            Icon(Icons.arrow_forward_ios_outlined, size: 18,)
+                          ],),
                       ),
 
 
@@ -142,3 +142,4 @@ Widget carDetails3(IconData icon, String tittle){
     ],
   );
 }
+

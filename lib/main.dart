@@ -6,6 +6,8 @@ import 'package:kartenz/ui/pages/cars_page.dart';
 import 'package:kartenz/ui/pages/home_page.dart';
 import 'package:kartenz/ui/pages/login_page.dart';
 import 'package:kartenz/ui/pages/splash_screen_page.dart';
+import 'package:kartenz/ui/widgets/Accepted_Form_Widget/accepted_detail_widget.dart';
+import 'package:kartenz/ui/widgets/Accepted_Form_Widget/expanded_accepted_widget.dart';
 import 'package:kartenz/ui/widgets/Submitted_Form_widget/expand_details-page.dart';
 import 'package:kartenz/ui/widgets/Submitted_Form_widget/submitted_detail_page.dart';
 import 'file:///F:/AndroidStudioProjects/kartenz/lib/ui/widgets/Upload_Form_Widgets/basic_details_form_widget.dart';
@@ -27,7 +29,9 @@ class MyApp extends StatelessWidget {
     CARS_PAGE : (context) => CarsPage(),
     BASIC_DETAILS_FORM : (context) => BasicDetailsForm(),
     SUBMITTED_DETAILS_PAGE : (context) => SubmittedDetailPage(),
-    EXPAND_DETAILS_PAGE : (context) => ExpandDetailPage()
+    EXPAND_DETAILS_PAGE : (context) => ExpandDetailPage(),
+    ACCEPTED_DETAIL_WIDGET : (context) => AcceptedDetailWidget(),
+    EXPANDED_ACCEPTED_WIDGET : (context) => ExpandedAcceptedWidget()
   };
 
   @override

@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/constant_widgets.dart';
+import 'package:kartenz/ui/widgets/Accepted_Form_Widget/accepted_form_widget.dart';
+import 'package:kartenz/ui/widgets/Modify_Form_Widget/modify_form_widget.dart';
+import 'file:///F:/AndroidStudioProjects/kartenz/lib/ui/widgets/Rejected_form_Widget/Rejected_Form_Widget.dart';
 import 'package:kartenz/ui/widgets/Submitted_Form_widget/submitted_form_widget.dart';
 import 'package:kartenz/ui/widgets/my_profile_tab.dart';
 import 'package:kartenz/ui/widgets/upload_tab_widget.dart';
@@ -50,9 +53,9 @@ class _CarsPageState extends State<CarsPage> with SingleTickerProviderStateMixin
         children: [
           UploadTabWidget() ,
           SubmittedFormWidget(),
-          Container(),
-          Container(),
-          Container(),
+          AcceptedFormWidget(),
+          ModifyFormWidget(),
+          RejectedFormWidget(),
           Container(),
         ],
         controller: _tabController,

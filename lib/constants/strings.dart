@@ -7,3 +7,5 @@ const CARS_PAGE = "carsPage";
 const BASIC_DETAILS_FORM = "basicDetailsForm";
 const SUBMITTED_DETAILS_PAGE = "submittedDetailsPage";
 const EXPAND_DETAILS_PAGE = "expandDetailsPage";
+const ACCEPTED_DETAIL_WIDGET = "acceptedDetailWidget";
+const EXPANDED_ACCEPTED_WIDGET = "expandedAcceptedWidget";
