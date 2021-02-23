@@ -155,6 +155,7 @@ Future postCarReport(String token,String id)async{
           }
         });
       }
+      carReport=temp;
     } );
 }
 }
