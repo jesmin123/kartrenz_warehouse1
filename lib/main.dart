@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kartenz/provider/AuctionProvider.dart';
 import 'package:kartenz/provider/auth_provider.dart';
 import 'package:kartenz/provider/basic_providers.dart';
 import 'package:kartenz/provider/electrical_form_provider.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<BasicProvider>(create: (_)=>BasicProvider()),
         ChangeNotifierProvider<ElectricalFormProvider>(create: (_)=>ElectricalFormProvider()),
         ChangeNotifierProvider<AuthProvider>(create: (_)=>AuthProvider()),
+        ChangeNotifierProvider<AuctionProvider>(create: (_)=>AuctionProvider()),
 
       ],
       child: Consumer<FormData>(

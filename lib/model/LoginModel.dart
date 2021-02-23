@@ -9,6 +9,8 @@ String contactNumber;
 String password;
 String name;
 String createdOn;
+String token;
+
 
 LoginModel(this.role,this.id,this.locationCode,this.address,this.contactNumber,this.password,this.name,this.createdOn);
 

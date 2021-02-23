@@ -9,6 +9,10 @@ class AuthProvider extends ChangeNotifier{
   LoginModel _loginModel;
 
 
+  LoginModel get loginModel => _loginModel;
+
+
+
   Future<bool> login(String locationCode, String password) async {
 
   Map<String,dynamic>  json = {
@@ -24,7 +28,7 @@ class AuthProvider extends ChangeNotifier{
     dynamic dataString  =  utf8.decode(base64Decode(base64.normalize(encodedString)));
     dataString = jsonDecode(dataString);
     _loginModel= LoginModel.fromJSON(dataString);
-
+     _loginModel.token= token;
   }
 
   return respObj.status;

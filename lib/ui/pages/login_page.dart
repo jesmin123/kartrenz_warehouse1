@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/strings.dart';
+import 'package:kartenz/provider/AuctionProvider.dart';
 import 'package:kartenz/provider/auth_provider.dart';
+import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -19,6 +21,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider=Provider.of(context);
+    AuctionProvider auctionProvider=Provider.of(context);
+    FormData formData=Provider.of(context);
     return Scaffold(
       body: Form(
         key: _formKey,
@@ -87,9 +91,11 @@ class _LoginPageState extends State<LoginPage> {
                 height: 12,
               ),
               RaisedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState.validate()) {
-                    authProvider.login(_userName.text, _password.text);
+                     authProvider.login(_userName.text, _password.text);
+                    formData.getCompany();
+                    auctionProvider.getAuctionsBuyAll(authProvider.loginModel.token);
                 //     Navigator.pushNamed(context, HOME_PAGE);
                   }
                 },
