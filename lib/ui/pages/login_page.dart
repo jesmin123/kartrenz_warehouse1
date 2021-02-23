@@ -76,7 +76,6 @@ class _LoginPageState extends State<LoginPage> {
                   }
                   return null;
                 },
-                focusNode: f1,
                 controller: _password,
                 decoration: InputDecoration(
                   labelStyle: AppFontStyle.bodyTextStyle(PRIMARY_COLOR),
