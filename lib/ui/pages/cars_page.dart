@@ -2,6 +2,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
+import 'package:kartenz/ui/widgets/Accepted_Form_Widget/accepted_form_widget.dart';
+import 'package:kartenz/ui/widgets/Modify_Form_Widget/modify_form_widget.dart';
+import 'package:kartenz/ui/widgets/Rejected_form_Widget/Rejected_Form_Widget.dart';
 import 'package:kartenz/ui/widgets/Submitted_Form_widget/submitted_form_widget.dart';
 import 'package:kartenz/ui/widgets/upload_tab_widget.dart';
 
@@ -15,7 +18,7 @@ class _CarsPageState extends State<CarsPage> with SingleTickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-    _tabController = new TabController(length: 6, vsync: this);
+    _tabController = new TabController(length: 5, vsync: this);
   }
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,6 @@ class _CarsPageState extends State<CarsPage> with SingleTickerProviderStateMixin
             Tab(text: "Accepted ",),
             Tab(text: "Modify",),
             Tab(text: "Rejected",),
-            Tab(text: "Pdf",),
           ],
           labelStyle: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
           controller: _tabController,
@@ -51,7 +53,6 @@ class _CarsPageState extends State<CarsPage> with SingleTickerProviderStateMixin
           AcceptedFormWidget(),
           ModifyFormWidget(),
           RejectedFormWidget(),
-          Container(),
         ],
         controller: _tabController,
       ),

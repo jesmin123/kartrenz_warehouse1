@@ -6,6 +6,8 @@ import 'package:kartenz/constants/strings.dart';
 import 'package:kartenz/provider/AuctionProvider.dart';
 import 'package:kartenz/provider/auth_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
+import 'package:kartenz/ui/utilis/AlertBox.dart';
+import 'package:kartenz/ui/utilis/loader_utilis.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -18,6 +20,8 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _userName = new TextEditingController();
   TextEditingController _password = new TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  FocusNode f1 = FocusNode();
+  FocusNode f2 = FocusNode();
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider=Provider.of(context);
@@ -46,6 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                   }
                   return null;
                 },
+                focusNode: f2,
                 controller: _userName,
                 decoration: InputDecoration(
                   labelStyle: AppFontStyle.bodyTextStyle(PRIMARY_COLOR),
@@ -72,6 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                   }
                   return null;
                 },
+                focusNode: f1,
                 controller: _password,
                 decoration: InputDecoration(
                   labelStyle: AppFontStyle.bodyTextStyle(PRIMARY_COLOR),
@@ -93,10 +99,20 @@ class _LoginPageState extends State<LoginPage> {
               RaisedButton(
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
-                     authProvider.login(_userName.text, _password.text);
-                    formData.getCompany();
-                    auctionProvider.getAuctionsBuyAll(authProvider.loginModel.token);
-                //     Navigator.pushNamed(context, HOME_PAGE);
+                    f1.unfocus();
+                    f2.unfocus();
+                    Loader.getLoader(context).show();
+                    bool status = await authProvider.login(_userName.text, _password.text);
+
+                    Loader.getLoader(context).hide();
+                    if(status){
+                      formData.getCompany();
+                      auctionProvider.getAuctionsBuyAll(authProvider.loginModel.token);
+                      Navigator.pushNamed(context, HOME_PAGE);
+                    }
+                    else{
+                      AlertBox.showToast("Invalid Username or password");
+                    }
                   }
                 },
                 shape: RoundedRectangleBorder(
