@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/constant_widgets.dart';
+import 'package:kartenz/constants/strings.dart';
+import 'package:kartenz/provider/AuctionProvider.dart';
+import 'package:provider/provider.dart';
 
 class TransactionPage extends StatefulWidget {
   @override
@@ -13,11 +16,12 @@ class _TransactionPageState extends State<TransactionPage> {
 
   final _formKey = GlobalKey<FormState>();
   TextEditingController _dateController = TextEditingController();
-  FocusNode f1 = FocusNode();
+
 
 
   @override
   Widget build(BuildContext context) {
+    AuctionProvider auctionProvider = Provider.of(context);
     return Scaffold(
       appBar: appBar(context, "Transaction"),
       body: Form(
@@ -33,7 +37,7 @@ class _TransactionPageState extends State<TransactionPage> {
                   Column(
                      crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Transaction", style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR),),
+                      Text("Transaction", style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR,textSize: 22.0),),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text("Your trasactions is listed below", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
@@ -41,7 +45,9 @@ class _TransactionPageState extends State<TransactionPage> {
                 ],
               ),
                   RaisedButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.pushNamed(context, ADD_TRANSACTION_PAGE);
+                      },
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     child: Text("ADD", style: AppFontStyle.headingTextStyle(APP_WHITE_COLOR,textSize: 18.0),),
                     color: PRIMARY_COLOR,
@@ -97,9 +103,28 @@ class _TransactionPageState extends State<TransactionPage> {
                   )
                 ],
               ),
+              SizedBox(height: 16,),
+              auctionProvider.transactions!=null?SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: DataTable(
+                    columns: [
+                            DataColumn(label: Text('Transaction Id', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
+                            DataColumn(label: Text('Broker Name', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
+                            DataColumn(label: Text('Date/Time', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
+                            DataColumn(label: Text('Amount', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
+                    ],
+                    rows: auctionProvider.transactions.map((e) => DataRow(
+                        cells: [
+                          DataCell(Text(e.ltransactionID)),
+                          DataCell(Text(e.broker.name)),
+                          DataCell(Text(e.date)),
+                          DataCell(Text(e.amount)),
 
 
-
+                        ]
+                    )).toList()
+          ),
+              ):Text("No data")
     ]
           ),
         ),
@@ -117,4 +142,5 @@ class _TransactionPageState extends State<TransactionPage> {
     return date!=null?date:DateTime.now();
   }
 }
+
 

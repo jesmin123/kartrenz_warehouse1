@@ -228,7 +228,7 @@ Widget drawer(BuildContext context){
                   SizedBox(height: 24,),
                   GestureDetector(
                     onTap: (){
-                      Navigator.pushNamed(context, HOME_PAGE);
+                      Navigator.pushNamed(context, SOLD_CAR_PAGE);
                     },
                     child: Row(
                       children: [

@@ -17,7 +17,7 @@ class Transaction{
 
 
   factory Transaction.fromJSON(Map<dynamic,dynamic> json){
-    return Transaction(amount: json['amount'],completed: json['completed'],code: json['code'],ltransactionID: json['_id'],
+    return Transaction(amount: json['amount'].toString(),completed: json['completed'],code: json['code'],ltransactionID: json['_id'],
         type: json['type'],broker: BrokerModel.fromJSON(json['broker']),
         carWarehouseModel: CarWarehouseModel.fromJSON(json['car']),loginModel: LoginModel.fromJSON(json['createdBy']),date: json['createdon']);
   }

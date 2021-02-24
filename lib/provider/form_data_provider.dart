@@ -199,10 +199,24 @@ int _current = 0;
       _company=companyTemp;
 
   }
-
-
   }
 
+  bool _passwordToggle = false;
 
+  bool get passwordToggle => _passwordToggle;
+
+  set passwordToggle(bool value) {
+    _passwordToggle = value;
+    notifyListeners();
+  }
+
+  String _radioList;
+
+  String get radioList => _radioList;
+
+  set radioList(String value) {
+    _radioList = value;
+    notifyListeners();
+  }
 }
 

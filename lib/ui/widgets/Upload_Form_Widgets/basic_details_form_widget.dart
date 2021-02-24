@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
+import 'package:kartenz/model/Upload_Model.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -400,6 +402,14 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
               padding: const EdgeInsets.symmetric(horizontal: 64),
               child: RaisedButton(
                 onPressed:(){
+
+                  CustomerDetails customerDetails = new CustomerDetails(
+                    yearOfManufacture: _yearOfManufactureController.text, supportNumber: _supportNoController.text,regNo: _regNoController.text,
+                    rtOffice: formData.rtOfficeDropdown, kms: _kmsController.text, highlightFeature: formData.features, fuel: formData.radioItem,
+                    expectedPrice: _expectedPriceController.text, description: _descriptionController.text, basePrice: _basePriceController.text,
+                    state: formData.stateDropdown, carMake: formData.dropdownValue, carModel: formData.dropdownValue2, variant: _variantController.text
+                  );
+                  jsonEncode(customerDetails);
                   formData.activeStep=1;
                   formData.stepCount=1;
                 },

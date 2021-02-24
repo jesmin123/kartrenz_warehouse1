@@ -53,11 +53,12 @@ class _RejectedFormWidgetState extends State<RejectedFormWidget> {
                         color: APP_BLACK_COLOR,
                       ),
                       carDetails2(Icons.calendar_today_outlined, "2016"),
-                      Container(
-                        width: 1,
-                        height: 24,
-                        color: APP_BLACK_COLOR,
-                      ),
+                    ],
+                  ),
+                  SizedBox(height: 8,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
                       carDetails2(Icons.account_tree_rounded, "Manuel"),
                     ],
                   ),
@@ -79,21 +80,28 @@ class _RejectedFormWidgetState extends State<RejectedFormWidget> {
 }
 
 Widget carDetails(String tittle1, String tittle2){
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(tittle1, style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR)),
-      Text(tittle2, style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),)
-    ],
+  return Flexible(
+    flex: 1,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(tittle1, style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR)),
+        Text(tittle2, style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),)
+      ],
+    ),
   );
 }
 
 Widget carDetails2(IconData icon, String tittle){
-  return Row(
-    children: [
-      Icon(icon),
-      SizedBox(width: 6,),
-      Text(tittle)
-    ],
+  return Flexible(
+    flex: 1,
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon),
+        SizedBox(width: 6,),
+        Text(tittle, style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR, textSize: 16.0))
+      ],
+    ),
   );
 }

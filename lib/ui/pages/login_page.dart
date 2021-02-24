@@ -28,104 +28,110 @@ class _LoginPageState extends State<LoginPage> {
     AuctionProvider auctionProvider=Provider.of(context);
     FormData formData=Provider.of(context);
     return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset("assets/images/image 1.png",height: 180, ),
-              SizedBox(
-                height: 12,
-              ),
-              Text("Warehouse", style: AppFontStyle.ultraTextStyle(APP_DARK_WHITE),),
-              SizedBox(
-                height: 12,
-              ),
-              TextFormField(
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return "Please enter the Username";
-                  }
-                  return null;
-                },
-                controller: _userName,
-                decoration: InputDecoration(
-                  labelStyle: AppFontStyle.bodyTextStyle(PRIMARY_COLOR),
-                  labelText: "Username",
-                  contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(24),
-                      borderSide: BorderSide(color: PRIMARY_COLOR)
+      resizeToAvoidBottomPadding: true,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset("assets/images/image 1.png",height: 180, ),
+                  SizedBox(
+                    height: 12,
                   ),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(24),
-                      borderSide: BorderSide(color: PRIMARY_COLOR)
+                  Text("Warehouse", style: AppFontStyle.ultraTextStyle(APP_DARK_WHITE),),
+                  SizedBox(
+                    height: 12,
                   ),
+                  TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return "Please enter the Username";
+                      }
+                      return null;
+                    },
+                    controller: _userName,
+                    decoration: InputDecoration(
+                      labelStyle: AppFontStyle.bodyTextStyle(PRIMARY_COLOR),
+                      labelText: "Username",
+                      contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(24),
+                          borderSide: BorderSide(color: PRIMARY_COLOR)
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(24),
+                          borderSide: BorderSide(color: PRIMARY_COLOR)
+                      ),
 
-                ),
-              ),
-              SizedBox(
-                height: 12,
-              ),
-              TextFormField(
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return "Please enter the password";
-                  }
-                  return null;
-                },
-                controller: _password,
-                decoration: InputDecoration(
-                  labelStyle: AppFontStyle.bodyTextStyle(PRIMARY_COLOR),
-                  labelText: "Password",
-                  contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(24),
-                      borderSide: BorderSide(color: PRIMARY_COLOR)
+                    ),
                   ),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(24),
-                      borderSide: BorderSide(color: PRIMARY_COLOR)
+                  SizedBox(
+                    height: 12,
                   ),
-                ),
+                  TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return "Please enter the password";
+                      }
+                      return null;
+                    },
+                    controller: _password,
+                    obscureText: !formData.passwordToggle,
+                    decoration: InputDecoration(
+                      labelStyle: AppFontStyle.bodyTextStyle(PRIMARY_COLOR),
+                      labelText: "Password",
+                      suffixIcon: formData.passwordToggle?IconButton(icon: Icon(Icons.visibility, color: PRIMARY_COLOR,), onPressed: (){formData.passwordToggle = false;}):
+                          IconButton(icon: Icon(Icons.visibility_off, color: PRIMARY_COLOR), onPressed: (){formData.passwordToggle = true;}),
+                      contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(24),
+                          borderSide: BorderSide(color: PRIMARY_COLOR)
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(24),
+                          borderSide: BorderSide(color: PRIMARY_COLOR)
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  RaisedButton(
+                    onPressed: () async {
+                      if (_formKey.currentState.validate()) {
+                        f1.unfocus();
+                        f2.unfocus();
+                        Loader.getLoader(context).show();
+                        bool status = await authProvider.login(_userName.text, _password.text);
+                        Loader.getLoader(context).hide();
+                        if(status){
+                          formData.getCompany();
+                          auctionProvider.getAuctionsBuyAll(authProvider.loginModel.token);
+                          auctionProvider.getTransaction(authProvider.loginModel.id, authProvider.loginModel.token);
+                          auctionProvider.getBuyAllPurchase( authProvider.loginModel.token);
+                          auctionProvider.getStateList(authProvider.loginModel.token);
+                          Navigator.pushNamed(context, HOME_PAGE);
+                        }
+                        else{
+                          AlertBox.showToast("Invalid Username or password");
+                        }
+                      }
+                    },
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24)),
+                    color: PRIMARY_COLOR,
+                    child: Text(
+                      "Login",
+                      style: AppFontStyle.regularTextStyle2(APP_WHITE_COLOR),
+                    ),
+                  )
+                ],
               ),
-              SizedBox(
-                height: 12,
-              ),
-              RaisedButton(
-                onPressed: () async {
-                  if (_formKey.currentState.validate()) {
-                    f1.unfocus();
-                    f2.unfocus();
-                    Loader.getLoader(context).show();
-                    bool status = await authProvider.login(_userName.text, _password.text);
-
-
-                    Loader.getLoader(context).hide();
-                    if(status){
-                      formData.getCompany();
-                      auctionProvider.getAuctionsBuyAll(authProvider.loginModel.token);
-                      auctionProvider.getTransaction(authProvider.loginModel.id, authProvider.loginModel.token);
-                      auctionProvider.getBuyAllPurchase( authProvider.loginModel.token);
-                      auctionProvider.getStateList(authProvider.loginModel.token);
-                      Navigator.pushNamed(context, HOME_PAGE);
-                    }
-                    else{
-                      AlertBox.showToast("Invalid Username or password");
-                    }
-                  }
-                },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(24)),
-                color: PRIMARY_COLOR,
-                child: Text(
-                  "Login",
-                  style: AppFontStyle.regularTextStyle2(APP_WHITE_COLOR),
-                ),
-              )
-            ],
+            ),
           ),
         ),
       ),
