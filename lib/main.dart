@@ -5,6 +5,7 @@ import 'package:kartenz/provider/basic_providers.dart';
 import 'package:kartenz/provider/electrical_form_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:kartenz/ui/pages/add_transaction_page.dart';
+import 'package:kartenz/ui/pages/car_report_page.dart';
 import 'package:kartenz/ui/pages/cars_page.dart';
 import 'package:kartenz/ui/pages/home_page.dart';
 import 'package:kartenz/ui/pages/login_page.dart';
@@ -38,7 +39,8 @@ class MyApp extends StatelessWidget {
     EXPANDED_ACCEPTED_WIDGET : (context) => ExpandedAcceptedWidget(),
     TRANSACTION_PAGE : (context) => TransactionPage(),
     SOLD_CAR_PAGE : (context) => SoldCarPage(),
-    ADD_TRANSACTION_PAGE : (context) => AddTransactionPage()
+    ADD_TRANSACTION_PAGE : (context) => AddTransactionPage(),
+    CAR_REPORT_PAGE : (context) => CarReportPage()
   };
 
   @override

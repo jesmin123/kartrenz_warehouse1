@@ -12,3 +12,4 @@ const EXPANDED_ACCEPTED_WIDGET = "expandedAcceptedWidget";
 const TRANSACTION_PAGE = "transactionPage";
 const SOLD_CAR_PAGE = "soldCarPage";
 const ADD_TRANSACTION_PAGE = "addTransactionPage";
+const CAR_REPORT_PAGE = "carReportPage";

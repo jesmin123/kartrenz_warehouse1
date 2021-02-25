@@ -1,6 +1,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:kartenz/api/api.dart';
+import 'package:kartenz/model/CarModel.dart';
 import 'package:kartenz/model/CompanyModel.dart';
 import 'package:kartenz/model/RespObj.dart';
 
@@ -12,6 +13,16 @@ class FormData extends ChangeNotifier{
 
   set company(List<Company> value) {
     _company = value;
+    notifyListeners();
+  }
+
+  List<Car> _sortedCarModel;
+
+
+  List<Car> get sortedCarModel => _sortedCarModel;
+
+  set sortedCarModel(List<Car> value) {
+    _sortedCarModel = value;
     notifyListeners();
   }
 
@@ -199,6 +210,23 @@ int _current = 0;
       _company=companyTemp;
 
   }
+  }
+  String _selectedCarMakeId;
+
+
+  String get selectedCarMakeId => _selectedCarMakeId;
+
+  set selectedCarMakeId(String value) {
+    _selectedCarMakeId = value;
+    getCarModel(value);
+  }
+
+  getCarModel(String id){
+    company.forEach((element) {
+     if( element.id == id){
+       sortedCarModel = element.cars;
+     }
+    });
   }
 
   bool _passwordToggle = false;

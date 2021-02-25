@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+
 import 'package:flutter/material.dart';
 import 'package:kartenz/api/api.dart';
 import 'package:kartenz/model/BuyModel.dart';
@@ -11,6 +12,7 @@ import 'package:kartenz/model/StateModel.dart';
 import 'package:kartenz/model/TransactionModel.dart';
 import 'package:kartenz/model/uploadedCars.dart';
 import 'package:kartenz/provider/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class AuctionProvider extends ChangeNotifier{
 
@@ -142,7 +144,36 @@ api.postData("rtoffice/state",header: token,mBody: jsonEncode(sendData)).then((r
   listRtOffice=temp;
 });
 }
-Future postCarReport(String token,String id)async{
+
+String _selectedStateId;
+List<RTOfficeModel> _sortedRTOffice;
+
+
+String get selectedStateId => _selectedStateId;
+
+  setSelectedStateId(String value, String token) {
+    _selectedStateId = value;
+    getRtOfficeList(value, token);
+  }
+
+  List<RTOfficeModel> get sortedRTOffice => _sortedRTOffice;
+
+  set sortedRTOffice(List<RTOfficeModel> value) {
+    _sortedRTOffice = value;
+    notifyListeners();
+  }
+
+
+  getRtOfficeList(String id, String token){
+    stateList.forEach((element) {
+     if(element.id ==id){
+         postListRt(token, id);
+     }
+    });
+  }
+
+
+  Future postCarReport(String token,String id)async{
     Map sendData={"createdBy": id};
     List<CarWarehouseModel> temp=[];
     api.postData("carwarehouse/createdBy",header: token,mBody: jsonEncode(sendData)).then((respObj){

@@ -7,12 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/model/Upload_Model.dart';
+import 'package:kartenz/provider/AuctionProvider.dart';
+import 'package:kartenz/provider/auth_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:provider/provider.dart';
 
 
 
 class BasicDetailsForm extends StatefulWidget {
+
   @override
   _BasicDetailsFormState createState() => _BasicDetailsFormState();
 }
@@ -36,26 +39,21 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
   @override
   Widget build(BuildContext context) {
     final FormData formData = Provider.of(context);
+    AuctionProvider auctionProvider = Provider.of(context);
+    AuthProvider authProvider = Provider.of(context);
     return Container(
       child: Form(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             DropdownButtonFormField(
-              value: formData.dropdownValue2,
-                items:  <String>[
-                  'Maruti',
-                  'BMW',
-                  'AUDI',
-                  'Anoop Motors',
-                ].map<DropdownMenuItem<String>>((String value){
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                onChanged: (String newValue) {
+
+                items:  formData.company.map((e) {
+                  return DropdownMenuItem(child: (Text(e.name)), value: e.id,);
+                }).toList(),
+                onChanged: (newValue) {
                 formData.dropdownValue2 = newValue;
+                formData.selectedCarMakeId = newValue;
                 },
 
               decoration: InputDecoration(
@@ -65,21 +63,14 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
             ),
             SizedBox(height: 12,),
             DropdownButtonFormField(
-              value: formData.dropdownValue,
-              items:  <String>[
-                'Maruti',
-                'BMW',
-                'AUDI',
-                'Anoop Motors',
-              ].map<DropdownMenuItem<String>>((String value){
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
+
+              items: formData.sortedCarModel!=null?formData.sortedCarModel.map((e){
+                return DropdownMenuItem(child: (Text(e.name)), value: e.id);
+              }).toList():[DropdownMenuItem(child: (Text("")), value: "")],
               onChanged: (String newValue) {
                 formData.dropdownValue = newValue;
               },
+              
               decoration: InputDecoration(
                   labelText: "Car model",
                   labelStyle: AppFontStyle.bodyTextStyle2(APP_BLACK_COLOR)
@@ -127,59 +118,34 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
               controller: _expectedPriceController,
             ),
             SizedBox(height: 12,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Flexible(
-                  child: DropdownButtonFormField(
-                    value: formData.stateDropdown,
-                    items:  <String>[
-                      'kerala',
-                      'mumbai',
-                      'goa',
-                      'tamil nadu',
-                    ].map<DropdownMenuItem<String>>((String value){
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (String newValue) {
-                      formData.stateDropdown = newValue;
-                    },
-                    decoration: InputDecoration(
+            DropdownButtonFormField(
+              value: formData.stateDropdown,
+              items:  auctionProvider.stateList.map((e) {
+                return DropdownMenuItem(value: e.id, child: (Text(e.name)));
+              }).toList(),
+              onChanged: (String newValue) {
+                formData.stateDropdown = newValue;
+                auctionProvider.setSelectedStateId(newValue, authProvider.loginModel.token);
+              },
+              decoration: InputDecoration(
 
-                        labelText: "State",
-                        labelStyle: AppFontStyle.bodyTextStyle2(APP_BLACK_COLOR)
-                    ),
-                  ),
-                ),
-                SizedBox(width: 12,),
-                Flexible(
-                  child: DropdownButtonFormField(
-                    value: formData.rtOfficeDropdown,
-                    items:  <String>[
-                      'Tvm - 01',
-                      'Klm - 02',
-                      'Pta - 03',
-                      'Ktm - 05',
-                    ].map<DropdownMenuItem<String>>((String value){
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (String newValue) {
-                      formData.rtOfficeDropdown = newValue;
-                    },
-                    decoration: InputDecoration(
+                  labelText: "State",
+                  labelStyle: AppFontStyle.bodyTextStyle2(APP_BLACK_COLOR)
+              ),
+            ),
+            SizedBox(height: 12,),
+            DropdownButtonFormField(
+              items:  auctionProvider.listRtOffice!=null?auctionProvider.listRtOffice.map((e){
+                return DropdownMenuItem(child: (Text(e.name)), value: e.id,);
+              }).toList():[DropdownMenuItem(child: (Text("")), value: "")],
+              onChanged: (String newValue) {
+                formData.rtOfficeDropdown = newValue;
+              },
+              decoration: InputDecoration(
 
-                        labelText: "RT office",
-                        labelStyle: AppFontStyle.bodyTextStyle2(APP_BLACK_COLOR)
-                    ),
-                  ),
-                ),
-              ],
+                  labelText: "RT office",
+                  labelStyle: AppFontStyle.bodyTextStyle2(APP_BLACK_COLOR)
+              ),
             ),
             SizedBox(height: 12,),
             TextFormField(
