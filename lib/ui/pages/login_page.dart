@@ -4,6 +4,8 @@ import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/strings.dart';
 import 'package:kartenz/provider/AuctionProvider.dart';
+import 'package:kartenz/provider/PurchaseProvider.dart';
+import 'package:kartenz/provider/SubmittedCarsProvider.dart';
 import 'package:kartenz/provider/auth_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:kartenz/ui/utilis/AlertBox.dart';
@@ -27,6 +29,8 @@ class _LoginPageState extends State<LoginPage> {
     AuthProvider authProvider=Provider.of(context);
     AuctionProvider auctionProvider=Provider.of(context);
     FormData formData=Provider.of(context);
+    PurchaseProvider purchaseProvider=Provider.of(context);
+    SubmittedCarsProvider submittedCarsProvider=Provider.of(context);
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       body: Center(
@@ -114,6 +118,11 @@ class _LoginPageState extends State<LoginPage> {
                           auctionProvider.getTransaction(authProvider.loginModel.id, authProvider.loginModel.token);
                           auctionProvider.getBuyAllPurchase( authProvider.loginModel.token);
                           auctionProvider.getStateList(authProvider.loginModel.token);
+                          purchaseProvider.postBuyCode(authProvider.loginModel.token, "10kCd9RZZ");
+                          purchaseProvider.postAuctionCode(authProvider.loginModel.token, "10kCd9RZZ");
+                          auctionProvider.postListRt(authProvider.loginModel.token, "5fd8459b3121f4001fe2722b");
+                          submittedCarsProvider.getSubmittedCars(authProvider.loginModel.token);
+
                           Navigator.pushNamed(context, HOME_PAGE);
                         }
                         else{
@@ -135,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       )
-    ),
+
     );
   }
 }
