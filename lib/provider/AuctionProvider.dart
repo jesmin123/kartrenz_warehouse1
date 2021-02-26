@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:kartenz/api/api.dart';
 import 'package:kartenz/model/BuyModel.dart';
 import 'package:kartenz/model/CarWarehouseModel.dart';
-import 'package:kartenz/model/LoginModel.dart';
 import 'package:kartenz/model/RTOfficeModel.dart';
-import 'package:kartenz/model/RespObj.dart';
 import 'package:kartenz/model/StateModel.dart';
 import 'package:kartenz/model/TransactionModel.dart';
 import 'package:kartenz/model/uploadedCars.dart';
@@ -23,7 +21,7 @@ List<StateModel> _stateList;
 List<RTOfficeModel> _listRtOffice;
 List<CarWarehouseModel> _carReport;
 
-List<CarWarehouseModel> get carReport => _carReport;
+  List<CarWarehouseModel> get carReport => _carReport;
 
   set carReport(List<CarWarehouseModel> value) {
     _carReport = value;
@@ -179,4 +177,5 @@ String get selectedStateId => _selectedStateId;
       carReport=temp;
     } );
 }
+
 }
