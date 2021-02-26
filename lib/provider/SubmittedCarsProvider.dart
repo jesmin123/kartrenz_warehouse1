@@ -1,7 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:kartenz/api/api.dart';
 import 'package:kartenz/model/CarWareHouse1Model.dart';
-import 'package:kartenz/model/CarWarehouseModel.dart';
 
 class SubmittedCarsProvider extends ChangeNotifier{
 
@@ -34,15 +35,17 @@ class SubmittedCarsProvider extends ChangeNotifier{
           }
         });
       }
-      submittedCars=temp;
+
     });
-    submittedCars.forEach((element) {
-      if(element.status == "APPROVED" || element.status == "PENDING"){
+    temp.forEach((element) {
+      if(element.status == "APPROVED"){
         acceptedCars.add(element);
       }else if(element.status == "REJECTED"){
         rejectedCars.add(element);
       }else if(element.status == "MODIFY"){
         modifyCars.add(element);
+      }else if(element.status == "PENDING"){
+        submittedCars.add(element);
       }
 
     });
@@ -67,5 +70,14 @@ class SubmittedCarsProvider extends ChangeNotifier{
   set acceptedCars(List<CarWarehouseModel1> value) {
     _acceptedCars = value;
     notifyListeners();
+  }
+
+  Future delete(String token,String id)async{
+    Map sendData = {"id": id};
+    api.postData("carwarehouse/delete",header: token, mBody: jsonEncode(sendData)).then((respObj) {
+      if(respObj.status){
+        getSubmittedCars(token);
+      }
+    });
   }
 }
