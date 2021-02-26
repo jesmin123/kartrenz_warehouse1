@@ -120,9 +120,9 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
             SizedBox(height: 12,),
             DropdownButtonFormField(
               value: formData.stateDropdown,
-              items:  auctionProvider.stateList.map((e) {
+              items:  auctionProvider.stateList!=null?auctionProvider.stateList.map((e) {
                 return DropdownMenuItem(value: e.id, child: (Text(e.name)));
-              }).toList(),
+              }).toList():[DropdownMenuItem(child: (Text("")), value: "") ],
               onChanged: (String newValue) {
                 formData.stateDropdown = newValue;
                 auctionProvider.setSelectedStateId(newValue, authProvider.loginModel.token);
