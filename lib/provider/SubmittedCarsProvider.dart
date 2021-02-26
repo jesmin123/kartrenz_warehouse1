@@ -19,11 +19,16 @@ class SubmittedCarsProvider extends ChangeNotifier{
   set submittedCars(List<CarWarehouseModel1> value) {
     _submittedCars = value;
     notifyListeners();
+
   }
 
 
   Future getSubmittedCars(String token)async{
     List<CarWarehouseModel1> temp=[];
+    List<CarWarehouseModel1> acceptedTemp=[];
+    List<CarWarehouseModel1> rejectedTemp=[];
+    List<CarWarehouseModel1> modifyTemp=[];
+    List<CarWarehouseModel1> submittedTemp=[];
     api.getData("carwarehouse/cars/my/full",header: token).then((respObj) {
       if(respObj.status){
         List<dynamic> data=respObj.data;
@@ -37,15 +42,19 @@ class SubmittedCarsProvider extends ChangeNotifier{
       }
       temp.forEach((element) {
         if(element.status == "APPROVED"){
-          acceptedCars.add(element);
+          acceptedTemp.add(element);
         }else if(element.status == "REJECTED"){
-          rejectedCars.add(element);
+          rejectedTemp.add(element);
         }else if(element.status == "MODIFY"){
-          modifyCars.add(element);
+          modifyTemp.add(element);
         }else if(element.status == "PENDING"){
-          submittedCars.add(element);
+          submittedTemp.add(element);
         }
     });
+      acceptedCars=acceptedTemp;
+      rejectedCars=rejectedTemp;
+      modifyCars=modifyTemp;
+      submittedCars=submittedTemp;
 
 
     });
@@ -55,21 +64,19 @@ class SubmittedCarsProvider extends ChangeNotifier{
 
   set modifyCars(List<CarWarehouseModel1> value) {
     _modifyCars = value;
-    notifyListeners();
   }
 
   List<CarWarehouseModel1> get rejectedCars => _rejectedCars;
 
   set rejectedCars(List<CarWarehouseModel1> value) {
     _rejectedCars = value;
-    notifyListeners();
   }
 
   List<CarWarehouseModel1> get acceptedCars => _acceptedCars;
 
   set acceptedCars(List<CarWarehouseModel1> value) {
     _acceptedCars = value;
-    notifyListeners();
+
   }
 
   Future delete(String token,String id)async{
