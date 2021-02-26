@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
+import 'package:kartenz/model/CarWareHouse1Model.dart';
+import 'package:kartenz/provider/SubmittedCarsProvider.dart';
+import 'package:provider/provider.dart';
 
 class ModifyFormWidget extends StatefulWidget {
   @override
@@ -10,10 +13,12 @@ class ModifyFormWidget extends StatefulWidget {
 class _ModifyFormWidgetState extends State<ModifyFormWidget> {
   @override
   Widget build(BuildContext context) {
+    SubmittedCarsProvider submittedCarsProvider = Provider.of(context);
     return ListView.separated(
       separatorBuilder: (_,pos){return SizedBox(height: 12,);},
-      itemCount: 6,
+      itemCount:  submittedCarsProvider.modifyCars.length,
       itemBuilder: (_,pos){
+        CarWarehouseModel1 car = submittedCarsProvider.modifyCars[pos];
         return Container(
           child: Card(
             elevation: 1,
@@ -30,42 +35,42 @@ class _ModifyFormWidgetState extends State<ModifyFormWidget> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      carDetails("Audi", "Q8"),
-                      carDetails("Year", "2015"),
-                      carDetails("variant", "LXI"),
-                      carDetails("Reg No", "KL-02-8976"),
+                      carDetails("${car.company.car.name}", "${car.car.name}"),
+                      carDetails("Year", "${car.year}"),
+                      carDetails("variant", "${car.variant}"),
+                      carDetails("Reg No", "${car.regNo}"),
                     ],
                   ),
                   SizedBox(height: 16,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      carDetails2(Icons.directions_car_sharp, "Petrol"),
+                      carDetails2(Icons.directions_car_sharp, "${car.fuel}"),
                       Container(
                         width: 1,
                         height: 24,
                         color: APP_BLACK_COLOR,
                       ),
-                      carDetails2(Icons.speed, "450000"),
+                      carDetails2(Icons.speed, "${car.kilometers}"),
                       Container(
                         width: 1,
                         height: 24,
                         color: APP_BLACK_COLOR,
                       ),
-                      carDetails2(Icons.calendar_today_outlined, "2016"),
+                      carDetails2(Icons.calendar_today_outlined, "${car.year}"),
                     ],
                   ),
                   SizedBox(height: 8,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      carDetails2(Icons.account_tree_rounded, "Manuel"),
+                      carDetails2(Icons.account_tree_rounded, "${car.gearShifting}"),
                     ],
                   ),
                   SizedBox(height: 24,),
-                  Text("Reason", style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR)),
+                  Text("Reason", style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR,textSize: 20.0, dec: TextDecoration.underline)),
                   SizedBox(height: 8,),
-                  Text("images not clear",
+                  Text("${car.status}",
                     style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR, textSize: 14.0),textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 24,),

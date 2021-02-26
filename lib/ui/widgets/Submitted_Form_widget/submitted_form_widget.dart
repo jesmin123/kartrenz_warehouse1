@@ -19,7 +19,6 @@ class _SubmittedFormWidgetState extends State<SubmittedFormWidget> {
   Widget build(BuildContext context) {
     SubmittedCarsProvider submittedCarsProvider = Provider.of(context);
     AuthProvider authProvider=Provider.of(context);
-
     return submittedCarsProvider.submittedCars!=null?ListView.separated(
         separatorBuilder: (_,pos){return SizedBox(height: 12,);},
         itemCount: submittedCarsProvider.submittedCars.length,

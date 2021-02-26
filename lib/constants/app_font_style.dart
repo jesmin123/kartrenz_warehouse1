@@ -83,8 +83,9 @@ class AppFontStyle{
     );
   }
 
-  static TextStyle headingTextStyle2(Color color, {num textSize}) {
+  static TextStyle headingTextStyle2(Color color, {num textSize, TextDecoration dec}) {
     return TextStyle(
+      decoration: dec,
         color: color,
         fontSize:textSize!=null? textSize: 18,
         fontWeight: FontWeight.w600,
