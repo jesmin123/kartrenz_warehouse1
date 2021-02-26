@@ -71,7 +71,7 @@ class _RejectedFormWidgetState extends State<RejectedFormWidget> {
                   SizedBox(height: 24,),
                   Text("Reason", style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR,textSize: 20.0, dec: TextDecoration.underline)),
                   SizedBox(height: 8,),
-                  Text("sold again",
+                  Text("${car.msg}",
                     style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR, textSize: 14.0),textAlign: TextAlign.center,
                   ),
                 ],
