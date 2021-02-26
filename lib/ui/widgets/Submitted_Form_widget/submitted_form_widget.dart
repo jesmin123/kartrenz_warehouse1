@@ -5,6 +5,7 @@ import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/strings.dart';
 import 'package:kartenz/model/CarWareHouse1Model.dart';
 import 'package:kartenz/provider/SubmittedCarsProvider.dart';
+import 'package:kartenz/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 
@@ -17,8 +18,9 @@ class _SubmittedFormWidgetState extends State<SubmittedFormWidget> {
   @override
   Widget build(BuildContext context) {
     SubmittedCarsProvider submittedCarsProvider = Provider.of(context);
+    AuthProvider authProvider=Provider.of(context);
 
-    return ListView.separated(
+    return submittedCarsProvider.submittedCars!=null?ListView.separated(
         separatorBuilder: (_,pos){return SizedBox(height: 12,);},
         itemCount: submittedCarsProvider.submittedCars.length,
         itemBuilder: (_,pos){
@@ -76,6 +78,7 @@ class _SubmittedFormWidgetState extends State<SubmittedFormWidget> {
                       SizedBox(height: 24,),
                       RaisedButton(
                         onPressed: (){
+                          submittedCarsProvider.delete(authProvider.loginModel.token, car.id);
 
                         },
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -91,7 +94,7 @@ class _SubmittedFormWidgetState extends State<SubmittedFormWidget> {
           );
         },
 
-    );
+    ):Center(child: Text("No Data"));
   }
 }
 
