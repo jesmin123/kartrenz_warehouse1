@@ -5,6 +5,12 @@ import 'package:kartenz/model/CarWarehouseModel.dart';
 class SubmittedCarsProvider extends ChangeNotifier{
 
   List<CarWarehouseModel> _submittedCars;
+  List<CarWarehouseModel> _acceptedCars;
+
+
+
+  List<CarWarehouseModel> _modifyCars;
+  List<CarWarehouseModel> _rejectedCars;
 
   List<CarWarehouseModel> get submittedCars => _submittedCars;
 
@@ -30,10 +36,35 @@ class SubmittedCarsProvider extends ChangeNotifier{
       submittedCars=temp;
     });
     submittedCars.forEach((element) {
+      if(element.status == "APPROVED" || element.status == "PENDING"){
+        acceptedCars.add(element);
+      }else if(element.status == "REJECTED"){
+        rejectedCars.add(element);
+      }else if(element.status == "MODIFY"){
+        modifyCars.add(element);
+      }
 
     });
   }
 
+  List<CarWarehouseModel> get modifyCars => _modifyCars;
 
+  set modifyCars(List<CarWarehouseModel> value) {
+    _modifyCars = value;
+    notifyListeners();
+  }
 
+  List<CarWarehouseModel> get rejectedCars => _rejectedCars;
+
+  set rejectedCars(List<CarWarehouseModel> value) {
+    _rejectedCars = value;
+    notifyListeners();
+  }
+
+  List<CarWarehouseModel> get acceptedCars => _acceptedCars;
+
+  set acceptedCars(List<CarWarehouseModel> value) {
+    _acceptedCars = value;
+    notifyListeners();
+  }
 }
