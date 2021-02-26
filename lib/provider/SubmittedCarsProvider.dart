@@ -35,18 +35,18 @@ class SubmittedCarsProvider extends ChangeNotifier{
           }
         });
       }
-
+      temp.forEach((element) {
+        if(element.status == "APPROVED"){
+          acceptedCars.add(element);
+        }else if(element.status == "REJECTED"){
+          rejectedCars.add(element);
+        }else if(element.status == "MODIFY"){
+          modifyCars.add(element);
+        }else if(element.status == "PENDING"){
+          submittedCars.add(element);
+        }
     });
-    temp.forEach((element) {
-      if(element.status == "APPROVED"){
-        acceptedCars.add(element);
-      }else if(element.status == "REJECTED"){
-        rejectedCars.add(element);
-      }else if(element.status == "MODIFY"){
-        modifyCars.add(element);
-      }else if(element.status == "PENDING"){
-        submittedCars.add(element);
-      }
+
 
     });
   }
