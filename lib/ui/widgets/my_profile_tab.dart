@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
+import 'package:kartenz/provider/auth_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +14,7 @@ class _MyProfileTabState extends State<MyProfileTab> {
   @override
   Widget build(BuildContext context) {
     final FormData formData = Provider.of(context);
+    AuthProvider authProvider = Provider.of(context);
     return Container(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 22),
@@ -20,13 +22,13 @@ class _MyProfileTabState extends State<MyProfileTab> {
           child: Column(
             children: [
               SizedBox(height: 12,),
-              rowList("Name :", "Main branch pala"),
+              rowList("Name :", authProvider.loginModel.name),
               SizedBox(height: 12,),
-              rowList("Location Code :", "POP_PALA"),
+              rowList("Location Code :", authProvider.loginModel.locationCode),
               SizedBox(height: 12,),
-              rowList("Address :", "Pala"),
+              rowList("Address :", authProvider.loginModel.address),
               SizedBox(height: 12,),
-              rowList("Contact :", "8921112255"),
+              rowList("Contact :", authProvider.loginModel.contactNumber),
 
 
             ],

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
+import 'package:kartenz/model/DocumentDetails.dart';
 import 'package:kartenz/model/Upload_Model.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:provider/provider.dart';
@@ -199,14 +200,14 @@ class _DocumentsFormWidetState extends State<DocumentsFormWidet> {
               padding: const EdgeInsets.symmetric(horizontal: 64),
               child: RaisedButton(
                 onPressed:(){
-                  DocumentDetails documentDetails = new DocumentDetails(
-                    underHypothecation: _underHypoController.text, rTONOCissued: _rTONOCController.text, roadtaxPaid: _roadTaxController.text,
-                    registrationDate: _registrationController.text, rCcondition: _rcConditionController.text,
-                    rCAvailability: _rcAvailabilityController.text, partipheshiRequest: _partipheshiController.text,
-                    noclaimBonusPercentage: _noClaimPercentController.text, noclaimBonus: _noClaimController.text,
-                    manufacturingMonth: _manufacturingController.text, insuranceType: _insuranceController.text,
-                    insuranceExpiryDate: _insuranceExpiryController.text, fitnessUpto: _fitnessController.text,
-                    duplicateKey: _duplicateKeyController.text, cnglpg: _cNGController.text, chassisNo: _chassisController.text
+
+                  DocumentData documentData = new DocumentData(
+                      fitnessupto: _fitnessController.text, CNGLPGFitment: _cNGController.text, chassisNoEmossing: _chassisController.text,
+                    duplicateKey: _duplicateKeyController.text, insuranceExpiryDate: _insuranceExpiryController.text,
+                    insuranceType: _insuranceController.text, noclaimBonus: _noClaimController.text, noclaimBonusPercentage: _noClaimPercentController.text,
+                    partipheshiRequest: _partipheshiController.text, registrationDate: _registrationController.text, underHypothecation: _underHypoController.text,
+                    manufacturingYr: _manufacturingController.text, RCavailability: _rcAvailabilityController.text, RCCondition: _rcConditionController.text,
+                    roadTaxpaid: _roadTaxController.text, RTONOCissued: _rTONOCController.text, rating: formData.rating
                   );
                   formData.activeStep=2;
                   formData.stepCount=2;

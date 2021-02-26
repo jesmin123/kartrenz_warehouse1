@@ -19,6 +19,7 @@ class DocumentData {
   String RTONOCissued=" ";
   String underHypothecation=" ";
   String duplicateKey=" ";
+  double rating;
   dynamic custom;
 
   DocumentData({this.manufacturingYr, this.chassisNoEmossing, this.CNGLPGFitment,
@@ -26,7 +27,7 @@ class DocumentData {
     this.noclaimBonus, this.noclaimBonusPercentage, this.fitnessupto,
     this.RCavailability, this.RCCondition, this.RTO, this.partipheshiRequest,
     this.roadTaxpaid, this.RTONOCissued, this.underHypothecation,
-    this.duplicateKey,this.custom});
+    this.duplicateKey,this.custom, this.rating});
 
   factory DocumentData.fromJSON(Map<dynamic,dynamic> json){
     try{
@@ -34,7 +35,8 @@ class DocumentData {
           duplicateKey: json['duplicateKey']!=null?json['duplicateKey']:"No Data",fitnessupto: json['fitnessupto']!=null?json['fitnessupto']:"No Data",insuranceExpiryDate: json['insuranceExpiryDate']!=null?json['insuranceExpiryDate']:"No Data",insuranceType: json['insuranceType']!=null?json['insuranceType']: "No Data",
           noclaimBonus: json['noclaimBonus'],noclaimBonusPercentage: json['noclaimBonusPercentage'],partipheshiRequest: json['partipheshiRequest'],
           custom: json['custom'],RCavailability: json['RCavailability']!=null? json['RCavailability']:"No Data",RCCondition: json['RCCondition']!=null?json['RCCondition']:"No Data",registrationDate: json['registrationDate']!=null?json['registrationDate']:"No Data",
-          roadTaxpaid: json['roadTaxpaid']!=null?json['roadTaxpaid']:"No Data",RTO: json['RTO']!=null?json['RTO']:'No Data',RTONOCissued: json['RTONOCissued']!=null?json['RTONOCissued']:"No Data",underHypothecation: json['underHypothecation']!=null?json['underHypothecation']:"No Data"
+          roadTaxpaid: json['roadTaxpaid']!=null?json['roadTaxpaid']:"No Data",RTO: json['RTO']!=null?json['RTO']:'No Data',RTONOCissued: json['RTONOCissued']!=null?json['RTONOCissued']:"No Data",underHypothecation: json['underHypothecation']!=null?json['underHypothecation']:"No Data",
+        rating: json["rating"]!=null?json["rating"]:"No Data"
       );
     }catch(e){
       print("Exception e: "+e.toString());
