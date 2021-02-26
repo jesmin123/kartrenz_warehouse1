@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/strings.dart';
-import 'package:kartenz/model/CarWarehouseModel.dart';
+import 'package:kartenz/model/CarWareHouse1Model.dart';
 import 'package:kartenz/provider/SubmittedCarsProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +22,7 @@ class _SubmittedFormWidgetState extends State<SubmittedFormWidget> {
         separatorBuilder: (_,pos){return SizedBox(height: 12,);},
         itemCount: submittedCarsProvider.submittedCars.length,
         itemBuilder: (_,pos){
-          CarWarehouseModel car = submittedCarsProvider.submittedCars[pos];
+          CarWarehouseModel1 car = submittedCarsProvider.submittedCars[pos];
           String imgUrl = IMAGE_BASE_URL;
           return GestureDetector(
             onTap: (){
@@ -41,7 +41,7 @@ class _SubmittedFormWidgetState extends State<SubmittedFormWidget> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          carDetails(car.code, car.car.name),
+                          carDetails("${car.company.car.name}", "${car.car.name}"),
                           carDetails("Year", "${car.year}"),
                           carDetails("variant", "${car.variant}"),
                           carDetails("Reg No", "${car.regNo}"),
@@ -51,31 +51,32 @@ class _SubmittedFormWidgetState extends State<SubmittedFormWidget> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          carDetails2(Icons.directions_car_sharp, "Petrol"),
+                          carDetails2(Icons.directions_car_sharp, "${car.fuel}"),
                           Container(
                             width: 1,
                             height: 24,
                             color: APP_BLACK_COLOR,
                           ),
-                          carDetails2(Icons.speed, "450000"),
+                          carDetails2(Icons.speed, "${car.kilometers}"),
                           Container(
                             width: 1,
                             height: 24,
                             color: APP_BLACK_COLOR,
                           ),
-                          carDetails2(Icons.calendar_today_outlined, "2016"),
+                          carDetails2(Icons.calendar_today_outlined, "${car.year}"),
                         ],
                       ),
                       SizedBox(height: 8,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          carDetails2(Icons.account_tree_rounded, "Manuel"),
+                          carDetails2(Icons.account_tree_rounded, "${car.gearShifting}"),
                         ],
                       ),
                       SizedBox(height: 24,),
                       RaisedButton(
                         onPressed: (){
+
                         },
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                         color: PRIMARY_COLOR,

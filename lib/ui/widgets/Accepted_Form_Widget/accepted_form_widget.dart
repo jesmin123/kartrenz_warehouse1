@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/strings.dart';
+import 'package:kartenz/model/CarWareHouse1Model.dart';
+import 'package:kartenz/provider/SubmittedCarsProvider.dart';
+import 'package:provider/provider.dart';
 
 class AcceptedFormWidget extends StatefulWidget {
   @override
@@ -11,10 +14,12 @@ class AcceptedFormWidget extends StatefulWidget {
 class _AcceptedFormWidgetState extends State<AcceptedFormWidget> {
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
+    SubmittedCarsProvider submittedCarsProvider = Provider.of(context);
+    return submittedCarsProvider.acceptedCars!=null?ListView.separated(
       separatorBuilder: (_,pos){return SizedBox(height: 12,);},
-      itemCount: 6,
+      itemCount: submittedCarsProvider.acceptedCars.length,
       itemBuilder: (_,pos){
+        CarWarehouseModel1 car = submittedCarsProvider.acceptedCars[pos];
         return GestureDetector(
           onTap: (){
             Navigator.pushNamed(context, ACCEPTED_DETAIL_WIDGET );
@@ -35,36 +40,36 @@ class _AcceptedFormWidgetState extends State<AcceptedFormWidget> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        carDetails("Audi", "Q8"),
-                        carDetails("Year", "2015"),
-                        carDetails("variant", "LXI"),
-                        carDetails("Reg No", "KL-02-8976"),
+                        carDetails("${car.company.car.name}", "${car.car.name}"),
+                        carDetails("Year", "${car.year}"),
+                        carDetails("variant", "${car.variant}"),
+                        carDetails("Reg No", "${car.regNo}"),
                       ],
                     ),
                     SizedBox(height: 16,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        carDetails2(Icons.directions_car_sharp, "Petrol"),
+                        carDetails2(Icons.directions_car_sharp, "${car.fuel}"),
                         Container(
                           width: 1,
                           height: 24,
                           color: APP_BLACK_COLOR,
                         ),
-                        carDetails2(Icons.speed, "450000"),
+                        carDetails2(Icons.speed, "${car.kilometers}"),
                         Container(
                           width: 1,
                           height: 24,
                           color: APP_BLACK_COLOR,
                         ),
-                        carDetails2(Icons.calendar_today_outlined, "2016"),
+                        carDetails2(Icons.calendar_today_outlined, "${car.year}"),
                       ],
                     ),
                     SizedBox(height: 8,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        carDetails2(Icons.account_tree_rounded, "Manuel"),
+                        carDetails2(Icons.account_tree_rounded, "${car.gearShifting}"),
                       ],
                     ),
 
@@ -76,7 +81,7 @@ class _AcceptedFormWidgetState extends State<AcceptedFormWidget> {
         );
       },
 
-    );
+    ):Center(child: Text("No Data"));
   }
 }
 
