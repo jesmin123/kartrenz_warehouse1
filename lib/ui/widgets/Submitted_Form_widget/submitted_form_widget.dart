@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/strings.dart';
+import 'package:kartenz/model/CarWarehouseModel.dart';
+import 'package:kartenz/provider/SubmittedCarsProvider.dart';
+import 'package:provider/provider.dart';
 
 
 class SubmittedFormWidget extends StatefulWidget {
@@ -13,11 +16,14 @@ class SubmittedFormWidget extends StatefulWidget {
 class _SubmittedFormWidgetState extends State<SubmittedFormWidget> {
   @override
   Widget build(BuildContext context) {
+    SubmittedCarsProvider submittedCarsProvider = Provider.of(context);
 
     return ListView.separated(
         separatorBuilder: (_,pos){return SizedBox(height: 12,);},
-        itemCount: 6,
+        itemCount: submittedCarsProvider.submittedCars.length,
         itemBuilder: (_,pos){
+          CarWarehouseModel car = submittedCarsProvider.submittedCars[pos];
+          String imgUrl = IMAGE_BASE_URL;
           return GestureDetector(
             onTap: (){
               Navigator.pushNamed(context, SUBMITTED_DETAILS_PAGE );
@@ -30,18 +36,15 @@ class _SubmittedFormWidgetState extends State<SubmittedFormWidget> {
                   child: Column(
                     children: [
                       SizedBox(height: 6,),
-                      Image.asset(
-                        "assets/images/222.jpg",
-                        width: MediaQuery.of(context).size.width,
-                      ),
+                      Image.asset("assets/images/222.jpg"),
                       SizedBox(height: 12,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          carDetails("Audi", "Q8"),
-                          carDetails("Year", "2015"),
-                          carDetails("variant", "LXI"),
-                          carDetails("Reg No", "KL-02-8976"),
+                          carDetails(car.code, car.car.name),
+                          carDetails("Year", "${car.year}"),
+                          carDetails("variant", "${car.variant}"),
+                          carDetails("Reg No", "${car.regNo}"),
                         ],
                       ),
                       SizedBox(height: 16,),

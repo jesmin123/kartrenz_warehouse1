@@ -13,3 +13,5 @@ const TRANSACTION_PAGE = "transactionPage";
 const SOLD_CAR_PAGE = "soldCarPage";
 const ADD_TRANSACTION_PAGE = "addTransactionPage";
 const CAR_REPORT_PAGE = "carReportPage";
+
+const IMAGE_BASE_URL = "http://kartrenz.com:4000/r/";

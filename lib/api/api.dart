@@ -11,6 +11,7 @@ class ApiUtils {
 
   factory ApiUtils() => _instance;
   static final baseUrl = "http://kartrenz.com:4000/";
+  static final imagebaseUrl = "http://kartrenz.com:4000/r/";
 
   Future<RespObj> getData(String route,{String header}) async{
     Map<String, String> mHeaders = {"Content-type": "application/json","x-auth-token":header};
