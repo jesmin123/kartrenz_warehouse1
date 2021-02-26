@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
+import 'package:kartenz/model/EngineModel.dart';
 import 'package:kartenz/provider/basic_providers.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:provider/provider.dart';
@@ -209,6 +210,7 @@ class _EnginetransmissionFormWidgetState extends State<EnginetransmissionFormWid
             ),
             onRatingUpdate: (rating) {
               print(rating);
+              basicProvider.engineRating = rating;
 
             },
           ),
@@ -217,6 +219,14 @@ class _EnginetransmissionFormWidgetState extends State<EnginetransmissionFormWid
             padding: const EdgeInsets.symmetric(horizontal: 64),
             child: RaisedButton(
               onPressed:(){
+
+                EngineModel engineModel = new EngineModel(
+                  rating: basicProvider.engineRating, battery: _batteryController.text, clutch: _clutchController.text,coolant: _coolantController.text,
+                  engine: _engineController.text, engineMounting: _engineMountingController.text, engineOil: _engineOilController.text,
+                  engineOilLevelDipstick: _engineOilLevelController.text, engineSound: _engineSoundController.text, engineVideo:  basicProvider.engineVideo.path,
+                  exhaustSmoke: _exhaustSmokeController.text, gearShifting: _gearShiftingController.text
+
+                );
                   formData.activeStep=3;
                   formData.stepCount=3;
               },
