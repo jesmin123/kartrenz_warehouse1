@@ -38,6 +38,7 @@ class CarWarehouseModel1{
   String coolant="";
   String supportNo="";
   String code="";
+  String msg="";
   dynamic airConditioning;
   dynamic electricals;
   dynamic documentDetails;
@@ -57,7 +58,7 @@ class CarWarehouseModel1{
     this.engineOilLevelDipstick, this.battery, this.coolant,
     this.airConditioning, this.electricals, this.documentDetails,
     this.steeringSuspensionAndBrakes, this.isAuction, this.isApproved,this.company,
-    this.status, this.ratingDetails, this.ratingEngine,this.supportNo,this.exteriorPlusTyres,this.code});
+    this.status, this.ratingDetails, this.ratingEngine,this.supportNo,this.exteriorPlusTyres,this.code,this.msg});
 
   factory CarWarehouseModel1.fromJSON(Map<dynamic, dynamic> json){
     try{
@@ -68,7 +69,7 @@ class CarWarehouseModel1{
           battery: json['battery'], coolant: json['coolant'],airConditioning: json['airConditioning'],electricals: json['electricals'],
           documentDetails: json['documentDetails'],steeringSuspensionAndBrakes: json['steeringSuspensionAndBrakes'], isAuction: json['isAuction'],
           isApproved: json['isApproved'],status: json['status'],ratingDetails: json['ratingDetails'],ratingEngine: json['ratingEngine'],exteriorPlusTyres: json['exteriorPlusTyres'],
-          code: json['code']
+          code: json['code'],msg: json["msg"]
       );
     }catch (e){
       print("Warehouse Model Exception : "+ e.toString());

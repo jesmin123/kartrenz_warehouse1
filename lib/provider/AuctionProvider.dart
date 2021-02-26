@@ -187,5 +187,14 @@ String get selectedStateId => _selectedStateId;
       carReport=temp;
     } );
 }
+Future postPaymentProceed(String token,String broker, int amount,bool completed,String car,String createdBy,String auction)async{
+
+    Map sendData = {"broker":broker,"amount":amount,"completed":completed,"car":car,"createdBy":createdBy,"auction":auction};
+    api.postData("transaction",header: token,mBody: jsonEncode(sendData)).then((respObj){
+      if(respObj.status){
+          getTransaction(createdBy, token);
+      }
+    } );
+}
 
 }
