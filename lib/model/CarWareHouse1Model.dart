@@ -2,11 +2,12 @@ import 'dart:convert';
 
 import 'AuctionModel.dart';
 import 'CarModel.dart';
+import 'Company1Model.dart';
 import 'CompanyModel.dart';
 
 
 
-class CarWarehouseModel{
+class CarWarehouseModel1{
 
   DateTime _dueDate= DateTime.now();
   String _imageUrl;
@@ -42,14 +43,14 @@ class CarWarehouseModel{
   dynamic documentDetails;
   dynamic steeringSuspensionAndBrakes;
   dynamic exteriorPlusTyres;
-  Company company;
+  Company1 company;
   bool  isAuction;
   bool isApproved;
   String status="";
   int ratingDetails=0;
   int ratingEngine=0;
 
-  CarWarehouseModel({this.id,this.auctionBidPrice,this.car,this.isSold, this.year, this.fuel, this.variant, this.basePrice,
+  CarWarehouseModel1({this.id,this.auctionBidPrice,this.car,this.isSold, this.year, this.fuel, this.variant, this.basePrice,
     this.kilometers, this.regNo, this.rCNo, this.highlights, this.engine,
     this.engineVideo, this.engineSound, this.exhaustSmoke,
     this.engineMounting, this.clutch, this.gearShifting, this.engineOil,
@@ -58,9 +59,9 @@ class CarWarehouseModel{
     this.steeringSuspensionAndBrakes, this.isAuction, this.isApproved,this.company,
     this.status, this.ratingDetails, this.ratingEngine,this.supportNo,this.exteriorPlusTyres,this.code});
 
-  factory CarWarehouseModel.fromJSON(Map<dynamic, dynamic> json){
+  factory CarWarehouseModel1.fromJSON(Map<dynamic, dynamic> json){
     try{
-      return CarWarehouseModel(supportNo:json['supportNo'],id:json['_id'],engineSound: json['engineSound'],isSold:json['isSold'],auctionBidPrice: json['basePrice'],car: Car.fromJSON(json['car']),company: Company.fromJSON(json['car']),year: json['year'],fuel: json['fuel'],variant: json['variant'],basePrice: json['basePrice'],
+      return CarWarehouseModel1(supportNo:json['supportNo'],id:json['_id'],engineSound: json['engineSound'],isSold:json['isSold'],auctionBidPrice: json['basePrice'],car: Car.fromJSON(json['car']),company: Company1.fromJSON(json['car']),year: json['year'],fuel: json['fuel'],variant: json['variant'],basePrice: json['basePrice'],
           kilometers: json['kilometers'],regNo: json['regNo'],rCNo:  json['rCNo'],highlights: json['highlights'],engine: json['engine'],
           engineVideo: json['engineVideo'],exhaustSmoke: json['exhaustSmoke'],engineMounting: json['engineMounting'],clutch: json['clutch'],
           gearShifting: json['gearShifting'], engineOil: json['engineOil'],engineOilLevelDipstick: json['engineOilLevelDipstick'],
