@@ -27,6 +27,7 @@ class _CarReportPageState extends State<CarReportPage> {
               children: [
                 SizedBox(height: 12,),
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("Cars", style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR,textSize: 22.0),),
                     Padding(

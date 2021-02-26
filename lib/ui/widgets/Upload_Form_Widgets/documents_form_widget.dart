@@ -5,7 +5,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/model/DocumentDetails.dart';
-import 'package:kartenz/model/Upload_Model.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -34,6 +33,7 @@ class _DocumentsFormWidetState extends State<DocumentsFormWidet> {
   TextEditingController _underHypoController = TextEditingController();
 
 
+
   @override
   Widget build(BuildContext context) {
     FormData formData = Provider.of(context);
@@ -58,11 +58,6 @@ class _DocumentsFormWidetState extends State<DocumentsFormWidet> {
             TextFormField(
               decoration: decoration("Registration Date"),
               controller: _registrationController,
-            ),
-            SizedBox(height: 12,),
-            TextFormField(
-              decoration: decoration("Base price "),
-              controller: _chassisController,
             ),
             SizedBox(height: 12,),
             TextFormField(
@@ -207,7 +202,7 @@ class _DocumentsFormWidetState extends State<DocumentsFormWidet> {
                     insuranceType: _insuranceController.text, noclaimBonus: _noClaimController.text, noclaimBonusPercentage: _noClaimPercentController.text,
                     partipheshiRequest: _partipheshiController.text, registrationDate: _registrationController.text, underHypothecation: _underHypoController.text,
                     manufacturingYr: _manufacturingController.text, RCavailability: _rcAvailabilityController.text, RCCondition: _rcConditionController.text,
-                    roadTaxpaid: _roadTaxController.text, RTONOCissued: _rTONOCController.text, rating: formData.rating
+                    roadTaxpaid: _roadTaxController.text, RTONOCissued: _rTONOCController.text, rating: formData.rating,
                   );
                   formData.activeStep=2;
                   formData.stepCount=2;

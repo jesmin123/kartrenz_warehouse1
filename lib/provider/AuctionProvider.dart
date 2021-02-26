@@ -146,8 +146,6 @@ api.postData("rtoffice/state",header: token,mBody: jsonEncode(sendData)).then((r
 }
 
 String _selectedStateId;
-List<RTOfficeModel> _sortedRTOffice;
-
 
 String get selectedStateId => _selectedStateId;
 
@@ -155,14 +153,6 @@ String get selectedStateId => _selectedStateId;
     _selectedStateId = value;
     getRtOfficeList(value, token);
   }
-
-  List<RTOfficeModel> get sortedRTOffice => _sortedRTOffice;
-
-  set sortedRTOffice(List<RTOfficeModel> value) {
-    _sortedRTOffice = value;
-    notifyListeners();
-  }
-
 
   getRtOfficeList(String id, String token){
     stateList.forEach((element) {
