@@ -9,8 +9,6 @@ import 'package:kartenz/model/RTOfficeModel.dart';
 import 'package:kartenz/model/StateModel.dart';
 import 'package:kartenz/model/TransactionModel.dart';
 import 'package:kartenz/model/uploadedCars.dart';
-import 'package:kartenz/provider/auth_provider.dart';
-import 'package:provider/provider.dart';
 
 class AuctionProvider extends ChangeNotifier{
 
@@ -63,20 +61,21 @@ List<Transaction> get transactions => _transactions;
     notifyListeners();
   }
 
-  Future getAuctionsBuyAll(String token) async{
+  Future getAuctionsBuyAll(String token,String id) async{
     List<UploadedCars> temp = [];
     api.getData("auction/all",header:  token).then((respObj) {
       if(respObj.status){
         List<dynamic> datas = respObj.data;
         datas.forEach((element) {
           UploadedCars uploadedCars=UploadedCars.fromJSON(element);
-          if(uploadedCars!=null){
-          temp.add(uploadedCars);
+          if(uploadedCars!=null && uploadedCars.cars.loginModel!=null){
+            if(uploadedCars.cars.loginModel.id==id){
+              temp.add(uploadedCars);
+            }
           }
         });
-
       }
-      auction=temp;
+    auction=temp;
     });
 
   }
@@ -96,16 +95,18 @@ List<Transaction> get transactions => _transactions;
       transactions=temp;
     } );
   }
-  Future getBuyAllPurchase(String token)async{
+  Future getBuyAllPurchase(String token,String id)async{
     List<BuyModel> temp=[];
     api.getData("buy/all",header: token).then((respObj){
       if(respObj.status){
         List<dynamic> data=respObj.data;
         data.forEach((element) {
+
           BuyModel buyModel=BuyModel.fromJSON(element);
-          if(buyModel!=null){
-            temp.add(buyModel);
-          }
+          if(buyModel!=null && buyModel.car.loginModel!=null){
+            if(buyModel.car.loginModel.id==id) {
+              temp.add(buyModel);
+            } }
         });
       }
       buyAll=temp;

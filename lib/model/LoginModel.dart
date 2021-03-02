@@ -16,7 +16,11 @@ LoginModel(this.role,this.id,this.locationCode,this.address,this.contactNumber,t
 
 factory LoginModel.fromJSON(Map<String,dynamic> json){
   try{
-    json = json['snapshot'];
+    if(json!=null){
+      if(json.containsKey("snapshot")){
+        json = json['snapshot'];
+      }
+    }
     return LoginModel(json['role'], json['_id'],json['locationCode'],json['address'],json['contactNumber'],json['password'],json['name'],json['createdon']);
   }catch(e){
     print(e);

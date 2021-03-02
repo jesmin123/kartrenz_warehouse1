@@ -114,9 +114,9 @@ class _LoginPageState extends State<LoginPage> {
                         Loader.getLoader(context).hide();
                         if(status){
                           formData.getCompany();
-                          auctionProvider.getAuctionsBuyAll(authProvider.loginModel.token);
+                          auctionProvider.getAuctionsBuyAll(authProvider.loginModel.token,authProvider.loginModel.id);
                           auctionProvider.getTransaction(authProvider.loginModel.id, authProvider.loginModel.token);
-                          auctionProvider.getBuyAllPurchase( authProvider.loginModel.token);
+                          auctionProvider.getBuyAllPurchase( authProvider.loginModel.token,authProvider.loginModel.id);
                           auctionProvider.getStateList(authProvider.loginModel.token);
                           purchaseProvider.postBuyCode(authProvider.loginModel.token, "10kCd9RZZ");
                           purchaseProvider.postAuctionCode(authProvider.loginModel.token, "10kCd9RZZ");
