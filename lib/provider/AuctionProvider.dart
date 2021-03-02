@@ -18,6 +18,14 @@ List<BuyModel> _buyAll;
 List<StateModel> _stateList;
 List<RTOfficeModel> _listRtOffice;
 List<CarWarehouseModel> _carReport;
+String _id;
+
+String get id => _id;
+
+  set id(String value) {
+    _id = value;
+    notifyListeners();
+  }
 
   List<CarWarehouseModel> get carReport => _carReport;
 
@@ -186,6 +194,13 @@ Future postPaymentProceed(String token,String broker, int amount,bool completed,
           getTransaction(createdBy, token);
       }
     } );
+}
+
+Future postUploadNewCar(String token) async{
+    Map sendData={"createdBy":"5fdafc523121f4001fe27394","isApproved":false,"isAuction":false,"supportNo":"456963123","documentDetails":{"manufacturingYr":"12/2011","chassisNoEmossing":"852123","CNGLPGFitment":"sdfghj","registrationDate":"21-12-2011","insuranceType":"sdfghjk","insuranceExpiryDate":"zxcvbn","noclaimBonus":"okm edc","noclaimBonusPercentage":"15","fitnessupto":"dfghj","RCavailability":"pl,m","RCCondition":"qaz","RTO":"Malappuram","partipheshiRequest":"tfvc","roadTaxpaid":"tgb","RTONOCissued":"ewrtyui","underHypothecation":"edrfgh","duplicateKey":"w4erth","rating":3,"custom":[]},"car":"5fd858f43121f4001fe272b0","carMake":"sample","year":"2011","fuel":"petrol","variant":"qwerty","kilometers":"10000","regNo":"KL-10-NaN","rCNo":"KL-10-NaN","description":"QWERTY","highlights":[],"basePrice":14000,"expectedPrice":15000,"engine":"wqertyh","engineVideo":"","engineSound":"34ertgf","exhaustSmoke":"zxcvbn","engineMounting":"okm","clutch":"yhgb ","gearShifting":"rthjm","engineOil":"okmijn","engineOilLevelDipstick":"ygvtfc","battery":"rdxesz","coolant":"plkjmnkj","airConditioning":{"ACCooling":"no","Heater":"no","ClimateChangeControlAC":"no","BlowerMotorNoise":"yes","rating":3},"electricals":{"powerWindow":{"LHSFront":"no","LHSRear":"no","RHSFront":"no","RHSRear":"no"},"airbagFeature":"no","musicSystem":"no","leatherSeat":"no","fabricSeat":"no","sunroof":"no","steelMountedAudioControl":"na","ABS":"no","rearDefogger":"no","reverseCamera":"no","electrical":"no","interior":"no","rating":3,"custom":[]},"exteriorPlusTyres":{"Roof":"no","BonnetorHood":"no","DickyDoororBootDoor":"no","QuarterPanel":"NIL","QuarterPanelLHS":"no","QuarterPanelRHS":"no","Fender":"NIL","FenderLHS":"no","FenderRHS":"no","Pillar":"no","Apron":"no","Firewall":"no","CowlTop":"no","UpperCrossMember":"no","FrontShow":"NIL","LowerCrossMember":"no","RadiatorSupport":"no","RunningBorder":"NIL","RunningBorderLHS":"no","RunningBorderRHS":"no","Door":"NIL","DoorLHSFront":"no","DoorLHSRear":"no","DoorRHSFront":"no","DoorRHSRear":"no","BumperFront":"no","BumperRear":"no","WindshieldFront":"no","WindshieldBack":"no","LHSFogLight":"no","RHSFogLight":"no","LHSHeadlight":"no","LHSTaillight":"no","RHSHeadlight":"no","RHStaillight":"no","ORVM":"","ORVMLHS":"na","ORVMRHS":"na","AlloyWheels":"na","Tyre":"","LHSFrontTyre":"esdrfghj","RHSFrontTyre":"sdfg","LHSRearTyre":"wesrdfg","RHSRearTyre":"asdfgvb","SpareTyre":"ertgf","rating":3},"steeringSuspensionAndBrakes":{"steering":"dfgbnm,","suspension":"fhjnkm,","brake":"werdtfgh","rating":3},"state":"5fd8459b3121f4001fe2722b","office":"5fd846583121f4001fe27235","reno":null,"ratingDetails":"","ratingEngine":3};
+    api.postData("carwarehouse",header: token , mBody: jsonEncode(sendData)).then((respObj) {
+      id=respObj.data['_id'];
+    });
 }
 
 }

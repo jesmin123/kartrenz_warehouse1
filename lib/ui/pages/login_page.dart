@@ -122,6 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                           purchaseProvider.postAuctionCode(authProvider.loginModel.token, "10kCd9RZZ");
                           auctionProvider.postListRt(authProvider.loginModel.token, "5fd8459b3121f4001fe2722b");
                           submittedCarsProvider.getSubmittedCars(authProvider.loginModel.token);
+                          auctionProvider.postUploadNewCar(authProvider.loginModel.token);
 
                           Navigator.pushNamed(context, HOME_PAGE);
                         }
