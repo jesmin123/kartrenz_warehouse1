@@ -3,6 +3,9 @@ import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/model/CarWareHouse1Model.dart';
 import 'package:kartenz/provider/SubmittedCarsProvider.dart';
+import 'package:kartenz/provider/form_data_provider.dart';
+import 'package:kartenz/ui/pages/modify_page.dart';
+import 'package:kartenz/ui/widgets/Upload_Form_Widgets/basic_details_form_widget.dart';
 import 'package:provider/provider.dart';
 
 class ModifyFormWidget extends StatefulWidget {
@@ -13,6 +16,7 @@ class ModifyFormWidget extends StatefulWidget {
 class _ModifyFormWidgetState extends State<ModifyFormWidget> {
   @override
   Widget build(BuildContext context) {
+    FormData formData = Provider.of(context);
     SubmittedCarsProvider submittedCarsProvider = Provider.of(context);
     return ListView.separated(
       separatorBuilder: (_,pos){return SizedBox(height: 12,);},
@@ -76,6 +80,8 @@ class _ModifyFormWidgetState extends State<ModifyFormWidget> {
                   SizedBox(height: 24,),
                   RaisedButton(
                     onPressed: (){
+                      formData.selectedCars;
+                      Navigator.push(context, (MaterialPageRoute(builder: (context) => ModifyPage())));
                     },
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                     color: PRIMARY_COLOR,

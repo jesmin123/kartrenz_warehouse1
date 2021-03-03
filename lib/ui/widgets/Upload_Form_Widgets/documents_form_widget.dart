@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
-import 'package:kartenz/model/DocumentDetails.dart';
+import 'package:kartenz/model/CarWareHouse1Model.dart';
+import 'file:///F:/AndroidStudioProjects/kartenz/lib/model/Upload_Model/DocumentDetails.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -15,28 +16,27 @@ class DocumentsFormWidet extends StatefulWidget {
 
 class _DocumentsFormWidetState extends State<DocumentsFormWidet> {
 
-  TextEditingController _manufacturingController = TextEditingController();
-  TextEditingController _chassisController = TextEditingController();
-  TextEditingController _cNGController = TextEditingController();
-  TextEditingController _registrationController = TextEditingController();
-  TextEditingController _duplicateKeyController = TextEditingController();
-  TextEditingController _insuranceController = TextEditingController();
-  TextEditingController _insuranceExpiryController = TextEditingController();
-  TextEditingController _noClaimController = TextEditingController();
-  TextEditingController _noClaimPercentController = TextEditingController();
-  TextEditingController _fitnessController = TextEditingController();
-  TextEditingController _rcAvailabilityController = TextEditingController();
-  TextEditingController _rcConditionController = TextEditingController();
-  TextEditingController _partipheshiController = TextEditingController();
-  TextEditingController _roadTaxController = TextEditingController();
-  TextEditingController _rTONOCController = TextEditingController();
-  TextEditingController _underHypoController = TextEditingController();
-
-
 
   @override
   Widget build(BuildContext context) {
-    FormData formData = Provider.of(context);
+    FormData formData = Provider.of<FormData>(context);
+    CarWarehouseModel1 cars = formData.selectedCars;
+    TextEditingController _manufacturingController = TextEditingController(text: cars.year!=null?cars.year:"");
+    TextEditingController _chassisController = TextEditingController();
+    TextEditingController _cNGController = TextEditingController();
+    TextEditingController _registrationController = TextEditingController();
+    TextEditingController _duplicateKeyController = TextEditingController();
+    TextEditingController _insuranceController = TextEditingController();
+    TextEditingController _insuranceExpiryController = TextEditingController();
+    TextEditingController _noClaimController = TextEditingController();
+    TextEditingController _noClaimPercentController = TextEditingController();
+    TextEditingController _fitnessController = TextEditingController();
+    TextEditingController _rcAvailabilityController = TextEditingController();
+    TextEditingController _rcConditionController = TextEditingController();
+    TextEditingController _partipheshiController = TextEditingController();
+    TextEditingController _roadTaxController = TextEditingController();
+    TextEditingController _rTONOCController = TextEditingController();
+    TextEditingController _underHypoController = TextEditingController();
     return Form(
         child:Column(
           children: [

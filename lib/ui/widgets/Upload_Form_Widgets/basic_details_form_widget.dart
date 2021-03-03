@@ -6,7 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
-import 'package:kartenz/model/Upload_Model.dart';
+import 'package:kartenz/model/CarWareHouse1Model.dart';
+import 'file:///F:/AndroidStudioProjects/kartenz/lib/model/Upload_Model/Upload_Model.dart';
 import 'package:kartenz/provider/AuctionProvider.dart';
 import 'package:kartenz/provider/auth_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
@@ -22,23 +23,25 @@ class BasicDetailsForm extends StatefulWidget {
 
 class _BasicDetailsFormState extends State<BasicDetailsForm> {
 
-  TextEditingController _variantController = TextEditingController();
-  TextEditingController _kmsController = TextEditingController();
-  TextEditingController _yearOfManufactureController = TextEditingController();
-  TextEditingController _basePriceController = TextEditingController();
-  TextEditingController _expectedPriceController = TextEditingController();
-  TextEditingController _regNoController = TextEditingController();
-  TextEditingController _descriptionController = TextEditingController();
-  TextEditingController _supportNoController = TextEditingController();
-  TextEditingController _highlightController = TextEditingController();
-  TextEditingController _mainImageController = TextEditingController();
-  TextEditingController _inImageController = TextEditingController();
-  TextEditingController _exImageController = TextEditingController();
+
 
 
   @override
   Widget build(BuildContext context) {
-    final FormData formData = Provider.of(context);
+    FormData formData = Provider.of<FormData>(context);
+    CarWarehouseModel1 cars = formData.selectedCars;
+    TextEditingController _variantController = TextEditingController(text: cars.variant!=null?cars.variant:"");
+    TextEditingController _kmsController = TextEditingController(text: cars.kilometers!=null?cars.kilometers:"");
+    TextEditingController _yearOfManufactureController = TextEditingController(text: cars.year!=null?cars.year:"");
+    TextEditingController _basePriceController = TextEditingController(text: cars.basePrice!=null?cars.basePrice:"");
+    TextEditingController _expectedPriceController = TextEditingController();
+    TextEditingController _regNoController = TextEditingController(text: cars.regNo!=null?cars.regNo:"");
+    TextEditingController _descriptionController = TextEditingController();
+    TextEditingController _supportNoController = TextEditingController(text: cars.supportNo!=null?cars.supportNo:"");
+    TextEditingController _highlightController = TextEditingController(text: cars.highlights!=null?cars.highlights:"");
+    TextEditingController _mainImageController = TextEditingController();
+    TextEditingController _inImageController = TextEditingController();
+    TextEditingController _exImageController = TextEditingController();
     AuctionProvider auctionProvider = Provider.of(context);
     AuthProvider authProvider = Provider.of(context);
     return Container(

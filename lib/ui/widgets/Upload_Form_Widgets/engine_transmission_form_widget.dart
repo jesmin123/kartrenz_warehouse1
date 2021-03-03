@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
-import 'package:kartenz/model/EngineModel.dart';
+import 'package:kartenz/model/CarWareHouse1Model.dart';
+import 'file:///F:/AndroidStudioProjects/kartenz/lib/model/Upload_Model/EngineModel.dart';
 import 'package:kartenz/provider/basic_providers.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:provider/provider.dart';
@@ -19,24 +20,26 @@ class EnginetransmissionFormWidget extends StatefulWidget {
 
 class _EnginetransmissionFormWidgetState extends State<EnginetransmissionFormWidget> {
 
-  TextEditingController _engineController = TextEditingController();
-  TextEditingController _engineSoundController = TextEditingController();
-  TextEditingController _exhaustSmokeController = TextEditingController();
-  TextEditingController _engineMountingController = TextEditingController();
-  TextEditingController _clutchController = TextEditingController();
-  TextEditingController _gearShiftingController = TextEditingController();
-  TextEditingController _engineOilController = TextEditingController();
-  TextEditingController _engineOilLevelController = TextEditingController();
-  TextEditingController _batteryController = TextEditingController();
-  TextEditingController _coolantController = TextEditingController();
+
   ChewieController _chewieController;
   VideoPlayerController _videoPlayerController;
 
 
   @override
   Widget build(BuildContext context) {
-    BasicProvider basicProvider = Provider.of<BasicProvider>(context);
     FormData formData = Provider.of<FormData>(context);
+    CarWarehouseModel1 cars = formData.selectedCars;
+    TextEditingController _engineController = TextEditingController(text: cars.engine!=null?cars.engine:"");
+    TextEditingController _engineSoundController = TextEditingController(text: cars.engineSound!=null?cars.engineSound:"");
+    TextEditingController _exhaustSmokeController = TextEditingController(text: cars.exhaustSmoke!=null?cars.exhaustSmoke:"");
+    TextEditingController _engineMountingController = TextEditingController(text: cars.engineMounting!=null?cars.engineMounting:"");
+    TextEditingController _clutchController = TextEditingController(text: cars.clutch!=null?cars.clutch:"");
+    TextEditingController _gearShiftingController = TextEditingController(text: cars.gearShifting!=null?cars.gearShifting:"");
+    TextEditingController _engineOilController = TextEditingController(text: cars.engineOil!=null?cars.engineOil:"");
+    TextEditingController _engineOilLevelController = TextEditingController(text: cars.engineOilLevelDipstick!=null?cars.engineOilLevelDipstick:"");
+    TextEditingController _batteryController = TextEditingController(text: cars.battery!=null?cars.battery:"");
+    TextEditingController _coolantController = TextEditingController(text: cars.coolant!=null?cars.coolant:"");
+    BasicProvider basicProvider = Provider.of<BasicProvider>(context);
 
     _videoPlayerController = VideoPlayerController.file(File(basicProvider.engineVideo!=null?basicProvider.engineVideo.path:""));
     _chewieController = ChewieController(
@@ -219,7 +222,6 @@ class _EnginetransmissionFormWidgetState extends State<EnginetransmissionFormWid
             padding: const EdgeInsets.symmetric(horizontal: 64),
             child: RaisedButton(
               onPressed:(){
-
                 EngineModel engineModel = new EngineModel(
                   rating: basicProvider.engineRating, battery: _batteryController.text, clutch: _clutchController.text,coolant: _coolantController.text,
                   engine: _engineController.text, engineMounting: _engineMountingController.text, engineOil: _engineOilController.text,

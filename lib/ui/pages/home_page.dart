@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/strings.dart';
 import 'package:kartenz/provider/basic_providers.dart';
+import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:kartenz/ui/widgets/admin_contact_tab.dart';
 import 'package:kartenz/ui/widgets/dashboard_widget.dart';
 import 'package:kartenz/ui/widgets/my_profile_tab.dart';
@@ -28,6 +30,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     BasicProvider basicProvider = Provider.of(context);
+
     return WillPopScope(
       onWillPop: ()async{
         showAlert(context);
@@ -97,6 +100,7 @@ Widget alertBox(BuildContext context){
   showDialog(
       context: context,
       builder: (BuildContext context){
+
         return AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
           title: Column(
@@ -166,6 +170,7 @@ Widget showAlert(BuildContext context){
   );
 }
 Widget drawer(BuildContext context){
+  FormData formData = Provider.of(context);
   return Drawer(
     child: Stack(
       children: [
@@ -202,6 +207,7 @@ Widget drawer(BuildContext context){
                   SizedBox(height: 24,),
                   GestureDetector(
                     onTap: (){
+                      formData.selectedCars= null;
                       Navigator.pushNamed(context, CARS_PAGE);
                     },
                     child: Row(

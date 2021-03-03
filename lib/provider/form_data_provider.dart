@@ -2,8 +2,12 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:kartenz/api/api.dart';
 import 'package:kartenz/model/CarModel.dart';
+import 'package:kartenz/model/CarWareHouse1Model.dart';
 import 'package:kartenz/model/CompanyModel.dart';
 import 'package:kartenz/model/RespObj.dart';
+import 'package:kartenz/model/Upload_Model/DocumentDetails.dart';
+import 'package:kartenz/model/Upload_Model/EngineModel.dart';
+import 'package:kartenz/model/Upload_Model/Upload_Model.dart';
 
 class FormData extends ChangeNotifier{
 
@@ -247,6 +251,13 @@ int _current = 0;
     notifyListeners();
   }
 
+  CarWarehouseModel1 _selectedCars;
 
+  CarWarehouseModel1 get selectedCars => _selectedCars;
+
+  set selectedCars(CarWarehouseModel1 value) {
+    _selectedCars = value;
+    notifyListeners();
+  }
 }
 
