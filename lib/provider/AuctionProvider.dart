@@ -87,6 +87,7 @@ List<Transaction> get transactions => _transactions;
     });
 
   }
+
   Future getTransaction(String id,String token)async{
     Map sendData = {"createdBy":id};
     List<Transaction> temp=[];
@@ -101,6 +102,7 @@ List<Transaction> get transactions => _transactions;
         });
       }
       transactions=temp;
+      allTransaction = temp;
     } );
   }
   Future getBuyAllPurchase(String token,String id)async{
@@ -203,4 +205,18 @@ Future postUploadNewCar(String token) async{
     });
 }
 
+List<Transaction> allTransaction = [];
+
+  searchTransaction(String keyword){
+      if(keyword==null || keyword.isEmpty){
+        transactions = allTransaction;
+      }
+      List<Transaction> treansTemp = [];
+      transactions.forEach((element) {
+        if(element.broker.name.toUpperCase().contains(keyword.toUpperCase())){
+          treansTemp.add(element);
+        }
+      });
+      transactions = treansTemp;
+  }
 }

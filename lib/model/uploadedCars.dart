@@ -14,12 +14,13 @@ class UploadedCars{
   bool hasExpired;
   bool hasStarted;
   CarWarehouseModel cars;
+  int currentPrice;
 
-  UploadedCars({this.deliveryPending,this.adminApproved,this.completed,this.isRejected,this.id,this.date,this.due,this.code,this.bids,this.hasExpired,this.hasStarted,this.cars});
+  UploadedCars({this.deliveryPending,this.adminApproved,this.completed,this.isRejected,this.currentPrice,this.id,this.date,this.due,this.code,this.bids,this.hasExpired,this.hasStarted,this.cars});
 
  factory UploadedCars.fromJSON(Map<dynamic,dynamic> json){
    try{
-     return UploadedCars(deliveryPending:json["deliveryPending"], adminApproved:json["adminApproved"], completed:json['completed'], isRejected:json['isRejected'], id:json["id"], date:json['json'], due:json['due'], code:json['code'], bids:json['bids'], hasExpired:json['hasExpired'], hasStarted:json['hasStarted'], cars:CarWarehouseModel.fromJSON(json['car']));}
+     return UploadedCars(deliveryPending:json["deliveryPending"], adminApproved:json["adminApproved"], completed:json['completed'], isRejected:json['isRejected'], id:json["id"], date:json['json'], due:json['due'], code:json['code'], currentPrice:json['bids']!=null?json["bids"]["value"]:json["car"]["basePrice"], hasExpired:json['hasExpired'], hasStarted:json['hasStarted'], cars:CarWarehouseModel.fromJSON(json['car']));}
   catch(e){
      print(e);
      return null;

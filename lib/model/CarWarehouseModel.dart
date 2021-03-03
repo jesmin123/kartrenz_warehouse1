@@ -24,6 +24,7 @@ class CarWarehouseModel{
   String regNo="";
   String rCNo="";
   int basePrice=0;
+  int expectedPrice=0;
   List<dynamic> highlights  = new List();
   String engine='';
   String engineVideo;
@@ -58,7 +59,7 @@ class CarWarehouseModel{
     this.engineOilLevelDipstick, this.battery, this.coolant,
     this.airConditioning, this.electricals, this.documentDetails,
     this.steeringSuspensionAndBrakes, this.isAuction, this.isApproved,this.company,this.loginModel,
-    this.status, this.ratingDetails, this.ratingEngine,this.supportNo,this.exteriorPlusTyres,this.code});
+    this.status, this.ratingDetails, this.ratingEngine,this.supportNo,this.exteriorPlusTyres,this.code,this.expectedPrice});
 
   factory CarWarehouseModel.fromJSON(Map<dynamic, dynamic> json){
     try{
@@ -74,7 +75,7 @@ class CarWarehouseModel{
           battery: json['battery'], coolant: json['coolant'],airConditioning: json['airConditioning'],electricals: json['electricals'],
           documentDetails: json['documentDetails'],steeringSuspensionAndBrakes: json['steeringSuspensionAndBrakes'], isAuction: json['isAuction'],
           isApproved: json['isApproved'],status: json['status'],ratingDetails: json['ratingDetails'],ratingEngine: json['ratingEngine'],exteriorPlusTyres: json['exteriorPlusTyres'],
-          code: json['code']
+          code: json['code'],expectedPrice: json['expectedPrice']
       );
     }catch (e){
       print("Warehouse Model Exception : "+ e.toString());

@@ -17,11 +17,12 @@ class ElectricModel{
   String powerWindowLHSRear;
   String powerWindowRHSRear;
   dynamic custom;
+  int rating;
 
   ElectricModel({this.airbagFeature, this.musicSystem, this.leatherSeat,
     this.fabricSeat, this.sunroof, this.steelMountedAudioControl, this.ABS,
     this.rearDefogger, this.reverseCamera, this.electrical, this.interior,this.custom,this.powerWindowLHSFront,
-    this.powerWindowLHSRear,this.powerWindowRHSFront, this.powerWindowRHSRear});
+    this.powerWindowLHSRear,this.powerWindowRHSFront, this.powerWindowRHSRear,this.rating});
 
   factory ElectricModel.fromJSON(Map<dynamic,dynamic> json){
     try{
@@ -29,13 +30,18 @@ class ElectricModel{
           fabricSeat: json['fabricSeat'],interior: json['interior'],leatherSeat: json['leatherSeat'],musicSystem: json['musicSystem'],
           rearDefogger: json['rearDefogger'],reverseCamera: json['reverseCamera'],steelMountedAudioControl: json['steelMountedAudioControl'],
           sunroof: json['sunroof'],powerWindowLHSFront: json['powerWindow']['LHSFront'],powerWindowLHSRear:  json['powerWindow']['LHSRear'],
-          powerWindowRHSFront: json['powerWindow']['RHSFront'],powerWindowRHSRear: json['powerWindow']['RHSRear']
+          powerWindowRHSFront: json['powerWindow']['RHSFront'],powerWindowRHSRear: json['powerWindow']['RHSRear'],rating: json["rating"]
       );
     }catch(e){
       print('Exceptio ElectricModelClass e:'+e.toString());
       return null;
     }
   }
+  Map toJson()=>{
+        "powerWindow":{"LHSFront":powerWindowLHSFront,"LHSRear":powerWindowLHSRear,"RHSFront":powerWindowRHSFront,"RHSRear":powerWindowRHSRear},"airbagFeature":airbagFeature,
+    "musicSystem":musicSystem,"leatherSeat":leatherSeat,"fabricSeat":fabricSeat,"sunroof":sunroof,"steelMountedAudioControl":steelMountedAudioControl,"ABS":ABS,
+    "rearDefogger":rearDefogger,"reverseCamera":reverseCamera,"electrical":electrical,"interior":interior,"rating":rating
+  };
 
   List <Widget>getCustmoWidgets(){
     List <Widget> customRows = new List();

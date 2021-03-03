@@ -44,6 +44,13 @@ class DocumentData {
     }
   }
 
+  Map toJson()=>{
+    'manufacturingYr':manufacturingYr,'chassisNoEmossing':chassisNoEmossing,'CNGLPGFitment':CNGLPGFitment,"registrationDate":registrationDate,"insuranceType":insuranceType,
+    "insuranceExpiryDate":insuranceExpiryDate,"noclaimBonus":noclaimBonus,"noclaimBonusPercentage":noclaimBonusPercentage,"fitnessupto":fitnessupto,"RCavailability":RCavailability,
+    "RCCondition":RCCondition,"RTO":RTO,"partipheshiRequest":partipheshiRequest,"roadTaxpaid":roadTaxpaid,"RTONOCissued":RTONOCissued,"underHypothecation":underHypothecation,
+    "duplicateKey":duplicateKey,"rating":rating
+  };
+
   List <Widget>getCustmoWidgets(){
     List <Widget> customRows = new List();
     for (int i=0;i<custom.length;i++){
