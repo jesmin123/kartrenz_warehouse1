@@ -10,6 +10,7 @@ class Auctionwidget extends StatefulWidget {
 }
 
 class _AuctionwidgetState extends State<Auctionwidget> {
+  final _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
     AuctionProvider auctionProvider = Provider.of(context);
@@ -63,32 +64,37 @@ class _AuctionwidgetState extends State<Auctionwidget> {
                         ],
                       ),
                       SizedBox(height: 16,),
-                      auctionProvider.auction!=null?SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: DataTable(
-                            columns: [
-                              DataColumn(label: Text('Vehicle Id', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
-                              DataColumn(label: Text('Reg No', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
-                              DataColumn(label: Text('Warehouse Code', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
-                              DataColumn(label: Text('Approval Status', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
-                              DataColumn(label: Text('Broker', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
-                              DataColumn(label: Text('Expected Price', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
-                              DataColumn(label: Text('Current Price', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
-                            ],
-                            rows: auctionProvider.auction.map((e) => DataRow(
-                                cells: [
+                      auctionProvider.auction!=null?Scrollbar(
+                        controller: _scrollController,
+                        isAlwaysShown: true,
+                        child: SingleChildScrollView(
+                          controller: _scrollController,
+                          scrollDirection: Axis.horizontal,
+                          child: DataTable(
+                              columns: [
+                                DataColumn(label: Text('Vehicle Id', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
+                                DataColumn(label: Text('Reg No', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
+                                DataColumn(label: Text('Warehouse Code', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
+                                DataColumn(label: Text('Approval Status', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
+                                DataColumn(label: Text('Broker', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
+                                DataColumn(label: Text('Expected Price', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
+                                DataColumn(label: Text('Current Price', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
+                              ],
+                              rows: auctionProvider.auction.map((e) => DataRow(
+                                  cells: [
 
-                                  DataCell(Text("${e.id}")),
-                                  DataCell(Text("${e.cars.regNo}")),
-                                  DataCell(Text("${e.code}")),
-                                  DataCell(Text("${e.cars.isApproved}")),
-                                  DataCell(Text("${e.}")),
-                                  DataCell(Text("${e.broker}")),
-                                  DataCell(Text("${e.cars.auctionBidPrice}")),
-                                  DataCell(Text("${""}")),
+                                    DataCell(Text("${e.id}")),
+                                    DataCell(Text("${e.cars.regNo}")),
+                                    DataCell(Text("${e.code}")),
+                                    DataCell(Text("${e.cars.isApproved}")),
+                                    DataCell(Text("${""}")),
+                                    DataCell(Text("${e.cars.expectedPrice}")),
+                                    DataCell(Text("${e.currentPrice}")),
+                                    DataCell(Text("${""}")),
 
-                                ]
-                            )).toList()
+                                  ]
+                              )).toList()
+                          ),
                         ),
                       ):Center(child: Text("No Data"))
                     ]
