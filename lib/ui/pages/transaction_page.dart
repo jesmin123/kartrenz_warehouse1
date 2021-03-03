@@ -120,8 +120,6 @@ class _TransactionPageState extends State<TransactionPage> {
                   child: DataTable(
                     sortAscending: sort,
                       sortColumnIndex: column,
-
-
                       columns: [
                               DataColumn(label: Text('Transaction Id', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
                               DataColumn(label: Text('Broker Name', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),

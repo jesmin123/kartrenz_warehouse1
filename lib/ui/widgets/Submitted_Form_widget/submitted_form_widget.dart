@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kartenz/api/api.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/strings.dart';
@@ -26,7 +27,7 @@ class _SubmittedFormWidgetState extends State<SubmittedFormWidget> {
         itemCount: submittedCarsProvider.submittedCars.length,
         itemBuilder: (_,pos){
           CarWarehouseModel1 car = submittedCarsProvider.submittedCars[pos];
-          String imgUrl = IMAGE_BASE_URL;
+          String imgUrl = car.imageUrl!=null?"http://kartrenz.com:4000/r/"+car.imageUrl:"";
           return GestureDetector(
             onTap: (){
               Navigator.pushNamed(context, SUBMITTED_DETAILS_PAGE );
@@ -39,7 +40,7 @@ class _SubmittedFormWidgetState extends State<SubmittedFormWidget> {
                   child: Column(
                     children: [
                       SizedBox(height: 6,),
-                      Image.asset("assets/images/222.jpg"),
+                      Image.network(imgUrl),
                       SizedBox(height: 12,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

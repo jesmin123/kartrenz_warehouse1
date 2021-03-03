@@ -25,13 +25,13 @@ class UploadedCars{
      if(json.containsKey("bids")){
        List<dynamic> bidsJson = json['bids'];
        bidsJson.forEach((element) {
-         BidModel bidModel = BidModel.fromJSON(json['bids']);
+         BidModel bidModel = BidModel.fromJSON(element);
          if(bidModel!=null){
            bidsTemp.add(bidModel);
          }
        });
      }
-     return UploadedCars(deliveryPending:json["deliveryPending"], adminApproved:json["adminApproved"], completed:json['completed'], isRejected:json['isRejected'], id:json["id"], date:json['json'], due:json['due'], code:json['code'], currentPrice:json['bids']!=null?json["bids"]["value"]:json["car"]["basePrice"], hasExpired:json['hasExpired'], hasStarted:json['hasStarted'],bids: bidsTemp, cars:CarWarehouseModel.fromJSON(json['car']));}
+     return UploadedCars(deliveryPending:json["deliveryPending"], adminApproved:json["adminApproved"], completed:json['completed'], isRejected:json['isRejected'], id:json["id"], date:json['json'], due:json['due'], code:json['code'], hasExpired:json['hasExpired'], hasStarted:json['hasStarted'],bids: bidsTemp, cars:CarWarehouseModel.fromJSON(json['car']));}
   catch(e){
      print(e);
      return null;

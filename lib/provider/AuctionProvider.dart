@@ -84,6 +84,7 @@ List<Transaction> get transactions => _transactions;
         });
       }
     auction=temp;
+      allAuction = temp;
     });
 
   }
@@ -120,6 +121,7 @@ List<Transaction> get transactions => _transactions;
         });
       }
       buyAll=temp;
+      allBuyNow = temp;
     });
   }
 Future getStateList(String token)async{
@@ -219,4 +221,34 @@ List<Transaction> allTransaction = [];
       });
       transactions = treansTemp;
   }
+
+List<BuyModel> allBuyNow = [];
+  searchBuyNow(String keyword){
+    if(keyword==null || keyword.isEmpty){
+      buyAll = allBuyNow;
+    }
+      List<BuyModel> buyNowTemp = [];
+      buyAll.forEach((element) {
+        if(element.car.regNo.toUpperCase().contains(keyword.toUpperCase())){
+          buyNowTemp.add(element);
+        }
+      });
+      buyAll = buyNowTemp;
+
+  }
+
+  List<UploadedCars> allAuction = [];
+  searchAuction(String keyword){
+    if(keyword==null || keyword.isEmpty){
+      auction = allAuction;
+    }
+    List<UploadedCars> auctionTemp = [];
+    auction.forEach((element) {
+      if(element.cars.regNo.toUpperCase().contains(keyword.toUpperCase())){
+        auctionTemp.add(element);
+      }
+    });
+    auction = auctionTemp;
+  }
+
 }
