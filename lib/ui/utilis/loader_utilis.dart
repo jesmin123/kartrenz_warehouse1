@@ -11,6 +11,7 @@ class Loader{
         backgroundColor: Colors.white,
         progressWidget: CircularProgressIndicator(
           valueColor: new AlwaysStoppedAnimation<Color>(PRIMARY_COLOR),
+
         ),
         elevation: 10.0,
         insetAnimCurve: Curves.easeInOut,
@@ -18,7 +19,7 @@ class Loader{
         maxProgress: 100.0,
         progressTextStyle: TextStyle(
             color: Colors.black,
-            fontSize: 10.0,
+            fontSize: 8.0,
             fontWeight: FontWeight.w400,
             fontFamily: "Exo"),
         messageTextStyle: TextStyle(

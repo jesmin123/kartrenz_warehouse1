@@ -63,7 +63,7 @@ class _BuyNowWidgetState extends State<BuyNowWidget> {
           ],
         ),
             SizedBox(height: 16,),
-            auctionProvider.carReport!=null?SingleChildScrollView(
+            auctionProvider.buyAll!=null?SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: DataTable(
                   columns: [
@@ -72,13 +72,13 @@ class _BuyNowWidgetState extends State<BuyNowWidget> {
                     DataColumn(label: Text('Broker', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
                     DataColumn(label: Text('Price', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
                   ],
-                  rows: auctionProvider.transactions.map((e) => DataRow(
+                  rows: auctionProvider.buyAll.map((e) => DataRow(
                       cells: [
 
-                        DataCell(Text("${e.carWarehouseModel.regNo}")),
-                        DataCell(Text("${e.carWarehouseModel.status}")),
-                        DataCell(Text("${e.broker}")),
-                        DataCell(Text("${e.amount}")),
+                        DataCell(Text("${e.car.regNo}")),
+                        DataCell(Text("${e.brokerModel.status}")),
+                        DataCell(Text("${e.brokerModel.name}")),
+                        DataCell(Text("${e.car.basePrice}")),
 
                       ]
                   )).toList()

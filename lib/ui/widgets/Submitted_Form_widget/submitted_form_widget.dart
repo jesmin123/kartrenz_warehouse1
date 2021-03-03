@@ -6,6 +6,8 @@ import 'package:kartenz/constants/strings.dart';
 import 'package:kartenz/model/CarWareHouse1Model.dart';
 import 'package:kartenz/provider/SubmittedCarsProvider.dart';
 import 'package:kartenz/provider/auth_provider.dart';
+import 'package:kartenz/ui/utilis/AlertBox.dart';
+import 'package:kartenz/ui/utilis/loader_utilis.dart';
 import 'package:provider/provider.dart';
 
 
@@ -76,9 +78,14 @@ class _SubmittedFormWidgetState extends State<SubmittedFormWidget> {
                       ),
                       SizedBox(height: 24,),
                       RaisedButton(
-                        onPressed: (){
-                          submittedCarsProvider.delete(authProvider.loginModel.token, car.id);
-
+                        onPressed: () async {
+                          Loader.getLoader(context).show();
+                          bool status = await submittedCarsProvider.delete(authProvider.loginModel.token, car.id);
+                          Loader.getLoader(context).hide();
+                          if(status){
+                            AlertBox.showToast("Successfully deleted");
+                          }
+                          AlertBox.showToast("Something wrong");
                         },
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                         color: PRIMARY_COLOR,

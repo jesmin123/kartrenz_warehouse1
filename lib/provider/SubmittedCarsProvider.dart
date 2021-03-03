@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:kartenz/api/api.dart';
 import 'package:kartenz/model/CarWareHouse1Model.dart';
+import 'package:kartenz/model/RespObj.dart';
 
 class SubmittedCarsProvider extends ChangeNotifier{
 
@@ -79,12 +80,12 @@ class SubmittedCarsProvider extends ChangeNotifier{
 
   }
 
-  Future delete(String token,String id)async{
+  Future<bool> delete(String token,String id)async{
     Map sendData = {"id": id};
-    api.postData("carwarehouse/delete",header: token, mBody: jsonEncode(sendData)).then((respObj) {
+    RespObj respObj = await api.postData("carwarehouse/delete",header: token, mBody: jsonEncode(sendData));
       if(respObj.status){
-        getSubmittedCars(token);
+        await getSubmittedCars(token);
       }
-    });
+      return respObj.status;
   }
 }

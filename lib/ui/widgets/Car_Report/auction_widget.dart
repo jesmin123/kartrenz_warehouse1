@@ -63,7 +63,7 @@ class _AuctionwidgetState extends State<Auctionwidget> {
                         ],
                       ),
                       SizedBox(height: 16,),
-                      auctionProvider.carReport!=null?SingleChildScrollView(
+                      auctionProvider.auction!=null?SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: DataTable(
                             columns: [
@@ -71,21 +71,20 @@ class _AuctionwidgetState extends State<Auctionwidget> {
                               DataColumn(label: Text('Reg No', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
                               DataColumn(label: Text('Warehouse Code', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
                               DataColumn(label: Text('Approval Status', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
-                              DataColumn(label: Text('Current Status', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
                               DataColumn(label: Text('Broker', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
                               DataColumn(label: Text('Expected Price', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
                               DataColumn(label: Text('Current Price', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
                             ],
-                            rows: auctionProvider.transactions.map((e) => DataRow(
+                            rows: auctionProvider.auction.map((e) => DataRow(
                                 cells: [
 
-                                  DataCell(Text("${e.carWarehouseModel.id}")),
-                                  DataCell(Text("${e.carWarehouseModel.regNo}")),
-                                  DataCell(Text("${e.carWarehouseModel.code}")),
-                                  DataCell(Text("${""}")),
-                                  DataCell(Text("${""}")),
+                                  DataCell(Text("${e.id}")),
+                                  DataCell(Text("${e.cars.regNo}")),
+                                  DataCell(Text("${e.code}")),
+                                  DataCell(Text("${e.cars.isApproved}")),
+                                  DataCell(Text("${e.}")),
                                   DataCell(Text("${e.broker}")),
-                                  DataCell(Text("${""}")),
+                                  DataCell(Text("${e.cars.auctionBidPrice}")),
                                   DataCell(Text("${""}")),
 
                                 ]
