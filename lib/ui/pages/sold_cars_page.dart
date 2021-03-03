@@ -11,6 +11,7 @@ class SoldCarPage extends StatefulWidget {
 }
 
 class _SoldCarPageState extends State<SoldCarPage> {
+  bool sort=false;
   @override
   Widget build(BuildContext context) {
     AuctionProvider auctionProvider = Provider.of(context);
@@ -59,6 +60,8 @@ class _SoldCarPageState extends State<SoldCarPage> {
                 auctionProvider.transactions!=null?SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: DataTable(
+                    sortColumnIndex: 6,
+                      sortAscending: sort,
                       columns: [
                         DataColumn(label: Text('Cars', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
                         DataColumn(label: Text('Varient', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
@@ -66,7 +69,13 @@ class _SoldCarPageState extends State<SoldCarPage> {
                         DataColumn(label: Text('Year', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
                         DataColumn(label: Text('Fuel', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
                         DataColumn(label: Text('Reg No', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
-                        DataColumn(label: Text('Amount', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
+                        DataColumn(label: Text('Amount', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR)),onSort:  (columnIndex,ascending){
+                          setState(() {
+                            sort = !sort;
+
+                          });
+                          onSortColum(columnIndex, ascending,auctionProvider);
+                        }),
                         DataColumn(label: Text('Broker', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
                       ],
                       rows: auctionProvider.transactions.map((e) => DataRow(
@@ -94,4 +103,13 @@ class _SoldCarPageState extends State<SoldCarPage> {
 
     );
   }
+  onSortColum(int columnIndex, bool ascending, AuctionProvider auctionProvider) {
+   if(columnIndex==6)
+        if (ascending) {
+          auctionProvider.transactions.sort((a,b)=>a.amount.compareTo(b.amount));
+        } else {
+          auctionProvider.transactions.sort((a,b)=>b.amount.compareTo(a.amount));
+        }
+  }
+
 }
