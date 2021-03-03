@@ -49,6 +49,7 @@ class ExteriorTyresModel{
   String  LHSRearTyre;
   String RHSRearTyre;
   String SpareTyre;
+  int rating;
   dynamic custom;
 
   ExteriorTyresModel({this.Roof, this.BonnetorHood, this.DickyDoororBootDoor,
@@ -63,7 +64,7 @@ class ExteriorTyresModel{
     this.RHSFogLight, this.LHSHeadlight, this.LHSTaillight, this.RHSHeadlight,
     this.RHStaillight, this.ORVM, this.ORVMLHS, this.ORVMRHS,
     this.AlloyWheels, this.Tyre, this.LHSFrontTyre, this.RHSFrontTyre,
-    this.LHSRearTyre, this.RHSRearTyre, this.SpareTyre, this.custom});
+    this.LHSRearTyre, this.RHSRearTyre, this.SpareTyre,this.rating, this.custom});
 
   factory ExteriorTyresModel.fromJSON(Map<dynamic,dynamic> json){
     try{
@@ -86,5 +87,14 @@ class ExteriorTyresModel{
       return null;
     }
   }
+  Map toJson()=>{
+    "Roof":Roof,"BonnetorHood":BonnetorHood,"DickyDoororBootDoor":DickyDoororBootDoor,"QuarterPanel":QuarterPanel,"QuarterPanelLHS":QuarterPanelLHS,"QuarterPanelRHS":QuarterPanelRHS,
+    "Fender":Fender,"FenderLHS":FenderLHS,"FenderRHS":FenderRHS,"Pillar":Pillar,"Apron":Apron,"Firewall":Firewall,"CowlTop":CowlTop,"UpperCrossMember":UpperCrossMember,"FrontShow":FrontShow,
+    "LowerCrossMember":LowerCrossMember,"RadiatorSupport":RadiatorSupport,"RunningBorder":RunningBorder,"RunningBorderLHS":RunningBorderLHS,"RunningBorderRHS":RunningBorderRHS,"Door":Door,
+    "DoorLHSFront":DoorLHSFront,"DoorLHSRear":DoorLHSRear,"DoorRHSFront":DoorRHSFront,"DoorRHSRear":DoorRHSRear,"BumperFront":BumperFront,"BumperRear":BumperRear,"WindshieldFront":WindshieldFront,
+    "WindshieldBack":WindshieldBack,"LHSFogLight":LHSFogLight,"RHSFogLight":RHSFogLight,"LHSHeadlight":LHSHeadlight,"LHSTaillight":LHSTaillight,"RHSHeadlight":RHSHeadlight,"RHStaillight":RHStaillight,
+    "ORVM":ORVM,"ORVMLHS":ORVMLHS,"ORVMRHS":ORVMRHS,"AlloyWheels":AlloyWheels,"Tyre":Tyre,"LHSFrontTyre":LHSFrontTyre,"RHSFrontTyre":RHSFrontTyre,"LHSRearTyre":LHSRearTyre,"RHSRearTyre":RHSRearTyre,
+    "SpareTyre":SpareTyre,"rating":rating
+  };
 
 }

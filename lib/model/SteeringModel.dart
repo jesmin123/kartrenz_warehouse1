@@ -14,5 +14,8 @@ class SteeringModel{
       return null;
     }
   }
+  Map toJson()=>{
+    "steering":steering,"suspension":suspension,"brake":brake,"rating":rating
+  };
 
 }

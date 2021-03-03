@@ -9,7 +9,7 @@ class BuyModel{
   CarWarehouseModel car;
   bool isPaid;
   String id;
-BrokerModel brokerModel;
+  BrokerModel brokerModel;
   String code;
 
   BuyModel({this.car, this.isPaid, this.id,this.brokerModel,this.code});

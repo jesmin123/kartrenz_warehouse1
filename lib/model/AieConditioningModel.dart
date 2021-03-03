@@ -18,4 +18,8 @@ class ACModel {
       return null;
     }
   }
+
+  Map toJson()=>{
+    "ACCooling":ACCooling,"Heater":Heater,"ClimateChangeControlAC":ClimateChangeControlAC,"BlowerMotorNoise": BlowerMotorNoise,"rating":rating
+  };
 }
