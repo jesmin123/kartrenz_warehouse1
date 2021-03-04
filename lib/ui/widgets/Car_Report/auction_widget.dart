@@ -4,6 +4,7 @@ import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/provider/AuctionProvider.dart';
 import 'package:provider/provider.dart';
+// Dummy comment
 
 class Auctionwidget extends StatefulWidget {
   @override
