@@ -72,4 +72,13 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+
+  decideFirstPage(BuildContext context) async {
+    final AuthProvider authProvider = Provider.of(context,listen: false);
+    bool isLoggedIN = await authProvider.checkLoginLocal();
+    if(isLoggedIN){
+      return HOME_PAGE;
+    }
+    return LOGIN_PAGE;
+  }
 }

@@ -52,6 +52,7 @@ class CarWarehouseModel{
   int ratingEngine=0;
   LoginModel loginModel;
 
+
   CarWarehouseModel({this.id,this.auctionBidPrice,this.car,this.isSold, this.year, this.fuel, this.variant, this.basePrice,
     this.kilometers, this.regNo, this.rCNo, this.highlights, this.engine,
     this.engineVideo, this.engineSound, this.exhaustSmoke,

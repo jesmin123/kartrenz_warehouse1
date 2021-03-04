@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/strings.dart';
+import 'package:kartenz/provider/auth_provider.dart';
 import 'package:kartenz/provider/basic_providers.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:kartenz/ui/widgets/admin_contact_tab.dart';
@@ -31,6 +32,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     BasicProvider basicProvider = Provider.of(context);
+
 
     return WillPopScope(
       onWillPop: ()async{
@@ -97,7 +99,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
 }
 
-Widget alertBox(BuildContext context){
+Widget alertBox(BuildContext context,AuthProvider authProvider){
   showDialog(
       context: context,
       builder: (BuildContext context){
@@ -124,6 +126,7 @@ Widget alertBox(BuildContext context){
                   FlatButton(
                       onPressed: (){
                         Navigator.pushNamed(context, LOGIN_PAGE);
+                        authProvider.logout();
                       },
                       child: Text("Yes", style: AppFontStyle.labelTextStyle2(PRIMARY_COLOR),)
                   ),
@@ -172,6 +175,7 @@ Widget showAlert(BuildContext context){
 }
 Widget drawer(BuildContext context){
   FormData formData = Provider.of(context);
+  AuthProvider authProvider=Provider.of(context);
   return Drawer(
     child: Stack(
       children: [
@@ -261,7 +265,7 @@ Widget drawer(BuildContext context){
                   SizedBox(height: 24,),
                   GestureDetector(
                     onTap: (){
-                      alertBox(context);
+                      alertBox(context,authProvider);
                     },
                     child: Row(
                       children: [

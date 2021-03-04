@@ -50,6 +50,7 @@ class CarWarehouseModel1{
   String status="";
   int ratingDetails=0;
   int ratingEngine=0;
+  String description;
 
   CarWarehouseModel1({this.id,this.auctionBidPrice,this.car,this.isSold, this.year, this.fuel, this.variant, this.basePrice,
     this.kilometers, this.regNo, this.rCNo, this.highlights, this.engine,
@@ -58,7 +59,7 @@ class CarWarehouseModel1{
     this.engineOilLevelDipstick, this.battery, this.coolant,
     this.airConditioning, this.electricals, this.documentDetails,
     this.steeringSuspensionAndBrakes, this.isAuction, this.isApproved,this.company,
-    this.status, this.ratingDetails, this.ratingEngine,this.supportNo,this.exteriorPlusTyres,this.code,this.msg});
+    this.status, this.ratingDetails, this.ratingEngine,this.supportNo,this.exteriorPlusTyres,this.code,this.msg,this.description});
 
   factory CarWarehouseModel1.fromJSON(Map<dynamic, dynamic> json){
     try{
@@ -69,7 +70,7 @@ class CarWarehouseModel1{
           battery: json['battery'], coolant: json['coolant'],airConditioning: json['airConditioning'],electricals: json['electricals'],
           documentDetails: json['documentDetails'],steeringSuspensionAndBrakes: json['steeringSuspensionAndBrakes'], isAuction: json['isAuction'],
           isApproved: json['isApproved'],status: json['status'],ratingDetails: json['ratingDetails'],ratingEngine: json['ratingEngine'],exteriorPlusTyres: json['exteriorPlusTyres'],
-          code: json['code'],msg: json["msg"]
+          code: json['code'],msg: json["msg"],description: json['description']
       );
     }catch (e){
       print("Warehouse Model Exception : "+ e.toString());
