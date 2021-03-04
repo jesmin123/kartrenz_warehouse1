@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/model/CarWareHouse1Model.dart';
-import 'file:///F:/AndroidStudioProjects/kartenz/lib/model/Upload_Model/Upload_Model.dart';
+import 'package:kartenz/model/Upload_Model/Upload_Model.dart';
+
 import 'package:kartenz/provider/AuctionProvider.dart';
 import 'package:kartenz/provider/auth_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
