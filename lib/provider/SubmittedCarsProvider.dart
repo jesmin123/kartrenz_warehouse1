@@ -3,14 +3,22 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:kartenz/api/api.dart';
 import 'package:kartenz/model/CarWareHouse1Model.dart';
+import 'package:kartenz/model/ImageModel.dart';
 import 'package:kartenz/model/RespObj.dart';
 
 class SubmittedCarsProvider extends ChangeNotifier{
 
   List<CarWarehouseModel1> _submittedCars;
   List<CarWarehouseModel1> _acceptedCars;
+  List<ImageModel> _images;
 
 
+  List<ImageModel> get images => _images;
+
+  set images(List<ImageModel> value) {
+    _images = value;
+
+  }
 
   List<CarWarehouseModel1> _modifyCars;
   List<CarWarehouseModel1> _rejectedCars;
@@ -25,6 +33,7 @@ class SubmittedCarsProvider extends ChangeNotifier{
 
   Future getSubmittedCars(String token)async{
     List<CarWarehouseModel1> temp=[];
+    List<ImageModel> tempImage=[];
     List<CarWarehouseModel1> acceptedTemp=[];
     List<CarWarehouseModel1> rejectedTemp=[];
     List<CarWarehouseModel1> modifyTemp=[];
@@ -33,12 +42,23 @@ class SubmittedCarsProvider extends ChangeNotifier{
       if(respObj.status){
         List<dynamic> data=respObj.        data;
         data.forEach((element) {
-          element=element["_doc"];
-          CarWarehouseModel1 carWarehouseModel=CarWarehouseModel1.fromJSON(element);
+
+          CarWarehouseModel1 carWarehouseModel=CarWarehouseModel1.fromJSON(element["_doc"]);
+          List<dynamic> data1 = element['images'];
+          data1.forEach((element) {
+            ImageModel imageModel=ImageModel.fromJSON(element);
+            if(imageModel!=null){
+              tempImage.add(imageModel);
+            }
+
+          });
           if(carWarehouseModel!=null){
+            carWarehouseModel.imageModel = tempImage;
             temp.add(carWarehouseModel);
           }
         });
+
+
       }
       temp.forEach((element) {
         if(element.status == "APPROVED"){

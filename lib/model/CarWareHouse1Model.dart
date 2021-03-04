@@ -6,6 +6,8 @@ import 'package:kartenz/model/ExteriorTyresModel.dart';
 import 'package:kartenz/model/SteeringModel.dart';
 import 'package:kartenz/model/Upload_Model/EngineModel.dart';
 
+import 'package:kartenz/model/ImageModel.dart';
+
 import 'AuctionModel.dart';
 import 'CarModel.dart';
 import 'Company1Model.dart';
@@ -58,6 +60,7 @@ class CarWarehouseModel1{
   int ratingDetails=0;
   int ratingEngine=0;
   String description;
+  List<ImageModel> imageModel = [];
 
   CarWarehouseModel1({this.id,this.auctionBidPrice,this.car,this.isSold, this.year, this.fuel, this.variant, this.basePrice,
     this.kilometers, this.regNo, this.rCNo, this.highlights, this.engine,
@@ -140,6 +143,16 @@ class CarWarehouseModel1{
       'coolant': coolant,
     };
     return engineDetails;
+  }
+
+  String getMainImage(){
+    CarWarehouseModel1 carWarehouseModel1;
+    if(carWarehouseModel1.imageModel.first!=null){
+      return carWarehouseModel1.imageModel.first.image;
+    }
+    else{
+      return null;
+    }
   }
 
   set auctionId(String value) {
