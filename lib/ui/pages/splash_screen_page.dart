@@ -59,8 +59,6 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
         auctionProvider.getTransaction(authProvider.loginModel.id, authProvider.loginModel.token);
         auctionProvider.getBuyAllPurchase( authProvider.loginModel.token,authProvider.loginModel.id);
         auctionProvider.getStateList(authProvider.loginModel.token);
-        purchaseProvider.postBuyCode(authProvider.loginModel.token, "10kCd9RZZ");
-        purchaseProvider.postAuctionCode(authProvider.loginModel.token, "10kCd9RZZ");
         auctionProvider.postListRt(authProvider.loginModel.token, "5fd8459b3121f4001fe2722b");
         submittedCarsProvider.getSubmittedCars(authProvider.loginModel.token);
         auctionProvider.postUploadNewCar(authProvider.loginModel.token);

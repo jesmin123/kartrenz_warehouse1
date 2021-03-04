@@ -139,9 +139,9 @@ class CarWarehouseModel1{
   }
 
   String getMainImage(){
-    CarWarehouseModel1 carWarehouseModel1;
-    if(carWarehouseModel1.imageModel.first!=null){
-      return carWarehouseModel1.imageModel.first.image;
+
+    if(imageModel!=null && imageModel.length>0){
+      return imageModel.first.image;
     }
     else{
       return null;
