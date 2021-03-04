@@ -7,6 +7,8 @@ import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/constant_widgets.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:kartenz/model/CarWareHouse1Model.dart';
+import 'package:kartenz/model/ImageModel.dart';
+import 'package:kartenz/provider/AuctionProvider.dart';
 import 'package:kartenz/provider/SubmittedCarsProvider.dart';
 import 'package:kartenz/provider/auth_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
@@ -31,8 +33,10 @@ class _ExpandDetailPageState extends State<ExpandDetailPage> {
 
     FormData formData = Provider.of(context);
     SubmittedCarsProvider submittedCarsProvider = Provider.of(context);
+    AuctionProvider auctionProvider = Provider.of(context);
     AuthProvider authProvider = Provider.of(context);
     CarWarehouseModel1 car = submittedCarsProvider.activeCar;
+
 
 
 
@@ -144,13 +148,13 @@ class _ExpandDetailPageState extends State<ExpandDetailPage> {
                 Card(
                   child: Column(
                     children: [
-                      airWidget("ACCooling", car.getACDetail().ACCooling),
+                      airWidget("ACCooling", car.getACDetail().ACCooling,images: auctionProvider.carImages['ACCooling']),
                       Divider(),
-                      airWidget("Heater", car.getACDetail().Heater),
+                      airWidget("Heater", car.getACDetail().Heater,images: auctionProvider.carImages['Heater,']),
                       Divider(),
-                      airWidget("ClimateChangeControlAC", car.getACDetail().ClimateChangeControlAC),
+                      airWidget("ClimateChangeControlAC", car.getACDetail().ClimateChangeControlAC,images: auctionProvider.carImages['ClimateChangeControlAC']),
                       Divider(),
-                      airWidget("BlowerMotorNoise", car.getACDetail().BlowerMotorNoise),
+                      airWidget("BlowerMotorNoise", car.getACDetail().BlowerMotorNoise, images: auctionProvider.carImages['BlowerMotorNoise']),
                       Divider(),
                       airWidget("Rating", car.getACDetail().rating.toString()),
                     ],
@@ -172,35 +176,35 @@ class _ExpandDetailPageState extends State<ExpandDetailPage> {
                     Card(
                       child: Column(
                         children: [
-                          airWidget("LHS Front", car.getElectricDetail().powerWindowLHSFront),
+                          airWidget("LHS Front", car.getElectricDetail().powerWindowLHSFront, images: auctionProvider.carImages['powerWindowLHSFront']),
                           Divider(),
-                          airWidget("LHS Rear", car.getElectricDetail().powerWindowLHSRear),
+                          airWidget("LHS Rear", car.getElectricDetail().powerWindowLHSRear, images: auctionProvider.carImages['powerWindowLHSRear']),
                           Divider(),
-                          airWidget("RHS Front", car.getElectricDetail().powerWindowRHSFront),
+                          airWidget("RHS Front", car.getElectricDetail().powerWindowRHSFront, images: auctionProvider.carImages['powerWindowRHSFront']),
                           Divider(),
-                          airWidget("RHS Rear", car.getElectricDetail().powerWindowRHSRear),
+                          airWidget("RHS Rear", car.getElectricDetail().powerWindowRHSRear, images: auctionProvider.carImages['powerWindowRHSRear']),
                           Divider(),
-                          airWidget("airbagFeature", car.getElectricDetail().airbagFeature),
+                          airWidget("airbagFeature", car.getElectricDetail().airbagFeature, images: auctionProvider.carImages['musicSystem']),
                           Divider(),
-                          airWidget("musicSystem", car.getElectricDetail().musicSystem),
+                          airWidget("musicSystem", car.getElectricDetail().musicSystem, images: auctionProvider.carImages['musicSystem']),
                           Divider(),
-                          airWidget("leatherSeat", car.getElectricDetail().leatherSeat),
+                          airWidget("leatherSeat", car.getElectricDetail().leatherSeat, images: auctionProvider.carImages['leatherSeat']),
                           Divider(),
-                          airWidget("fabricSeat", car.getElectricDetail().fabricSeat),
+                          airWidget("fabricSeat", car.getElectricDetail().fabricSeat, images: auctionProvider.carImages['fabricSeat']),
                           Divider(),
-                          airWidget("sunroof", car.getElectricDetail().sunroof),
+                          airWidget("sunroof", car.getElectricDetail().sunroof, images: auctionProvider.carImages['sunroof']),
                           Divider(),
-                          airWidget("steelMountedAudioControl", car.getElectricDetail().steelMountedAudioControl),
+                          airWidget("steelMountedAudioControl", car.getElectricDetail().steelMountedAudioControl, images: auctionProvider.carImages['steelMountedAudioControl']),
                           Divider(),
-                          airWidget("ABS", car.getElectricDetail().ABS),
+                          airWidget("ABS", car.getElectricDetail().ABS, images: auctionProvider.carImages['ABS']),
                           Divider(),
-                          airWidget("rearDefogger", car.getElectricDetail().rearDefogger),
+                          airWidget("rearDefogger", car.getElectricDetail().rearDefogger, images: auctionProvider.carImages['rearDefogger']),
                           Divider(),
-                          airWidget("reverseCamera", car.getElectricDetail().reverseCamera),
+                          airWidget("reverseCamera", car.getElectricDetail().reverseCamera, images: auctionProvider.carImages['reverseCamera']),
                           Divider(),
-                          airWidget("electrical", car.getElectricDetail().electrical),
+                          airWidget("electrical", car.getElectricDetail().electrical, images: auctionProvider.carImages['BlowerMotorNoise']),
                           Divider(),
-                          airWidget("interior", car.getElectricDetail().interior),
+                          airWidget("interior", car.getElectricDetail().interior, images: auctionProvider.carImages['BlowerMotorNoise']),
                           Divider(),
                           airWidget("Rating", car.getElectricDetail().rating.toString()),
                           Divider(),
@@ -222,11 +226,11 @@ class _ExpandDetailPageState extends State<ExpandDetailPage> {
                     Card(
                       child: Column(
                         children: [
-                          airWidget("Roof", car.getExteriorDetail().Roof),
+                          airWidget("Roof", car.getExteriorDetail().Roof, images: auctionProvider.carImages['Roof']),
                           Divider(),
-                          airWidget("BonnetorHood", car.getExteriorDetail().BonnetorHood),
+                          airWidget("BonnetorHood", car.getExteriorDetail().BonnetorHood, images: auctionProvider.carImages['BonnetorHood']),
                           Divider(),
-                          airWidget("DickyDoororBootDoor", car.getExteriorDetail().DickyDoororBootDoor),
+                          airWidget("DickyDoororBootDoor", car.getExteriorDetail().DickyDoororBootDoor, images: auctionProvider.carImages['DickyDoororBootDoor']),
                         ],
                       ),
                     ),
@@ -237,11 +241,9 @@ class _ExpandDetailPageState extends State<ExpandDetailPage> {
                     Card(
                       child: Column(
                         children: [
-                          airWidget("QuarterPanel", car.getExteriorDetail().QuarterPanel),
+                          airWidget("QuarterPanelLHS", car.getExteriorDetail().QuarterPanelLHS, images: auctionProvider.carImages['QuarterPanelLHS']),
                           Divider(),
-                          airWidget("QuarterPanelLHS", car.getExteriorDetail().QuarterPanelLHS),
-                          Divider(),
-                          airWidget("QuarterPanelRHS", car.getExteriorDetail().QuarterPanelRHS),
+                          airWidget("QuarterPanelRHS", car.getExteriorDetail().QuarterPanelRHS, images: auctionProvider.carImages['QuarterPanelRHS']),
                         ],
                       ),
                     ),
@@ -252,25 +254,24 @@ class _ExpandDetailPageState extends State<ExpandDetailPage> {
                     Card(
                       child: Column(
                         children: [
-                          airWidget("Fender", car.getExteriorDetail().Fender),
+
+                          airWidget("FenderLHS", car.getExteriorDetail().FenderLHS, images: auctionProvider.carImages['FenderLHS']),
                           Divider(),
-                          airWidget("FenderLHS", car.getExteriorDetail().FenderLHS),
+                          airWidget("FenderRHS", car.getExteriorDetail().FenderRHS, images: auctionProvider.carImages['FenderRHS']),
                           Divider(),
-                          airWidget("FenderRHS", car.getExteriorDetail().FenderRHS),
+                          airWidget("Pillar", car.getExteriorDetail().Pillar, images: auctionProvider.carImages['Pillar']),
                           Divider(),
-                          airWidget("Pillar", car.getExteriorDetail().Pillar),
+                          airWidget("Apron", car.getExteriorDetail().Apron, images: auctionProvider.carImages['Apron']),
                           Divider(),
-                          airWidget("Apron", car.getExteriorDetail().Apron),
+                          airWidget("Firewall", car.getExteriorDetail().Firewall, images: auctionProvider.carImages['Firewall']),
                           Divider(),
-                          airWidget("Firewall", car.getExteriorDetail().Firewall),
+                          airWidget("CowlTop", car.getExteriorDetail().CowlTop, images: auctionProvider.carImages['CowlTop']),
                           Divider(),
-                          airWidget("CowlTop", car.getExteriorDetail().CowlTop),
+                          airWidget("UpperCrossMember", car.getExteriorDetail().UpperCrossMember, images: auctionProvider.carImages['UpperCrossMember']),
                           Divider(),
-                          airWidget("UpperCrossMember", car.getExteriorDetail().UpperCrossMember),
+                          airWidget("LowerCrossMember", car.getExteriorDetail().LowerCrossMember, images: auctionProvider.carImages['LowerCrossMember']),
                           Divider(),
-                          airWidget("LowerCrossMember", car.getExteriorDetail().LowerCrossMember),
-                          Divider(),
-                          airWidget("RadiatorSupport", car.getExteriorDetail().RadiatorSupport),
+                          airWidget("RadiatorSupport", car.getExteriorDetail().RadiatorSupport, images: auctionProvider.carImages['RadiatorSupport']),
                         ],
                       ),
                     ),
@@ -281,11 +282,9 @@ class _ExpandDetailPageState extends State<ExpandDetailPage> {
                     Card(
                       child: Column(
                         children: [
-                          airWidget("RunningBorder", car.getExteriorDetail().RunningBorder),
+                          airWidget("RunningBorderLHS", car.getExteriorDetail().RunningBorderLHS, images: auctionProvider.carImages['RunningBorderLHS']),
                           Divider(),
-                          airWidget("RunningBorderLHS", car.getExteriorDetail().RunningBorderLHS),
-                          Divider(),
-                          airWidget("RunningBorderRHS", car.getExteriorDetail().RunningBorderRHS),
+                          airWidget("RunningBorderRHS", car.getExteriorDetail().RunningBorderRHS, images: auctionProvider.carImages['RunningBorderRHS']),
                         ],
                       ),
                     ),
@@ -296,15 +295,13 @@ class _ExpandDetailPageState extends State<ExpandDetailPage> {
                     Card(
                       child: Column(
                         children: [
-                          airWidget("Door ", car.getExteriorDetail().Door),
+                          airWidget("DoorLHSFront ", car.getExteriorDetail().DoorLHSFront, images: auctionProvider.carImages['DoorLHSFront']),
                           Divider(),
-                          airWidget("DoorLHSFront ", car.getExteriorDetail().DoorLHSFront),
+                          airWidget("DoorLHSRear", car.getExteriorDetail().DoorLHSRear, images: auctionProvider.carImages['DoorLHSRear']),
                           Divider(),
-                          airWidget("DoorLHSRear", car.getExteriorDetail().DoorLHSRear),
+                          airWidget("DoorRHSFront", car.getExteriorDetail().DoorRHSFront, images: auctionProvider.carImages['DoorRHSFront']),
                           Divider(),
-                          airWidget("DoorRHSFront", car.getExteriorDetail().DoorRHSFront),
-                          Divider(),
-                          airWidget("DoorRHSRear", car.getExteriorDetail().DoorRHSRear),
+                          airWidget("DoorRHSRear", car.getExteriorDetail().DoorRHSRear, images: auctionProvider.carImages['DoorRHSRear']),
                         ],
                       ),
                     ),
@@ -315,9 +312,9 @@ class _ExpandDetailPageState extends State<ExpandDetailPage> {
                     Card(
                       child: Column(
                         children: [
-                          airWidget("BumperFront ", car.getExteriorDetail().BumperFront),
+                          airWidget("BumperFront ", car.getExteriorDetail().BumperFront, images: auctionProvider.carImages['BumperFront']),
                           Divider(),
-                          airWidget("BumperRear", car.getExteriorDetail().BumperRear),
+                          airWidget("BumperRear", car.getExteriorDetail().BumperRear, images: auctionProvider.carImages['BumperRear']),
                         ],
                       ),
                     ),
@@ -328,9 +325,9 @@ class _ExpandDetailPageState extends State<ExpandDetailPage> {
                     Card(
                       child: Column(
                         children: [
-                          airWidget("WindshieldFront ", car.getExteriorDetail().WindshieldFront),
+                          airWidget("WindshieldFront ", car.getExteriorDetail().WindshieldFront, images: auctionProvider.carImages['WindshieldFront']),
                           Divider(),
-                          airWidget("WindshieldBack", car.getExteriorDetail().WindshieldBack),
+                          airWidget("WindshieldBack", car.getExteriorDetail().WindshieldBack, images: auctionProvider.carImages['WindshieldBack']),
                         ],
                       ),
                     ),
@@ -341,17 +338,17 @@ class _ExpandDetailPageState extends State<ExpandDetailPage> {
                     Card(
                       child: Column(
                         children: [
-                          airWidget("LHSFogLight", car.getExteriorDetail().LHSFogLight),
+                          airWidget("LHSFogLight", car.getExteriorDetail().LHSFogLight, images: auctionProvider.carImages['LHSFogLight']),
                           Divider(),
-                          airWidget("RHSFogLight", car.getExteriorDetail().RHSFogLight),
+                          airWidget("RHSFogLight", car.getExteriorDetail().RHSFogLight, images: auctionProvider.carImages['RHSFogLight']),
                           Divider(),
-                          airWidget("LHSHeadlight", car.getExteriorDetail().LHSHeadlight),
+                          airWidget("LHSHeadlight", car.getExteriorDetail().LHSHeadlight, images: auctionProvider.carImages['LHSHeadlight']),
                           Divider(),
-                          airWidget("LHSTaillight", car.getExteriorDetail().LHSTaillight),
+                          airWidget("LHSTaillight", car.getExteriorDetail().LHSTaillight, images: auctionProvider.carImages['LHSTaillight']),
                           Divider(),
-                          airWidget("RHSHeadlight", car.getExteriorDetail().RHSHeadlight),
+                          airWidget("RHSHeadlight", car.getExteriorDetail().RHSHeadlight, images: auctionProvider.carImages['RHSHeadlight']),
                           Divider(),
-                          airWidget("RHStaillight", car.getExteriorDetail().RHStaillight),
+                          airWidget("RHStaillight", car.getExteriorDetail().RHStaillight, images: auctionProvider.carImages['RHStaillight']),
                         ],
                       ),
                     ),
@@ -362,13 +359,11 @@ class _ExpandDetailPageState extends State<ExpandDetailPage> {
                     Card(
                       child: Column(
                         children: [
-                          airWidget("ORVM", car.getExteriorDetail().ORVM),
+                          airWidget("ORVMLHS", car.getExteriorDetail().ORVMLHS, images: auctionProvider.carImages['ORVMLHS']),
                           Divider(),
-                          airWidget("ORVMLHS", car.getExteriorDetail().ORVMLHS),
+                          airWidget("ORVMRHS", car.getExteriorDetail().ORVMRHS, images: auctionProvider.carImages['ORVMRHS']),
                           Divider(),
-                          airWidget("ORVMRHS", car.getExteriorDetail().ORVMRHS),
-                          Divider(),
-                          airWidget("AlloyWheels", car.getExteriorDetail().AlloyWheels),
+                          airWidget("AlloyWheels", car.getExteriorDetail().AlloyWheels, images: auctionProvider.carImages['AlloyWheels']),
                         ],
                       ),
                     ),
@@ -379,19 +374,17 @@ class _ExpandDetailPageState extends State<ExpandDetailPage> {
                     Card(
                       child: Column(
                         children: [
-                          airWidget2("Tyre"),
+                          airWidget2("LHSFrontTyre", car.getExteriorDetail().LHSFrontTyre, images: auctionProvider.carImages['LHSFrontTyre'] ),
                           Divider(),
-                          airWidget2("LHSFrontTyre"),
+                          airWidget2("RHSFrontTyre", car.getExteriorDetail().RHSFrontTyre, images: auctionProvider.carImages['RHSFrontTyre']),
                           Divider(),
-                          airWidget2("RHSFrontTyre"),
+                          airWidget2("LHSRearTyre", car.getExteriorDetail().LHSRearTyre, images: auctionProvider.carImages['LHSRearTyre']),
                           Divider(),
-                          airWidget2("LHSRearTyre"),
+                          airWidget2("RHSRearTyre", car.getExteriorDetail().RHSRearTyre, images: auctionProvider.carImages['RHSRearTyre']),
                           Divider(),
-                          airWidget2("RHSRearTyre"),
+                          airWidget2("SpareTyre", car.getExteriorDetail().SpareTyre, images: auctionProvider.carImages['SpareTyre']),
                           Divider(),
-                          airWidget2("SpareTyre"),
-                          Divider(),
-                          airWidget("rating", "2"),
+                          airWidget("rating", car.getExteriorDetail().rating.toString()),
                         ],
                       ),
                     ),
@@ -401,18 +394,18 @@ class _ExpandDetailPageState extends State<ExpandDetailPage> {
             ),
             ExpansionTile(
               leading: Text("Steering Suspension + Brakes", style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR, textSize: 16.0)),
-              trailing: rating("2"),
+              trailing: rating("${car.getSteeringDetail().rating}"),
               children: [
                 Card(
                   child: Column(
                     children: [
-                      airWidget2("steering"),
+                      airWidget2("steering", car.getSteeringDetail().steering, images: auctionProvider.carImages['steering']),
                       Divider(),
-                      airWidget2("suspension"),
+                      airWidget2("suspension", car.getSteeringDetail().suspension, images: auctionProvider.carImages['suspension']),
                       Divider(),
-                      airWidget2("brake"),
+                      airWidget2("brake", car.getSteeringDetail().brake, images: auctionProvider.carImages['brake']),
                       Divider(),
-                      airWidget("rating", "2"),
+                      airWidget("rating", car.getSteeringDetail().rating.toString()),
                     ],
                   ),
                 ),
@@ -533,7 +526,7 @@ Widget enginetWidget(String tittle1, {String tittle2, double height, String url}
 }
 
 
-Widget airWidget(String tittle1, String tittle2){
+Widget airWidget(String tittle1, String tittle2,{List<ImageModel> images}){
   return Container(
     child: Padding(
       padding: const EdgeInsets.only(left: 10, top: 12, bottom: 12, right: 10),
@@ -547,10 +540,10 @@ Widget airWidget(String tittle1, String tittle2){
               Text(tittle2, style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR, textSize: 14.0) ),
             ],
           ),
-          tittle2=="yes"?Container(
+          tittle2=="yes" && images!=null?Container(
             width: 200,
             height: 200,
-            child: Image.asset("assets/images/222.jpg"),
+            child: images.length>0?ImageUtil.network(images.first.image):Container(),
           ):Container()
 
         ],
@@ -558,7 +551,7 @@ Widget airWidget(String tittle1, String tittle2){
     ),
   );
 }
-Widget airWidget2(String tittle1,){
+Widget airWidget2(String tittle1, String tittle2, {List<ImageModel> images}){
   return Container(
     child: Padding(
       padding: const EdgeInsets.only(left: 10, top: 12, bottom: 12, right: 10),
@@ -566,10 +559,15 @@ Widget airWidget2(String tittle1,){
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(tittle1, style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR, textSize: 14.0) ),
-          Container(
-            width: 200,
-            height: 200,
-            child: Image.asset("assets/images/222.jpg"),
+          Column(
+            children: [
+              tittle2!=null?Text(tittle2, style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR, textSize: 14.0)):Text(''),
+              images!=null?Container(
+                width: 200,
+                height: 200,
+                child: images.length>0?ImageUtil.network(images.first.image):Container(),
+              ):Container(),
+            ],
           )
         ],
       ),

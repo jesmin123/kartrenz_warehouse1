@@ -4,6 +4,7 @@ import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/constant_widgets.dart';
 import 'package:kartenz/constants/strings.dart';
 import 'package:kartenz/model/CarWareHouse1Model.dart';
+import 'package:kartenz/provider/AuctionProvider.dart';
 import 'package:kartenz/provider/SubmittedCarsProvider.dart';
 import 'package:kartenz/provider/auth_provider.dart';
 import 'package:kartenz/ui/utilis/no_image_utilis.dart';
@@ -15,6 +16,13 @@ class SubmittedDetailPage extends StatefulWidget {
 }
 
 class _SubmittedDetailPageState extends State<SubmittedDetailPage> {
+
+  @override
+  void initState() {
+   initData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     SubmittedCarsProvider submittedCarsProvider = Provider.of(context);
@@ -117,6 +125,15 @@ class _SubmittedDetailPageState extends State<SubmittedDetailPage> {
         ),
       ),
     );
+  }
+
+  void initData() {
+    SubmittedCarsProvider submittedCarsProvider = Provider.of(context,listen: false);
+    AuctionProvider auctionProvider = Provider.of(context,listen: false);
+    AuthProvider authProvider = Provider.of(context,listen: false);
+
+    auctionProvider.postCarImage(authProvider.loginModel.id, submittedCarsProvider.activeCar.id);
+
   }
 }
 
