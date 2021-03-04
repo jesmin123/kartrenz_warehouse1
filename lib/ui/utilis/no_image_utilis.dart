@@ -15,7 +15,7 @@ class ImageUtil{
       );
     }
     return CachedNetworkImage(
-      imageUrl: ApiUtils.imagebaseUrl+url,
+      imageUrl: ApiUtils.imagebaseUrl+"${url}",
       fit: BoxFit.fitHeight,
       height: 120,
       errorWidget: (context,url,error){
@@ -40,7 +40,7 @@ class ImageUtil{
       );
     }
     return CachedNetworkImage(
-      imageUrl: ApiUtils.imagebaseUrl+url,
+      imageUrl: ApiUtils.imagebaseUrl+"${url}",
       fit: BoxFit.cover,
       errorWidget: (context,url,error){
         return Image.asset(

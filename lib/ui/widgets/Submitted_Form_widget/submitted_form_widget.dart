@@ -41,7 +41,7 @@ class _SubmittedFormWidgetState extends State<SubmittedFormWidget> {
                   child: Column(
                     children: [
                       SizedBox(height: 6,),
-                      ImageUtil.banner(car.imageUrl),
+                      ImageUtil.banner(car.getMainImage()),
                       SizedBox(height: 12,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

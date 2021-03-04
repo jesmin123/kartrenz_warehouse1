@@ -51,7 +51,7 @@ class _SubmittedDetailPageState extends State<SubmittedDetailPage> {
                   padding: const EdgeInsets.only(left: 8, right: 8,top: 4, bottom: 12),
                   child: Column(
                     children: [
-                     ImageUtil.banner(car.imageUrl),
+                     ImageUtil.banner(car.getMainImage()),
                       SizedBox(height: 12,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

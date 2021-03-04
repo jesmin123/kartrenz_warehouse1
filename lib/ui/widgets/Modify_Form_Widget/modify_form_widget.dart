@@ -5,7 +5,6 @@ import 'package:kartenz/model/CarWareHouse1Model.dart';
 import 'package:kartenz/provider/SubmittedCarsProvider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:kartenz/ui/pages/modify_page.dart';
-import 'package:kartenz/ui/widgets/Upload_Form_Widgets/basic_details_form_widget.dart';
 import 'package:provider/provider.dart';
 
 class ModifyFormWidget extends StatefulWidget {

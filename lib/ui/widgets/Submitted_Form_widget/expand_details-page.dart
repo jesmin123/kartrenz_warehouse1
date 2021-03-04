@@ -10,6 +10,7 @@ import 'package:kartenz/model/CarWareHouse1Model.dart';
 import 'package:kartenz/provider/SubmittedCarsProvider.dart';
 import 'package:kartenz/provider/auth_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
+import 'package:kartenz/ui/utilis/no_image_utilis.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
@@ -21,19 +22,9 @@ class ExpandDetailPage extends StatefulWidget {
 class _ExpandDetailPageState extends State<ExpandDetailPage> {
 
   List<String> imgList = [
-    "assets/images/222.jpg",
-    "assets/images/222.jpg",
-    "assets/images/222.jpg",
-    "assets/images/222.jpg",
+    "assets/images/137.jpg",
   ];
 
-  List<T> map<T>(List list, Function handler){
-    List<T> result = [];
-    for(var  i=0; i< list.length; i++){
-      result.add(handler(i, list[i]));
-    }
-    return result;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -430,45 +421,46 @@ class _ExpandDetailPageState extends State<ExpandDetailPage> {
             SizedBox(height: 32,),
             Text("Images", style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR, textSize: 20.0) ),
             SizedBox(height: 16,),
-            CarouselSlider(
-              options: CarouselOptions(
-                autoPlay: false,
-                enlargeCenterPage: true,
-                  enableInfiniteScroll: false,
-                initialPage: 0,
-                height: 300,
-                onPageChanged: (index, reason){
-                  formData.current = index;
-                }
+            Scrollbar(
+              radius: Radius.circular(4),
+              child: CarouselSlider(
+                options: CarouselOptions(
+                  autoPlay: false,
+                  enlargeCenterPage: true,
+                    enableInfiniteScroll: false,
+                  initialPage: 0,
+                  height: 300,
+                  onPageChanged: (index, reason){
+                    formData.current = index;
+                  }
 
+                ),
+                items: car.imageModel.map((img){
+                   return Builder(
+                       builder: (context){
+                         return Container(
+                           width: MediaQuery.of(context).size.width,
+                           margin: EdgeInsets.symmetric(horizontal: 10),
+
+                           child: Column(
+                             children: [
+                               Container(
+                                 width: MediaQuery.of(context).size.width,
+                                 height: 220,
+                                 child: ImageUtil.network(img.image),
+                               ),
+                               SizedBox(height: 4,),
+                               img!=null?Text("${img.name}", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),):Text("12")
+                             ],
+                           )
+                         );
+                       }
+                   );
+                }).toList()
               ),
-              items: imgList.map((img){
-                 return Builder(
-                     builder: (context){
-                       return Container(
-                         width: MediaQuery.of(context).size.width,
-                         margin: EdgeInsets.symmetric(horizontal: 10),
-                         decoration: BoxDecoration(color: Colors.green,),
-                         child: Image.asset(img, fit: BoxFit.fill,),
-                       );
-                     }
-                 );
-              }).toList()
             ),
             SizedBox(height: 16,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: map(imgList, (index, url ){
-                 return Container(
-                   width: 10,
-                   height: 10,
-                   margin: EdgeInsets.symmetric(vertical: 10, horizontal: 2),
-                   decoration: BoxDecoration(shape: BoxShape.circle,
-                   color: formData.current ==index? PRIMARY_COLOR:Colors.grey
-                   ) ,
-                 );
-              }),
-            )
+
 
           ]
         ),

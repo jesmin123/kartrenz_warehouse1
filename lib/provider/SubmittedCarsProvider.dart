@@ -109,5 +109,6 @@ class SubmittedCarsProvider extends ChangeNotifier{
   }
 
   CarWarehouseModel1 activeCar;
+  ImageModel image;
 
 }
