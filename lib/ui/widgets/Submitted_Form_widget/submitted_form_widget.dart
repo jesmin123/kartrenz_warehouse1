@@ -9,6 +9,7 @@ import 'package:kartenz/provider/SubmittedCarsProvider.dart';
 import 'package:kartenz/provider/auth_provider.dart';
 import 'package:kartenz/ui/utilis/AlertBox.dart';
 import 'package:kartenz/ui/utilis/loader_utilis.dart';
+import 'package:kartenz/ui/utilis/no_image_utilis.dart';
 import 'package:provider/provider.dart';
 
 
@@ -27,9 +28,9 @@ class _SubmittedFormWidgetState extends State<SubmittedFormWidget> {
         itemCount: submittedCarsProvider.submittedCars.length,
         itemBuilder: (_,pos){
           CarWarehouseModel1 car = submittedCarsProvider.submittedCars[pos];
-          String imgUrl = car.imageUrl!=null?"http://kartrenz.com:4000/r/"+car.imageUrl:"";
           return GestureDetector(
             onTap: (){
+              submittedCarsProvider.activeCar = car;
               Navigator.pushNamed(context, SUBMITTED_DETAILS_PAGE );
             },
             child: Container(
@@ -40,7 +41,7 @@ class _SubmittedFormWidgetState extends State<SubmittedFormWidget> {
                   child: Column(
                     children: [
                       SizedBox(height: 6,),
-                      Image.network(imgUrl),
+                      ImageUtil.banner(car.imageUrl),
                       SizedBox(height: 12,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -20,7 +20,6 @@ class SubmittedCarsProvider extends ChangeNotifier{
   set submittedCars(List<CarWarehouseModel1> value) {
     _submittedCars = value;
     notifyListeners();
-
   }
 
 
@@ -32,7 +31,7 @@ class SubmittedCarsProvider extends ChangeNotifier{
     List<CarWarehouseModel1> submittedTemp=[];
     api.getData("carwarehouse/cars/my/full",header: token).then((respObj) {
       if(respObj.status){
-        List<dynamic> data=respObj.data;
+        List<dynamic> data=respObj.        data;
         data.forEach((element) {
           element=element["_doc"];
           CarWarehouseModel1 carWarehouseModel=CarWarehouseModel1.fromJSON(element);
@@ -88,4 +87,7 @@ class SubmittedCarsProvider extends ChangeNotifier{
       }
       return respObj.status;
   }
+
+  CarWarehouseModel1 activeCar;
+
 }

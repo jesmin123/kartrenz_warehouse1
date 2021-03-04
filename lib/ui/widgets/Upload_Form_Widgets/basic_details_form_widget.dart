@@ -30,15 +30,15 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
   Widget build(BuildContext context) {
     FormData formData = Provider.of<FormData>(context);
     CarWarehouseModel1 cars = formData.selectedCars;
-    TextEditingController _variantController = TextEditingController(text: cars.variant!=null?cars.variant:"");
-    TextEditingController _kmsController = TextEditingController(text: cars.kilometers!=null?cars.kilometers:"");
-    TextEditingController _yearOfManufactureController = TextEditingController(text: cars.year!=null?cars.year:"");
-    TextEditingController _basePriceController = TextEditingController(text: cars.basePrice!=null?cars.basePrice:"");
+    TextEditingController _variantController = TextEditingController(text: cars!=null?cars.variant:" ",);
+    TextEditingController _kmsController = TextEditingController(text: cars!=null?cars.kilometers:"");
+    TextEditingController _yearOfManufactureController = TextEditingController(text: cars!=null?cars.year:"");
+    TextEditingController _basePriceController = TextEditingController(text: cars!=null?cars.basePrice:"");
     TextEditingController _expectedPriceController = TextEditingController();
-    TextEditingController _regNoController = TextEditingController(text: cars.regNo!=null?cars.regNo:"");
+    TextEditingController _regNoController = TextEditingController(text: cars!=null?cars.regNo:"");
     TextEditingController _descriptionController = TextEditingController();
-    TextEditingController _supportNoController = TextEditingController(text: cars.supportNo!=null?cars.supportNo:"");
-    TextEditingController _highlightController = TextEditingController(text: cars.highlights!=null?cars.highlights:"");
+    TextEditingController _supportNoController = TextEditingController(text: cars!=null?cars.supportNo:"");
+    TextEditingController _highlightController = TextEditingController(text: cars!=null?cars.highlights:"");
     TextEditingController _mainImageController = TextEditingController();
     TextEditingController _inImageController = TextEditingController();
     TextEditingController _exImageController = TextEditingController();

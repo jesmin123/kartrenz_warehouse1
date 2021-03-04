@@ -21,7 +21,7 @@ class _DocumentsFormWidetState extends State<DocumentsFormWidet> {
   Widget build(BuildContext context) {
     FormData formData = Provider.of<FormData>(context);
     CarWarehouseModel1 cars = formData.selectedCars;
-    TextEditingController _manufacturingController = TextEditingController(text: cars.year!=null?cars.year:"");
+    TextEditingController _manufacturingController = TextEditingController(text: cars!=null?cars.year:"");
     TextEditingController _chassisController = TextEditingController();
     TextEditingController _cNGController = TextEditingController();
     TextEditingController _registrationController = TextEditingController();
