@@ -203,7 +203,7 @@ class _DocumentsFormWidetState extends State<DocumentsFormWidet> {
                     insuranceType: _insuranceController.text, noclaimBonus: _noClaimController.text, noclaimBonusPercentage: _noClaimPercentController.text,
                     partipheshiRequest: _partipheshiController.text, registrationDate: _registrationController.text, underHypothecation: _underHypoController.text,
                     manufacturingYr: _manufacturingController.text, RCavailability: _rcAvailabilityController.text, RCCondition: _rcConditionController.text,
-                    roadTaxpaid: _roadTaxController.text, RTONOCissued: _rTONOCController.text, rating: formData.rating,
+                    roadTaxpaid: _roadTaxController.text, RTONOCissued: _rTONOCController.text, rating: formData.rating.toString(),
                   );
                   formData.activeStep=2;
                   formData.stepCount=2;

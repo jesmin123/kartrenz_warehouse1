@@ -52,15 +52,15 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
           children: [
             DropdownButtonFormField(
 
-                items:  formData.company.map((e) {
+                items:  formData.company!=null?formData.company.map((e) {
                   return DropdownMenuItem(child: (Text(e.name)), value: e.id,);
-                }).toList(),
+                }).toList():[DropdownMenuItem(child: (Text("")), value: "")],
                 onChanged: (newValue) {
                 formData.dropdownValue2 = newValue;
                 formData.selectedCarMakeId = newValue;
                 },
 
-              decoration: InputDecoration(
+                decoration: InputDecoration(
                 labelText: "Car make",
                 labelStyle: AppFontStyle.bodyTextStyle2(APP_BLACK_COLOR)
               ),

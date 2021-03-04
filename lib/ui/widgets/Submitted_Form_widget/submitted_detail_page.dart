@@ -90,7 +90,7 @@ class _SubmittedDetailPageState extends State<SubmittedDetailPage> {
                       SizedBox(height: 32,),
                       Text("Description", style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR)),
                       SizedBox(height: 8,),
-                      Text("${car.msg}",
+                      Text("${car.description}",
                         style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR, textSize: 14.0),textAlign: TextAlign.center,
                       ),
                       SizedBox(height: 32,),

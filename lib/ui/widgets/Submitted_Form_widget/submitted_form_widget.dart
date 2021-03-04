@@ -86,8 +86,9 @@ class _SubmittedFormWidgetState extends State<SubmittedFormWidget> {
                           Loader.getLoader(context).hide();
                           if(status){
                             AlertBox.showToast("Successfully deleted");
+                          }else{
+                            AlertBox.showToast("Something wrong");
                           }
-                          AlertBox.showToast("Something wrong");
                         },
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                         color: PRIMARY_COLOR,

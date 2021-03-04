@@ -19,7 +19,7 @@ class DocumentData {
   String RTONOCissued=" ";
   String underHypothecation=" ";
   String duplicateKey=" ";
-  double rating;
+  String rating;
   dynamic custom;
 
   DocumentData({this.manufacturingYr, this.chassisNoEmossing, this.CNGLPGFitment,
@@ -36,7 +36,7 @@ class DocumentData {
           noclaimBonus: json['noclaimBonus'],noclaimBonusPercentage: json['noclaimBonusPercentage'],partipheshiRequest: json['partipheshiRequest'],
           custom: json['custom'],RCavailability: json['RCavailability']!=null? json['RCavailability']:"No Data",RCCondition: json['RCCondition']!=null?json['RCCondition']:"No Data",registrationDate: json['registrationDate']!=null?json['registrationDate']:"No Data",
           roadTaxpaid: json['roadTaxpaid']!=null?json['roadTaxpaid']:"No Data",RTO: json['RTO']!=null?json['RTO']:'No Data',RTONOCissued: json['RTONOCissued']!=null?json['RTONOCissued']:"No Data",underHypothecation: json['underHypothecation']!=null?json['underHypothecation']:"No Data",
-        rating: json["rating"]!=null?json["rating"]:"No Data",
+        rating: json["rating"]!=null?json["rating"].toString():"No Data",
       );
     }catch(e){
       print("Exception e: "+e.toString());
