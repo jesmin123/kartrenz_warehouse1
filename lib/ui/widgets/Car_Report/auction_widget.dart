@@ -115,7 +115,7 @@ class _AuctionwidgetState extends State<Auctionwidget> {
                                       DataCell(Text("${e.cars.isApproved}")),
                                       DataCell(Text("${e.getBroker()}")),
                                       DataCell(Text("${e.cars.expectedPrice}")),
-                                      DataCell(Text("${e.getCurrentPrice()}")),
+                                      DataCell(Text("${e.getCurrentPrice()} ")),
 
                                     ]
                                 )).toList()
