@@ -242,13 +242,15 @@ int _current = 0;
     notifyListeners();
   }
 
-  String _radioList;
+  int _radioList;
 
-  String get radioList => _radioList;
 
-  set radioList(String value) {
+  int get radioList => _radioList;
+
+  set radioList(int value) {
     _radioList = value;
     notifyListeners();
+
   }
 
   CarWarehouseModel1 _selectedCars;

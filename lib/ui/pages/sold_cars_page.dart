@@ -16,6 +16,7 @@ class _SoldCarPageState extends State<SoldCarPage> {
   Widget build(BuildContext context) {
     AuctionProvider auctionProvider = Provider.of(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: appBar(context, "Car "),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

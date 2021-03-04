@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:kartenz/api/api.dart';
 import 'package:kartenz/model/BuyModel.dart';
 import 'package:kartenz/model/CarWarehouseModel.dart';
+import 'package:kartenz/model/ImageModel.dart';
 import 'package:kartenz/model/RTOfficeModel.dart';
 import 'package:kartenz/model/StateModel.dart';
 import 'package:kartenz/model/TransactionModel.dart';
@@ -250,5 +251,57 @@ List<BuyModel> allBuyNow = [];
     });
     auction = auctionTemp;
   }
+
+List<ImageModel> _images;
+
+List<ImageModel> get images => _images;
+
+set images(List<ImageModel> value) {
+  _images = value;
+  notifyListeners();
+}
+
+Map<dynamic,List<ImageModel>> _carImages = {};
+
+
+Map get carImages => _carImages;
+
+  set carImages(Map value) {
+    _carImages = value;
+    notifyListeners();
+  }
+
+  Future postCarImage(String token,String id) async{
+
+    Map<dynamic,List<ImageModel>> carImagesTemp = {};
+
+    Map sendData={"car":id};
+    List<ImageModel> temp=[];
+
+    api.postData("carimage/car",header: token,mBody: jsonEncode(sendData)).then((respObj){
+      if(respObj.status){
+        List<dynamic> data=respObj.data;
+        data.forEach((element) {
+          ImageModel imageModel=ImageModel.fromJSON(element);
+          if(imageModel!=null){
+            if(imageModel.name!=null || imageModel.name.isNotEmpty){
+              if(carImagesTemp.containsKey(imageModel.name)){
+                carImagesTemp[imageModel.name].add(imageModel);
+              }else if (carImagesTemp.containsKey(imageModel.type)) {
+                carImagesTemp[imageModel.type]
+                    .add(imageModel);
+              }
+              else{
+                carImagesTemp.putIfAbsent(imageModel.name, () => [imageModel]);
+              }
+            }
+          }
+        });
+        images=temp;
+        carImages=carImagesTemp;
+      }
+
+    } );
+}
 
 }
