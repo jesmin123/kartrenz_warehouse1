@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
+import 'package:kartenz/model/ElectricalsModel.dart';
+import 'package:kartenz/model/Upload_Model/Upload_car_model.dart';
 import 'package:kartenz/provider/electrical_form_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:provider/provider.dart';
@@ -40,35 +42,35 @@ class _ElectricalsFormWidgetState extends State<ElectricalsFormWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          radioRow(key: "LHS Front", controller: _lhsFrontController, groupValue: "LHS Front", tittle: "LHS Front", electricalFormProvider: electricalFormProvider),
+          radioRow(key: "LHSFront", controller: _lhsFrontController, groupValue: "LHS Front", tittle: "LHS Front", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "LHS Rear", controller: _lhsFrontController, groupValue: "LHS Rear", tittle: "LHS Rear", electricalFormProvider: electricalFormProvider),
+          radioRow(key: "LHSRear", controller: _lhsFrontController, groupValue: "LHS Rear", tittle: "LHS Rear", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "RHS Front", controller: _lhsFrontController, groupValue: "RHS Front", tittle: "RHS Front", electricalFormProvider: electricalFormProvider),
+          radioRow(key: "RHSFront", controller: _lhsFrontController, groupValue: "RHS Front", tittle: "RHS Front", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "RHS Rear", controller: _lhsFrontController, groupValue: "RHS Rear", tittle: "RHS Rear", electricalFormProvider: electricalFormProvider),
+          radioRow(key: "RHSRear", controller: _lhsFrontController, groupValue: "RHS Rear", tittle: "RHS Rear", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "Airbag Feature", controller: _lhsFrontController, groupValue: "Airbag Feature", tittle: "Airbag Feature", electricalFormProvider: electricalFormProvider),
+          radioRow(key: "airbagFeature", controller: _lhsFrontController, groupValue: "Airbag Feature", tittle: "Airbag Feature", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "Music System", controller: _lhsFrontController, groupValue: "Music System", tittle: "Music System", electricalFormProvider: electricalFormProvider),
+          radioRow(key: "musicSystem", controller: _lhsFrontController, groupValue: "Music System", tittle: "Music System", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "Leather Seat", controller: _lhsFrontController, groupValue: "Leather Seat", tittle: "Leather Seat", electricalFormProvider: electricalFormProvider),
+          radioRow(key: "leatherSeat", controller: _lhsFrontController, groupValue: "Leather Seat", tittle: "Leather Seat", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "Fabric Seat", controller: _lhsFrontController, groupValue: "Fabric Seat", tittle: "Fabric Seat", electricalFormProvider: electricalFormProvider),
+          radioRow(key: "fabricSeat", controller: _lhsFrontController, groupValue: "Fabric Seat", tittle: "Fabric Seat", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "Sun Roof", controller: _lhsFrontController, groupValue: "Sun Roof", tittle: "Sun Roof", electricalFormProvider: electricalFormProvider),
+          radioRow(key: "sunroof", controller: _lhsFrontController, groupValue: "Sun Roof", tittle: "Sun Roof", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "Steering Mounted", controller: _lhsFrontController, groupValue: "Steering Mounted", tittle: "Steering MountedAudio Control", electricalFormProvider: electricalFormProvider),
+          radioRow(key: "steelMountedAudioControl", controller: _lhsFrontController, groupValue: "Steering Mounted", tittle: "Steering MountedAudio Control", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
           radioRow(key: "ABS", controller: _lhsFrontController, groupValue: "ABS", tittle: "ABS", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "Rear Defogger", controller: _lhsFrontController, groupValue: "Rear Defogger", tittle: "Rear Defogger", electricalFormProvider: electricalFormProvider),
+          radioRow(key: "rearDefogger", controller: _lhsFrontController, groupValue: "Rear Defogger", tittle: "Rear Defogger", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "Reverse Camera", controller: _lhsFrontController, groupValue: "Reverse Camera", tittle: "Reverse Camera", electricalFormProvider: electricalFormProvider),
+          radioRow(key: "reverseCamera", controller: _lhsFrontController, groupValue: "Reverse Camera", tittle: "Reverse Camera", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "Electrical", controller: _lhsFrontController, groupValue: "Electrical", tittle: "Electrical", electricalFormProvider: electricalFormProvider),
+          radioRow(key: "electrical", controller: _lhsFrontController, groupValue: "Electrical", tittle: "Electrical", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "Interior", controller: _lhsFrontController, groupValue: "Interior", tittle: "Interior", electricalFormProvider: electricalFormProvider),
+          radioRow(key: "interior", controller: _lhsFrontController, groupValue: "Interior", tittle: "Interior", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 32,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -166,131 +168,156 @@ class _ElectricalsFormWidgetState extends State<ElectricalsFormWidget> {
       ),
     );
   }
-}
 
-radioRow(
-    {String tittle,
-      ElectricalFormProvider electricalFormProvider,
-      String groupValue,
-      TextEditingController controller, String key}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        tittle,
-        style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(left: 32),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Radio(
-                  activeColor: PRIMARY_COLOR,
-                  value: "yes",
-                  groupValue: electricalFormProvider.radioItems[groupValue],
-                  onChanged: (val) =>
-                      electricalFormProvider.updateRadioItems(groupValue, val),
-                ),
-                Text(
-                  "yes",
-                  style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
-                )
-              ],
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Radio(
-                  activeColor: PRIMARY_COLOR,
-                  value: "No",
-                  groupValue: electricalFormProvider.radioItems[groupValue],
-                  onChanged: (val) =>
-                      electricalFormProvider.updateRadioItems(groupValue, val),
-                ),
-                Text(
-                  "no",
-                  style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
-                )
-              ],
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Radio(
-                  activeColor: PRIMARY_COLOR,
-                  value: "n/a",
-                  groupValue: electricalFormProvider.radioItems[groupValue],
-                  onChanged: (val) =>
-                      electricalFormProvider.updateRadioItems(groupValue, val),
-                ),
-                Text(
-                  "N/A",
-                  style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
-                )
-              ],
-            ),
-          ],
+  Map electricalDataMap = {};
+
+  saveValue(String key,String value){
+    if(electricalDataMap.containsKey(key)){
+      electricalDataMap[key] = value;
+    }else{
+      electricalDataMap.putIfAbsent(key, () => value);
+    }
+    ElectricModel electricModel = ElectricModel.fromJSONR(electricalDataMap);
+    if(electricModel!=null){
+      FormData formData = Provider.of(context,listen: false);
+      formData.uploadCar.electricModel = electricModel;
+    }
+  }
+  radioRow(
+      {String tittle,
+        ElectricalFormProvider electricalFormProvider,
+        String groupValue,
+        TextEditingController controller, String key}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          tittle,
+          style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
         ),
-      ),
-      electricalFormProvider.radioItems[groupValue] == "yes"
-          ? Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        Padding(
+          padding: const EdgeInsets.only(left: 32),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Flexible(
-                child: TextFormField(
-                  decoration: decoration(),
-                  controller: controller,
-                ),
-              ),
-              Flexible(
-                child: RaisedButton(
-                  onPressed: () {
-                    pickImages(false).then((filePickerResult){
-                      if(filePickerResult!=null){
-                        electricalFormProvider.updateImage(key, filePickerResult.files.first);
-                      }
-                    });
-                  },
-                  color: PRIMARY_COLOR,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16)),
-                  child: Text(
-                    "Upload",
-                    style: AppFontStyle.titleAppBarStyle2(APP_WHITE_COLOR),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Radio(
+                      activeColor: PRIMARY_COLOR,
+                      value: "yes",
+                      groupValue: electricalFormProvider.radioItems[groupValue],
+                      onChanged: (val) {
+                          saveValue(key, "Yes");
+
+                        electricalFormProvider.updateRadioItems(groupValue, val);}
                   ),
-                ),
+                  Text(
+                    "yes",
+                    style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
+                  )
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Radio(
+                      activeColor: PRIMARY_COLOR,
+                      value: "No",
+                      groupValue: electricalFormProvider.radioItems[groupValue],
+                      onChanged: (val) {
+                        if(val=="No"){
+                          saveValue(key, "No");
+                        }
+                        electricalFormProvider.updateRadioItems(groupValue, val);}
+                  ),
+                  Text(
+                    "no",
+                    style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
+                  )
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Radio(
+                    activeColor: PRIMARY_COLOR,
+                    value: "n/a",
+                    groupValue: electricalFormProvider.radioItems[groupValue],
+                    onChanged: (val) {
+                      saveValue(key, val);
+                        electricalFormProvider.updateRadioItems(groupValue, val);}
+                  ),
+                  Text(
+                    "N/A",
+                    style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
+                  )
+                ],
               ),
             ],
           ),
-          SizedBox(height: 12,),
-         electricalFormProvider.electricalImages[key]!=null?Column(
-            children: [
-              Container(
-                  height: 300,
-                  width: 300,
-                  child: Image.file(File(electricalFormProvider.electricalImages[key].path),
-                  )
-              ),
-              FlatButton(onPressed: (){
-                electricalFormProvider.removeFromImage(key);
-              }, child: Row(children: [
-                Text("Delete", style: AppFontStyle.headingTextStyle2(APP_RED_COLOR),),
-                Icon(Icons.delete, color: APP_RED_COLOR,)
-              ],))
-            ],
-          ):Container()
-        ],
-      )
-          : Container()
-    ],
-  );
+        ),
+        electricalFormProvider.radioItems[groupValue] == "yes"
+            ? Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Flexible(
+                  child: TextFormField(
+                    decoration: decoration(),
+                    controller: controller,
+                    onChanged: (val){
+                      saveValue(key, val);
+                    },
+                  ),
+                ),
+                Flexible(
+                  child: RaisedButton(
+                    onPressed: () {
+                      pickImages(false).then((filePickerResult){
+                        if(filePickerResult!=null){
+                          electricalFormProvider.updateImage(key, filePickerResult.files.first);
+                        }
+                      });
+                    },
+                    color: PRIMARY_COLOR,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
+                    child: Text(
+                      "Upload",
+                      style: AppFontStyle.titleAppBarStyle2(APP_WHITE_COLOR),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 12,),
+            electricalFormProvider.electricalImages[key]!=null?Column(
+              children: [
+                Container(
+                    height: 300,
+                    width: 300,
+                    child: Image.file(File(electricalFormProvider.electricalImages[key].path),
+                    )
+                ),
+                FlatButton(onPressed: (){
+                  electricalFormProvider.removeFromImage(key);
+                }, child: Row(children: [
+                  Text("Delete", style: AppFontStyle.headingTextStyle2(APP_RED_COLOR),),
+                  Icon(Icons.delete, color: APP_RED_COLOR,)
+                ],))
+              ],
+            ):Container()
+          ],
+        )
+            : Container()
+      ],
+    );
+  }
 }
+
+
 
 InputDecoration decoration({String label}) {
   return InputDecoration(

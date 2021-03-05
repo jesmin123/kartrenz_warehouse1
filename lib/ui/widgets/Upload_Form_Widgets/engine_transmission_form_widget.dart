@@ -7,6 +7,7 @@ import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/model/CarWareHouse1Model.dart';
 import 'package:kartenz/model/Upload_Model/EngineModel.dart';
+import 'package:kartenz/model/Upload_Model/Upload_car_model.dart';
 
 import 'package:kartenz/provider/basic_providers.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
@@ -24,22 +25,22 @@ class _EnginetransmissionFormWidgetState extends State<EnginetransmissionFormWid
 
   ChewieController _chewieController;
   VideoPlayerController _videoPlayerController;
-
+  TextEditingController _engineController = TextEditingController();
+  TextEditingController _engineSoundController = TextEditingController();
+  TextEditingController _exhaustSmokeController = TextEditingController();
+  TextEditingController _engineMountingController = TextEditingController();
+  TextEditingController _clutchController = TextEditingController();
+  TextEditingController _gearShiftingController = TextEditingController();
+  TextEditingController _engineOilController = TextEditingController();
+  TextEditingController _engineOilLevelController = TextEditingController();
+  TextEditingController _batteryController = TextEditingController();
+  TextEditingController _coolantController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     FormData formData = Provider.of<FormData>(context);
     CarWarehouseModel1 cars = formData.selectedCars;
-    TextEditingController _engineController = TextEditingController(text: cars.engine!=null?cars.engine:"");
-    TextEditingController _engineSoundController = TextEditingController(text: cars.engineSound!=null?cars.engineSound:"");
-    TextEditingController _exhaustSmokeController = TextEditingController(text: cars.exhaustSmoke!=null?cars.exhaustSmoke:"");
-    TextEditingController _engineMountingController = TextEditingController(text: cars.engineMounting!=null?cars.engineMounting:"");
-    TextEditingController _clutchController = TextEditingController(text: cars.clutch!=null?cars.clutch:"");
-    TextEditingController _gearShiftingController = TextEditingController(text: cars.gearShifting!=null?cars.gearShifting:"");
-    TextEditingController _engineOilController = TextEditingController(text: cars.engineOil!=null?cars.engineOil:"");
-    TextEditingController _engineOilLevelController = TextEditingController(text: cars.engineOilLevelDipstick!=null?cars.engineOilLevelDipstick:"");
-    TextEditingController _batteryController = TextEditingController(text: cars.battery!=null?cars.battery:"");
-    TextEditingController _coolantController = TextEditingController(text: cars.coolant!=null?cars.coolant:"");
+
     BasicProvider basicProvider = Provider.of<BasicProvider>(context);
 
     _videoPlayerController = VideoPlayerController.file(File(basicProvider.engineVideo!=null?basicProvider.engineVideo.path:""));
@@ -58,51 +59,81 @@ class _EnginetransmissionFormWidgetState extends State<EnginetransmissionFormWid
           TextFormField(
             decoration: decoration("Engine"),
             controller: _engineController,
+            onChanged: (val){
+              formData.uploadCar.engine = val;
+            },
           ),
           SizedBox(height: 12,),
           TextFormField(
             decoration: decoration("Engine sound"),
             controller: _engineSoundController,
+            onChanged: (val){
+              formData.uploadCar.engineSound = val;
+            },
           ),
           SizedBox(height: 12,),
           TextFormField(
             decoration: decoration("Exhaust Smoke"),
             controller: _exhaustSmokeController,
+            onChanged: (val){
+              formData.uploadCar.exhaustSmoke = val;
+            },
           ),
           SizedBox(height: 12,),
           TextFormField(
             decoration: decoration("Engine mounting"),
             controller: _engineMountingController,
+            onChanged: (val){
+              formData.uploadCar.engineMounting = val;
+            },
           ),
           SizedBox(height: 12,),
           TextFormField(
             decoration: decoration("Clutch"),
             controller: _clutchController,
+            onChanged: (val){
+              formData.uploadCar.clutch = val;
+            },
           ),
           SizedBox(height: 12,),
           TextFormField(
             decoration: decoration("Gear shifting"),
             controller: _gearShiftingController,
+            onChanged: (val){
+              formData.uploadCar.gearShifting = val;
+            },
           ),
           SizedBox(height: 12,),
           TextFormField(
             decoration: decoration("Engine oil"),
             controller: _engineOilController,
+            onChanged: (val){
+              formData.uploadCar.engineOil = val;
+            },
           ),
           SizedBox(height: 12,),
           TextFormField(
             decoration: decoration("Engine oil level dipstick"),
             controller: _engineOilLevelController,
+            onChanged: (val){
+              formData.uploadCar.engineOilLevelDipstick = val;
+            },
           ),
           SizedBox(height: 12,),
           TextFormField(
             decoration: decoration("Battery"),
             controller: _batteryController,
+            onChanged: (val){
+              formData.uploadCar.battery = val;
+            },
           ),
           SizedBox(height: 12,),
           TextFormField(
             decoration: decoration("Coolant"),
             controller: _coolantController,
+            onChanged: (val){
+              formData.uploadCar.coolant = val;
+            },
           ),
           SizedBox(height: 24,),
           Text("Images or videos", style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR),),
@@ -183,6 +214,7 @@ class _EnginetransmissionFormWidgetState extends State<EnginetransmissionFormWid
                         Flexible(
                           child: TextFormField(
                             decoration: decoration("Description"),
+                            //TODO
                           ),
                         ),
                         Flexible(
