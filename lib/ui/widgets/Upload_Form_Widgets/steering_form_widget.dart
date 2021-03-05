@@ -6,6 +6,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/strings.dart';
+import 'package:kartenz/model/SteeringModel.dart';
 import 'package:kartenz/provider/electrical_form_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:provider/provider.dart';
@@ -27,11 +28,11 @@ class _SteeringFormWidgetState extends State<SteeringFormWidget> {
       child: Column(
         children: [
 
-          tyreWidget(_steeringController, "Steering", electricalFormProvider, "Steering"),
+          tyreWidget(_steeringController, "Steering", electricalFormProvider, "steering"),
           SizedBox(height: 12,),
-          tyreWidget(_suspensionController, "Suspension", electricalFormProvider, "Suspension"),
+          tyreWidget(_suspensionController, "Suspension", electricalFormProvider, "suspension"),
           SizedBox(height: 12,),
-          tyreWidget(_brakeController, "Brake", electricalFormProvider, "Brake"),
+          tyreWidget(_brakeController, "Brake", electricalFormProvider, "brake"),
           SizedBox(height: 24,),
           RatingBar.builder(
             initialRating: 3,
@@ -64,62 +65,81 @@ class _SteeringFormWidgetState extends State<SteeringFormWidget> {
       ),
     );
   }
+  Map steeringDataMap = {};
+
+  saveValue(String key,String value){
+    if(steeringDataMap.containsKey(key)){
+      steeringDataMap[key] = value;
+    }else{
+      steeringDataMap.putIfAbsent(key, () => value);
+    }
+    SteeringModel steeringModel = SteeringModel.fromJSON(steeringDataMap);
+    if(steeringModel!=null){
+      FormData formData = Provider.of(context,listen: false);
+      formData.uploadCar.steeringModel = steeringModel;
+    }
+  }
+
+  tyreWidget(TextEditingController controller, String label, ElectricalFormProvider electricalFormProvider, String key){
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(
+                flex: 3,
+                child: TextFormField(
+                  onChanged: (val){
+                    saveValue(key, val);
+                  },
+                  controller: controller,
+                  decoration: InputDecoration(
+                    labelText: label,
+                    labelStyle: AppFontStyle.bodyTextStyle2(APP_BLACK_COLOR),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: PRIMARY_COLOR),
+                    ),
+                  ),
+                )
+            ),
+            Flexible(
+                flex: 1,
+                child: FlatButton(
+                  minWidth: 24,
+                  height: 24,
+                  child: Icon(Icons.add, color: PRIMARY_COLOR, size: 16,),
+                  onPressed: () async {
+                    FilePickerResult result = await pickImages();
+                    electricalFormProvider.updateSteeringImage(key, result.files.first);
+                  },
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16), side: BorderSide(color: PRIMARY_COLOR)),
+                )
+            )
+          ],
+        ),
+        SizedBox(height: 8,),
+        electricalFormProvider.steeringImage[key]!=null?Column(
+          children: [
+            Container(
+                height: 300,
+                width: 300,
+                child: Image.file(File(electricalFormProvider.steeringImage[key].path),
+                )
+            ),
+            FlatButton(onPressed: (){
+              electricalFormProvider.removeFromSteeringImage(key);
+            }, child: Row(children: [
+              Text("Delete", style: AppFontStyle.headingTextStyle2(APP_RED_COLOR),),
+              Icon(Icons.delete, color: APP_RED_COLOR,)
+            ],))
+          ],
+        ):Container()
+      ],
+    );
+  }
 }
 
-tyreWidget(TextEditingController controller, String label, ElectricalFormProvider electricalFormProvider, String key){
-  return Column(
-    children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Flexible(
-              flex: 3,
-              child: TextFormField(
-                controller: controller,
-                decoration: InputDecoration(
-                  labelText: label,
-                  labelStyle: AppFontStyle.bodyTextStyle2(APP_BLACK_COLOR),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: PRIMARY_COLOR),
-                  ),
-                ),
-              )
-          ),
-          Flexible(
-              flex: 1,
-              child: FlatButton(
-                minWidth: 24,
-                height: 24,
-                child: Icon(Icons.add, color: PRIMARY_COLOR, size: 16,),
-                onPressed: () async {
-                  FilePickerResult result = await pickImages();
-                  electricalFormProvider.updateSteeringImage(key, result.files.first);
-                },
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16), side: BorderSide(color: PRIMARY_COLOR)),
-              )
-          )
-        ],
-      ),
-      SizedBox(height: 8,),
-      electricalFormProvider.steeringImage[key]!=null?Column(
-        children: [
-          Container(
-              height: 300,
-              width: 300,
-              child: Image.file(File(electricalFormProvider.steeringImage[key].path),
-              )
-          ),
-          FlatButton(onPressed: (){
-            electricalFormProvider.removeFromSteeringImage(key);
-          }, child: Row(children: [
-            Text("Delete", style: AppFontStyle.headingTextStyle2(APP_RED_COLOR),),
-            Icon(Icons.delete, color: APP_RED_COLOR,)
-          ],))
-        ],
-      ):Container()
-    ],
-  );
-}
+
 
 Future<FilePickerResult> pickImages() async {
   List<String> extensions = ['jpg', 'png', 'jpeg'];

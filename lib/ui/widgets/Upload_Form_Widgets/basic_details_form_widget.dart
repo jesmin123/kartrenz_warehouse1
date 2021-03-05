@@ -8,7 +8,7 @@ import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/model/CarWareHouse1Model.dart';
 import 'package:kartenz/model/Upload_Model/Upload_Model.dart';
-
+import 'package:kartenz/model/Upload_Model/Upload_car_model.dart';
 import 'package:kartenz/provider/AuctionProvider.dart';
 import 'package:kartenz/provider/auth_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
@@ -26,25 +26,29 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
 
 
 
+  TextEditingController _variantController = TextEditingController();
+  TextEditingController _kmsController = TextEditingController();
+  TextEditingController _yearOfManufactureController = TextEditingController();
+  TextEditingController _basePriceController = TextEditingController();
+  TextEditingController _expectedPriceController = TextEditingController();
+  TextEditingController _regNoController = TextEditingController();
+  TextEditingController _descriptionController = TextEditingController();
+  TextEditingController _supportNoController = TextEditingController();
+  TextEditingController _highlightController = TextEditingController();
+  TextEditingController _mainImageController = TextEditingController();
+  TextEditingController _inImageController = TextEditingController();
+  TextEditingController _exImageController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     FormData formData = Provider.of<FormData>(context);
     CarWarehouseModel1 cars = formData.selectedCars;
-    TextEditingController _variantController = TextEditingController(text: cars.variant!=null?cars.variant:"");
-    TextEditingController _kmsController = TextEditingController(text: cars.kilometers!=null?cars.kilometers:"");
-    TextEditingController _yearOfManufactureController = TextEditingController(text: cars.year!=null?cars.year:"");
-    TextEditingController _basePriceController = TextEditingController(text: cars.basePrice!=null?cars.basePrice:"");
-    TextEditingController _expectedPriceController = TextEditingController();
-    TextEditingController _regNoController = TextEditingController(text: cars.regNo!=null?cars.regNo:"");
-    TextEditingController _descriptionController = TextEditingController();
-    TextEditingController _supportNoController = TextEditingController(text: cars.supportNo!=null?cars.supportNo:"");
-    TextEditingController _highlightController = TextEditingController(text: cars.highlights!=null?cars.highlights:"");
-    TextEditingController _mainImageController = TextEditingController();
-    TextEditingController _inImageController = TextEditingController();
-    TextEditingController _exImageController = TextEditingController();
+
     AuctionProvider auctionProvider = Provider.of(context);
     AuthProvider authProvider = Provider.of(context);
+
+    UploadCar uploadCar = formData.uploadCar;
+
     return Container(
       child: Form(
         child: Column(
@@ -52,15 +56,15 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
           children: [
             DropdownButtonFormField(
 
-                items:  formData.company.map((e) {
+                items:  formData.company!=null?formData.company.map((e) {
                   return DropdownMenuItem(child: (Text(e.name)), value: e.id,);
-                }).toList(),
+                }).toList():[DropdownMenuItem(child: (Text("")), value: "")],
                 onChanged: (newValue) {
                 formData.dropdownValue2 = newValue;
                 formData.selectedCarMakeId = newValue;
                 },
 
-              decoration: InputDecoration(
+                decoration: InputDecoration(
                 labelText: "Car make",
                 labelStyle: AppFontStyle.bodyTextStyle2(APP_BLACK_COLOR)
               ),
@@ -72,6 +76,7 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
                 return DropdownMenuItem(child: (Text(e.name)), value: e.id);
               }).toList():[DropdownMenuItem(child: (Text("")), value: "")],
               onChanged: (String newValue) {
+                formData.uploadCar.car = newValue;
                 formData.dropdownValue = newValue;
               },
               
@@ -88,7 +93,7 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
                 Wrap(
                   children: [
                    radioWidget(formData, "petrol", "Petrol"),
-                    radioWidget(formData, "Diseal", "Diseal"),
+                    radioWidget(formData, "Diesel", "Diesel"),
                     radioWidget(formData, "CNG", "CNG"),
                     radioWidget(formData, "Electric", "Electric"),
                     radioWidget(formData, "LPG", "LPG"),
@@ -100,26 +105,41 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
             TextFormField(
               decoration: decoration("Variant"),
               controller: _variantController,
+              onChanged: (val){
+                formData.uploadCar.variant = val;
+              },
             ),
             SizedBox(height: 12,),
             TextFormField(
               decoration: decoration("Kms"),
               controller: _kmsController,
+              onChanged: (val){
+                formData.uploadCar.kilometers = val;
+              },
             ),
             SizedBox(height: 12,),
             TextFormField(
               decoration: decoration("Year of manufacture"),
               controller: _yearOfManufactureController,
+              onChanged: (val){
+                formData.uploadCar.year = val;
+              },
             ),
             SizedBox(height: 12,),
             TextFormField(
               decoration: decoration("Base price "),
               controller: _basePriceController,
+              onChanged: (val){
+                formData.uploadCar.basePrice = int.parse(val);
+              },
             ),
             SizedBox(height: 12,),
             TextFormField(
               decoration: decoration("Expected price "),
               controller: _expectedPriceController,
+              onChanged: (val){
+                uploadCar.expectedPrice = int.parse(val);
+              },
             ),
             SizedBox(height: 12,),
             DropdownButtonFormField(
@@ -129,6 +149,7 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
               }).toList():[DropdownMenuItem(child: (Text("")), value: "") ],
               onChanged: (String newValue) {
                 formData.stateDropdown = newValue;
+                formData.uploadCar.state=newValue;
                 auctionProvider.setSelectedStateId(newValue, authProvider.loginModel.token);
               },
               decoration: InputDecoration(
@@ -144,6 +165,7 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
               }).toList():[DropdownMenuItem(child: (Text("")), value: "")],
               onChanged: (String newValue) {
                 formData.rtOfficeDropdown = newValue;
+                formData.uploadCar.office=newValue;
               },
               decoration: InputDecoration(
 
@@ -155,16 +177,25 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
             TextFormField(
               decoration: decoration("Reg no"),
               controller: _regNoController,
+              onChanged: (val){
+                formData.uploadCar.regNo = val;
+              },
             ),
             SizedBox(height: 12,),
             TextFormField(
               decoration: decoration("Description"),
               controller: _descriptionController,
+              onChanged: (val){
+                formData.uploadCar.description = val;
+              },
             ),
             SizedBox(height: 12,),
             TextFormField(
               decoration: decoration("Support number"),
               controller: _supportNoController,
+              onChanged: (val){
+                formData.uploadCar.supportNo = val;
+              },
             ),
             SizedBox(height: 12,),
             Row(
@@ -174,6 +205,7 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
                   child: TextFormField(
                     decoration: decoration("Highlight feature "),
                     controller: _highlightController,
+//TODO
                   ),
                 ),
 
@@ -438,7 +470,9 @@ Widget radioWidget(FormData formData, String value, String tittle){
         activeColor: PRIMARY_COLOR ,
         value: value,
         groupValue: formData.radioItem,
-        onChanged: (val)=> formData.radioItem = val,
+        onChanged: (val){
+
+          formData.radioItem = val;}
       ),
       Text(tittle, style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),)
     ],

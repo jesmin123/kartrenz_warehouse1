@@ -4,6 +4,7 @@ import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/strings.dart';
 import 'package:kartenz/model/CarWareHouse1Model.dart';
 import 'package:kartenz/provider/SubmittedCarsProvider.dart';
+import 'package:kartenz/ui/utilis/no_image_utilis.dart';
 import 'package:provider/provider.dart';
 
 class AcceptedFormWidget extends StatefulWidget {
@@ -22,7 +23,8 @@ class _AcceptedFormWidgetState extends State<AcceptedFormWidget> {
         CarWarehouseModel1 car = submittedCarsProvider.acceptedCars[pos];
         return GestureDetector(
           onTap: (){
-            Navigator.pushNamed(context, ACCEPTED_DETAIL_WIDGET );
+            submittedCarsProvider.activeCar = car;
+            Navigator.pushNamed(context, SUBMITTED_DETAILS_PAGE );
           },
           child: Container(
             child: Card(
@@ -32,10 +34,8 @@ class _AcceptedFormWidgetState extends State<AcceptedFormWidget> {
                 child: Column(
                   children: [
                     SizedBox(height: 6,),
-                    Image.asset(
-                      "assets/images/222.jpg",
-                      width: MediaQuery.of(context).size.width,
-                    ),
+                    //TODO all images are same in all cars
+                    ImageUtil.banner(car.getMainImage()),
                     SizedBox(height: 12,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

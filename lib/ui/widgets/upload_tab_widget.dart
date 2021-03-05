@@ -2,6 +2,7 @@ import 'package:fa_stepper/fa_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
+import 'package:kartenz/model/Upload_Model/Upload_car_model.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +22,11 @@ class UploadTabWidget extends StatefulWidget {
 class _UploadTabWidgetState extends State<UploadTabWidget> {
 
 
+  @override
+  void initState() {
+    initData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,4 +55,11 @@ class _UploadTabWidgetState extends State<UploadTabWidget> {
   void changeStep(int value, FormData formData ) {
     formData.stepCount = value;
   }
+
+  void initData() {
+    FormData formData = Provider.of(context,listen: false);
+    formData.uploadCar = new UploadCar();
+    formData.uploadCar.initConstructor();
+  }
+
 }

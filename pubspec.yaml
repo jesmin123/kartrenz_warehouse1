@@ -40,6 +40,10 @@ dependencies:
   dio: ^3.0.10
   progress_dialog: ^1.2.0
   fluttertoast: ^7.0.2
+  flutter_spinkit: ^4.1.2
+  cached_network_image: ^2.5.0
+  date_range_picker: ^1.0.6
+  syncfusion_flutter_datepicker: ^18.4.46-beta
 
 
 

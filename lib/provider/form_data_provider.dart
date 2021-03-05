@@ -8,6 +8,7 @@ import 'package:kartenz/model/RespObj.dart';
 import 'package:kartenz/model/Upload_Model/DocumentDetails.dart';
 import 'package:kartenz/model/Upload_Model/EngineModel.dart';
 import 'package:kartenz/model/Upload_Model/Upload_Model.dart';
+import 'package:kartenz/model/Upload_Model/Upload_car_model.dart';
 
 class FormData extends ChangeNotifier{
 
@@ -53,6 +54,7 @@ class FormData extends ChangeNotifier{
 
   set radioItem(String value) {
     _radioItem = value;
+    uploadCar.fuel=value;
     notifyListeners();
   }
 
@@ -82,12 +84,14 @@ class FormData extends ChangeNotifier{
     List<String>  highlightFeature = features;
     highlightFeature.add(feature);
     features = highlightFeature;
+    uploadCar.highlights = features;
   }
 
   void removeFromfeature(String feature){
     List<String>  highlightFeature = features;
     highlightFeature.remove(feature);
     features = highlightFeature;
+
   }
 
   PlatformFile _mainImage;
@@ -242,13 +246,15 @@ int _current = 0;
     notifyListeners();
   }
 
-  String _radioList;
+  int _radioList;
 
-  String get radioList => _radioList;
 
-  set radioList(String value) {
+  int get radioList => _radioList;
+
+  set radioList(int value) {
     _radioList = value;
     notifyListeners();
+
   }
 
   CarWarehouseModel1 _selectedCars;
@@ -259,5 +265,7 @@ int _current = 0;
     _selectedCars = value;
     notifyListeners();
   }
+
+  UploadCar uploadCar;
 }
 

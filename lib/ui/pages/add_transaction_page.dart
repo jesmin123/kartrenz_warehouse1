@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/constant_widgets.dart';
+import 'package:kartenz/provider/PurchaseProvider.dart';
+import 'package:kartenz/provider/auth_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
+import 'package:kartenz/ui/utilis/AlertBox.dart';
+import 'package:kartenz/ui/utilis/loader_utilis.dart';
 import 'package:provider/provider.dart';
 
 class AddTransactionPage extends StatefulWidget {
@@ -11,12 +15,25 @@ class AddTransactionPage extends StatefulWidget {
 }
 
 class _AddTransactionPageState extends State<AddTransactionPage> {
+
   final _formKey = GlobalKey<FormState>();
   bool value = false;
   TextEditingController _textController = TextEditingController();
+
+
+  @override
+  void initState() {
+    initData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+
     FormData formData = Provider.of(context);
+    PurchaseProvider purchaseProvider = Provider.of(context);
+    AuthProvider authProvider = Provider.of(context);
+
     return Scaffold(
         appBar: appBar(context, "Add New Transaction"),
         body: SingleChildScrollView(
@@ -44,6 +61,7 @@ class _AddTransactionPageState extends State<AddTransactionPage> {
                         Flexible(
                           flex: 2,
                           child: TextFormField(
+                            controller: _textController,
                               decoration: InputDecoration(
                                   hintText: "Enter transaction ID",
                                   hintStyle: AppFontStyle.regularTextStyle2(APP_GREY_COLOR),
@@ -58,9 +76,17 @@ class _AddTransactionPageState extends State<AddTransactionPage> {
                         Flexible(
                             flex: 1,
                             child: RaisedButton(
-                              onPressed: (){
-                                value = true;
-                              },
+                              onPressed: () async {
+                                purchaseProvider.isResultReady = false;
+                                Loader.getLoader(context).show();
+                                bool status = await purchaseProvider.getTrnsactionDetail(authProvider.loginModel.token, _textController.text, formData.radioList);
+                                Loader.getLoader(context).hide();
+                                if(status){
+                                  purchaseProvider.isResultReady = true;
+                                  }else{
+                                  AlertBox.showToast("No Transaction Found");
+                                }
+                                },
                               child: Text("Submit", style: AppFontStyle.headingTextStyle(APP_WHITE_COLOR, textSize: 18.0),),
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                               color: PRIMARY_COLOR,
@@ -70,26 +96,26 @@ class _AddTransactionPageState extends State<AddTransactionPage> {
                     ),
                     Row(
                       children: [
-                        Radio(value: "Buy now", groupValue: formData.radioList, onChanged:(val)=>formData.radioList = val, activeColor: PRIMARY_COLOR,),
+                        Radio(value: 1, groupValue: formData.radioList, onChanged:(val)=>formData.radioList = val, activeColor: PRIMARY_COLOR,),
                         Text("Buy now", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
-                        Radio(value: "Auction", groupValue: formData.radioList, onChanged:(val)=>formData.radioList = val, activeColor: PRIMARY_COLOR),
+                        Radio(value: 2, groupValue: formData.radioList, onChanged:(val)=>formData.radioList = val, activeColor: PRIMARY_COLOR),
                         Text("Auction", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),)
                       ],
                     ),
                     SizedBox(height: 16,),
                     Divider(thickness: 1,),
-                    value?Column(
+                    purchaseProvider.isResultReady?Column(
                       children: [
                         SizedBox(height: 16,),
-                        rowWidget("Transaction Id :", "10kCd9RZZ"),
+                        rowWidget("Transaction Id :", "${purchaseProvider.transaction.transaction.ltransactionID}"),
                         SizedBox(height: 6,),
-                        rowWidget("Broker Name :", "illyas"),
+                        rowWidget("Broker Name :", "${purchaseProvider.transaction.brokerModel.name}"),
                         SizedBox(height: 6,),
-                        rowWidget("Phone :", "7034066774"),
+                        rowWidget("Phone :", "${purchaseProvider.transaction.brokerModel.phone}"),
                         SizedBox(height: 6,),
-                        rowWidget("Amount :", "Rs 600000"),
+                        rowWidget("Amount :", "Rs ${purchaseProvider.transaction.transaction.amount}"),
                         SizedBox(height: 6,),
-                        rowWidget("Status :", "Paid"),
+                        rowWidget("Status :", "${purchaseProvider.transaction.isPaid?"Paid":"Not Paid"}"),
                         SizedBox(height: 12,),
                         RaisedButton(
                           onPressed: (){
@@ -109,6 +135,12 @@ class _AddTransactionPageState extends State<AddTransactionPage> {
         )
     );
   }
+
+  void initData() {
+    PurchaseProvider purchaseProvider = Provider.of(context,listen: false);
+    purchaseProvider.isResultReady = false;
+  }
+
 }
 
 Widget rowWidget(String tittle1, String tittle2){

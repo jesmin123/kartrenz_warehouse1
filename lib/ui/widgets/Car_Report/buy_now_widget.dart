@@ -15,6 +15,11 @@ class _BuyNowWidgetState extends State<BuyNowWidget> {
   TextEditingController _regNoController = TextEditingController();
   bool sort = false;
   @override
+  void initState() {
+    initData();
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     AuctionProvider auctionProvider = Provider.of(context);
     return SingleChildScrollView(
@@ -128,5 +133,10 @@ class _BuyNowWidgetState extends State<BuyNowWidget> {
         }
         break;
     }
+  }
+
+  void initData() {
+    AuctionProvider auctionProvider = Provider.of(context, listen: false);
+    auctionProvider.buyAll = auctionProvider.allBuyNow;
   }
 }

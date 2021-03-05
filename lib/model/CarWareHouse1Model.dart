@@ -1,11 +1,18 @@
 import 'dart:convert';
 
+import 'package:kartenz/model/AieConditioningModel.dart';
+import 'package:kartenz/model/ElectricalsModel.dart';
+import 'package:kartenz/model/ExteriorTyresModel.dart';
+import 'package:kartenz/model/SteeringModel.dart';
+import 'package:kartenz/model/Upload_Model/EngineModel.dart';
+
 import 'package:kartenz/model/ImageModel.dart';
 
 import 'AuctionModel.dart';
 import 'CarModel.dart';
 import 'Company1Model.dart';
 import 'CompanyModel.dart';
+import 'Upload_Model/DocumentDetails.dart';
 
 
 
@@ -139,12 +146,12 @@ class CarWarehouseModel1{
   }
 
   String getMainImage(){
-    CarWarehouseModel1 carWarehouseModel1;
-    if(carWarehouseModel1.imageModel.first!=null){
-      return carWarehouseModel1.imageModel.first.image;
+
+    if(imageModel!=null && imageModel.length>0){
+      return imageModel.first.image;
     }
     else{
-      return null;
+      return "";
     }
   }
 
@@ -184,5 +191,50 @@ class CarWarehouseModel1{
     _dueDate = value;
   }
 
+  DocumentData getDocumentDetail(){
+    try{
+      return DocumentData.fromJSON(documentDetails);
+    }catch(ex){
+      print(ex);
+      return null;
+    }
+  }
+
+  ACModel getACDetail(){
+    try{
+      return ACModel.fromJSON(airConditioning);
+    }catch(ex){
+      print(ex);
+      return null;
+    }
+  }
+
+  ElectricModel getElectricDetail(){
+    try{
+      return ElectricModel.fromJSON(electricals);
+    }catch(ex){
+      print(ex);
+      return null;
+    }
+  }
+
+  SteeringModel getSteeringDetail(){
+    try{
+      return SteeringModel.fromJSON(steeringSuspensionAndBrakes);
+    }catch(ex){
+      print(ex);
+      return null;
+    }
+  }
+
+
+  ExteriorTyresModel getExteriorDetail(){
+    try{
+      return ExteriorTyresModel.fromJSON(exteriorPlusTyres);
+    }catch(ex){
+      print(ex);
+      return null;
+    }
+  }
 
 }

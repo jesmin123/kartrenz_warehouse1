@@ -19,7 +19,8 @@ class DocumentData {
   String RTONOCissued=" ";
   String underHypothecation=" ";
   String duplicateKey=" ";
-  double rating;
+  String description;
+  String rating;
   dynamic custom;
 
   DocumentData({this.manufacturingYr, this.chassisNoEmossing, this.CNGLPGFitment,
@@ -27,7 +28,7 @@ class DocumentData {
     this.noclaimBonus, this.noclaimBonusPercentage, this.fitnessupto,
     this.RCavailability, this.RCCondition, this.RTO, this.partipheshiRequest,
     this.roadTaxpaid, this.RTONOCissued, this.underHypothecation,
-    this.duplicateKey,this.custom, this.rating, });
+    this.duplicateKey,this.custom, this.rating });
 
   factory DocumentData.fromJSON(Map<dynamic,dynamic> json){
     try{
@@ -36,7 +37,7 @@ class DocumentData {
           noclaimBonus: json['noclaimBonus'],noclaimBonusPercentage: json['noclaimBonusPercentage'],partipheshiRequest: json['partipheshiRequest'],
           custom: json['custom'],RCavailability: json['RCavailability']!=null? json['RCavailability']:"No Data",RCCondition: json['RCCondition']!=null?json['RCCondition']:"No Data",registrationDate: json['registrationDate']!=null?json['registrationDate']:"No Data",
           roadTaxpaid: json['roadTaxpaid']!=null?json['roadTaxpaid']:"No Data",RTO: json['RTO']!=null?json['RTO']:'No Data',RTONOCissued: json['RTONOCissued']!=null?json['RTONOCissued']:"No Data",underHypothecation: json['underHypothecation']!=null?json['underHypothecation']:"No Data",
-        rating: json["rating"]!=null?json["rating"]:"No Data",
+        rating: json["rating"]!=null?json["rating"].toString():"No Data"
       );
     }catch(e){
       print("Exception e: "+e.toString());
@@ -48,7 +49,7 @@ class DocumentData {
     'manufacturingYr':manufacturingYr,'chassisNoEmossing':chassisNoEmossing,'CNGLPGFitment':CNGLPGFitment,"registrationDate":registrationDate,"insuranceType":insuranceType,
     "insuranceExpiryDate":insuranceExpiryDate,"noclaimBonus":noclaimBonus,"noclaimBonusPercentage":noclaimBonusPercentage,"fitnessupto":fitnessupto,"RCavailability":RCavailability,
     "RCCondition":RCCondition,"RTO":RTO,"partipheshiRequest":partipheshiRequest,"roadTaxpaid":roadTaxpaid,"RTONOCissued":RTONOCissued,"underHypothecation":underHypothecation,
-    "duplicateKey":duplicateKey,"rating":rating
+    "duplicateKey":duplicateKey,"rating":rating,
   };
 
   List <Widget>getCustmoWidgets(){

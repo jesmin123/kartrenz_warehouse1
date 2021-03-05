@@ -3,58 +3,46 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:kartenz/api/api.dart';
 import 'package:kartenz/model/BuyCodeModel.dart';
+import 'package:kartenz/model/RespObj.dart';
 class PurchaseProvider extends ChangeNotifier{
 
-  List<BuyCodeModel> _buyCodeList;
-  List<BuyCodeModel> _auctionCodeList;
 
-  List<BuyCodeModel> get auctionCodeList => _auctionCodeList;
+  BuyCodeModel _transaction;
 
-  set auctionCodeList(List<BuyCodeModel> value) {
-    _auctionCodeList = value;
+
+  BuyCodeModel get transaction => _transaction;
+
+  set transaction(BuyCodeModel value) {
+    _transaction = value;
     notifyListeners();
   }
 
-  List<BuyCodeModel> get buyCodeList => _buyCodeList;
+  Future<bool> getTrnsactionDetail(String token,String code,int type)async{
+    Map sendData={"code": code};
+    List<BuyCodeModel> temp=[];
+    String route = type==1?"buy/code":"auction/code";
+    RespObj respObj = await api.postData(route,header: token,mBody: jsonEncode(sendData));
+    if(respObj.status){
+      List<dynamic> data=respObj.data;
+      if(data!=null && data.length>0){
+        BuyCodeModel buyCodeModel=BuyCodeModel.fromJSON(data.first);
+        if(buyCodeModel==null){return false;}
+        transaction = buyCodeModel;
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+    return respObj.status;
+  }
 
-  set buyCodeList(List<BuyCodeModel> value) {
-    _buyCodeList = value;
+  bool _isResultReady = false;
+
+  bool get isResultReady => _isResultReady;
+
+  set isResultReady(bool value) {
+    _isResultReady = value;
     notifyListeners();
-  }
-
-
-  Future postBuyCode(String token,String code)async{
-    Map sendData={"code": code};
-    List<BuyCodeModel> temp=[];
-    api.postData("buy/code",header: token,mBody: jsonEncode(sendData)).then((respObj) {
-      if(respObj.status){
-        List<dynamic> data=respObj.data;
-        data.forEach((element) {
-          BuyCodeModel buyCodeModel=BuyCodeModel.fromJSON(element);
-          if(buyCodeModel!=null){
-            temp.add(buyCodeModel);
-          }
-        });
-      }
-      buyCodeList=temp;
-    });
-  }
-
-
-  Future postAuctionCode(String token,String code)async{
-    Map sendData={"code": code};
-    List<BuyCodeModel> temp=[];
-    api.postData("auction/code",header: token,mBody: jsonEncode(sendData)).then((respObj) {
-      if(respObj.status){
-        List<dynamic> data=respObj.data;
-        data.forEach((element) {
-          BuyCodeModel buyCodeModel=BuyCodeModel.fromJSON(element);
-          if(buyCodeModel!=null){
-            temp.add(buyCodeModel);
-          }
-        });
-      }
-      auctionCodeList=temp;
-    });
   }
 }

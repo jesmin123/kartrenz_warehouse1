@@ -3,6 +3,12 @@ import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/constant_widgets.dart';
 import 'package:kartenz/constants/strings.dart';
+import 'package:kartenz/model/CarWareHouse1Model.dart';
+import 'package:kartenz/provider/AuctionProvider.dart';
+import 'package:kartenz/provider/SubmittedCarsProvider.dart';
+import 'package:kartenz/provider/auth_provider.dart';
+import 'package:kartenz/ui/utilis/no_image_utilis.dart';
+import 'package:provider/provider.dart';
 
 class SubmittedDetailPage extends StatefulWidget {
   @override
@@ -10,8 +16,19 @@ class SubmittedDetailPage extends StatefulWidget {
 }
 
 class _SubmittedDetailPageState extends State<SubmittedDetailPage> {
+
+  @override
+  void initState() {
+   initData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    SubmittedCarsProvider submittedCarsProvider = Provider.of(context);
+    CarWarehouseModel1 car = submittedCarsProvider.activeCar;
+    AuthProvider authProvider = Provider.of(context);
+
     return Scaffold(
       appBar: appBar(context, "Cars"),
       body: SingleChildScrollView(
@@ -27,9 +44,9 @@ class _SubmittedDetailPageState extends State<SubmittedDetailPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      carDetails("Jeep", "Compass"),
-                      carDetails("Reg No", "KL-01-0202"),
-                      carDetails("Uploaded", "Main branch pala"),
+                      carDetails("${car.company.car.name}", "${car.car.name}"),
+                      carDetails("Reg No", "${car.regNo}"),
+                      carDetails("Uploaded", "${authProvider.loginModel.locationCode}"),
                     ],
                   ),
                 ),
@@ -42,49 +59,46 @@ class _SubmittedDetailPageState extends State<SubmittedDetailPage> {
                   padding: const EdgeInsets.only(left: 8, right: 8,top: 4, bottom: 12),
                   child: Column(
                     children: [
-                      Image.asset(
-                        "assets/images/222.jpg",
-                        width: MediaQuery.of(context).size.width,
-                      ),
+                     ImageUtil.banner(car.getMainImage()),
                       SizedBox(height: 12,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          carDetails2("Audi", "Q8"),
-                          carDetails2("Year", "2015"),
-                          carDetails2("variant", "LXI"),
-                          carDetails2("Reg No", "KL-02-8976"),
+                          carDetails2("${car.company.car.name}", "${car.car.name}"),
+                          carDetails2("Year", "${car.year}"),
+                          carDetails2("variant", "${car.variant}"),
+                          carDetails2("Reg No", "${car.regNo}"),
                         ],
                       ),
                       SizedBox(height: 16,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          carDetails3(Icons.directions_car_sharp, "Petrol"),
+                          carDetails3(Icons.directions_car_sharp, "${car.fuel}"),
                           Container(
                             width: 1,
                             height: 24,
                             color: APP_BLACK_COLOR,
                           ),
-                          carDetails3(Icons.speed, "450000"),
+                          carDetails3(Icons.speed, "${car.kilometers}"),
                           Container(
                             width: 1,
                             height: 24,
                             color: APP_BLACK_COLOR,
                           ),
-                          carDetails3(Icons.calendar_today_outlined, "2016"),
+                          carDetails3(Icons.calendar_today_outlined, "${car.year}"),
                           Container(
                             width: 1,
                             height: 24,
                             color: APP_BLACK_COLOR,
                           ),
-                          carDetails3(Icons.account_tree_rounded, "Manual"),
+                          carDetails3(Icons.account_tree_rounded, "${car.gearShifting}"),
                         ],
                       ),
                       SizedBox(height: 32,),
                       Text("Description", style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR)),
                       SizedBox(height: 8,),
-                      Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit,sed do eiusmod tempor incididunt ut labore et dolore magnaaliqua. Ut enim ad minim veniam, quis nostrud exercitationullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                      Text("${car.description}",
                         style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR, textSize: 14.0),textAlign: TextAlign.center,
                       ),
                       SizedBox(height: 32,),
@@ -111,6 +125,15 @@ class _SubmittedDetailPageState extends State<SubmittedDetailPage> {
         ),
       ),
     );
+  }
+
+  void initData() {
+    SubmittedCarsProvider submittedCarsProvider = Provider.of(context,listen: false);
+    AuctionProvider auctionProvider = Provider.of(context,listen: false);
+    AuthProvider authProvider = Provider.of(context,listen: false);
+
+    auctionProvider.postCarImage(authProvider.loginModel.id, submittedCarsProvider.activeCar.id);
+
   }
 }
 

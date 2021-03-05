@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
+import 'package:kartenz/model/AieConditioningModel.dart';
 import 'package:kartenz/provider/basic_providers.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:provider/provider.dart';
@@ -28,13 +29,13 @@ class _AirConditionFormWidgetState extends State<AirConditionFormWidget> {
     return Form(
       child: Column(
         children: [
-          radioRow(tittle: "AC Cooling", basicProvider: basicProvider, groupValue: "AC Cooling", controller: _acCoolingController, key: "AC Cooling"),
+          radioRow(tittle: "AC Cooling", basicProvider: basicProvider, groupValue: "AC Cooling", controller: _acCoolingController, key: "ACCooling"),
           SizedBox(height: 24,),
           radioRow(tittle: "Heater", basicProvider: basicProvider, groupValue: "Heater", controller: _heaterController, key: "Heater"),
           SizedBox(height: 24,),
-          radioRow(tittle: "Climate Automatic Control AC", basicProvider: basicProvider, groupValue: "Climate", controller: _climateController, key: "Climate"),
+          radioRow(tittle: "Climate Automatic Control AC", basicProvider: basicProvider, groupValue: "Climate", controller: _climateController, key: "ClimateChangeControlAC"),
           SizedBox(height: 24,),
-          radioRow(tittle: "Blower Motor Noise", basicProvider: basicProvider, groupValue: "Blower", controller: _blowerController, key: "Blower"),
+          radioRow(tittle: "Blower Motor Noise", basicProvider: basicProvider, groupValue: "Blower", controller: _blowerController, key: "BlowerMotorNoise"),
           SizedBox(height: 32,),
           RatingBar.builder(
             initialRating: 3,
@@ -67,131 +68,149 @@ class _AirConditionFormWidgetState extends State<AirConditionFormWidget> {
       ),
     );
   }
-}
+  Map acDataMap = {};
 
- radioRow(
-    {String tittle,
-    BasicProvider basicProvider,
-    String groupValue,
-    TextEditingController controller, String key}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        tittle,
-        style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(left: 32),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Radio(
-                  activeColor: PRIMARY_COLOR,
-                  value: "yes",
-                  groupValue: basicProvider.radioItem[groupValue],
-                  onChanged: (val) =>
-                      basicProvider.updateRadioItem(groupValue, val),
-                ),
-                Text(
-                  "yes",
-                  style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
-                )
-              ],
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Radio(
-                  activeColor: PRIMARY_COLOR,
-                  value: "No",
-                  groupValue: basicProvider.radioItem[groupValue],
-                  onChanged: (val) =>
-                      basicProvider.updateRadioItem(groupValue, val),
-                ),
-                Text(
-                  "no",
-                  style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
-                )
-              ],
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Radio(
-                  activeColor: PRIMARY_COLOR,
-                  value: "n/a",
-                  groupValue: basicProvider.radioItem[groupValue],
-                  onChanged: (val) =>
-                      basicProvider.updateRadioItem(groupValue, val),
-                ),
-                Text(
-                  "N/A",
-                  style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
-                )
-              ],
-            ),
-          ],
+  saveValue(String key,String value){
+    if(acDataMap.containsKey(key)){
+      acDataMap[key] = value;
+    }else{
+      acDataMap.putIfAbsent(key, () => value);
+    }
+    ACModel acModel = ACModel.fromJSON(acDataMap);
+    if(acModel!=null){
+      FormData formData = Provider.of(context,listen: false);
+      formData.uploadCar.acModel = acModel;
+    }
+  }
+  radioRow(
+      {String tittle,
+        BasicProvider basicProvider,
+        String groupValue,
+        TextEditingController controller, String key}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          tittle,
+          style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
         ),
-      ),
-      basicProvider.radioItem[groupValue] == "yes"
-          ? Column(
+        Padding(
+          padding: const EdgeInsets.only(left: 32),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Flexible(
-                      child: TextFormField(
-                        decoration: decoration(),
-                        controller: controller,
-                      ),
-                    ),
-                    Flexible(
-                      child: RaisedButton(
-                        onPressed: () {
-                          pickImages().then((filePickerResult){
-                            if(filePickerResult!=null){
-                             basicProvider.updateImage(key, filePickerResult.files.first);
-                            }
-                          });
-                        },
-                        color: PRIMARY_COLOR,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16)),
-                        child: Text(
-                          "Upload",
-                          style: AppFontStyle.titleAppBarStyle2(APP_WHITE_COLOR),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              SizedBox(height: 12,),
-              basicProvider.images[key]!=null?Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Container(
+                  Radio(
+                      activeColor: PRIMARY_COLOR,
+                      value: "yes",
+                      groupValue: basicProvider.radioItem[groupValue],
+                      onChanged: (val) {
+                        saveValue(key,val);
+                        basicProvider.updateRadioItem(groupValue, val);}
+                  ),
+                  Text(
+                    "yes",
+                    style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
+                  )
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Radio(
+                    activeColor: PRIMARY_COLOR,
+                    value: "No",
+                    groupValue: basicProvider.radioItem[groupValue],
+                    onChanged: (val) {
+                      saveValue(key,val);
+                        basicProvider.updateRadioItem(groupValue, val);}
+                  ),
+                  Text(
+                    "no",
+                    style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
+                  )
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Radio(
+                    activeColor: PRIMARY_COLOR,
+                    value: "n/a",
+                    groupValue: basicProvider.radioItem[groupValue],
+                    onChanged: (val) {
+                      saveValue(key,val);
+                        basicProvider.updateRadioItem(groupValue, val);}
+                  ),
+                  Text(
+                    "N/A",
+                    style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
+        basicProvider.radioItem[groupValue] == "yes"
+            ? Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Flexible(
+                  child: TextFormField(
+                    decoration: decoration(),
+                    controller: controller,
+                  ),
+                ),
+                Flexible(
+                  child: RaisedButton(
+                    onPressed: () {
+                      pickImages().then((filePickerResult){
+                        if(filePickerResult!=null){
+                          basicProvider.updateImage(key, filePickerResult.files.first);
+                        }
+                      });
+                    },
+                    color: PRIMARY_COLOR,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16)),
+                    child: Text(
+                      "Upload",
+                      style: AppFontStyle.titleAppBarStyle2(APP_WHITE_COLOR),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 12,),
+            basicProvider.images[key]!=null?Column(
+              children: [
+                Container(
                     height: 300,
                     width: 300,
                     child: Image.file(File(basicProvider.images[key].path),
-                  )
-                  ),
-                  FlatButton(onPressed: (){
-                    basicProvider.removeImage(key);
-                  }, child: Row(children: [
-                    Text("Delete", style: AppFontStyle.headingTextStyle2(APP_RED_COLOR),),
-                    Icon(Icons.delete, color: APP_RED_COLOR,)
-                  ],))
-                ],
-              ):Container()
-            ],
-          )
-          : Container()
-    ],
-  );
+                    )
+                ),
+                FlatButton(onPressed: (){
+                  basicProvider.removeImage(key);
+                }, child: Row(children: [
+                  Text("Delete", style: AppFontStyle.headingTextStyle2(APP_RED_COLOR),),
+                  Icon(Icons.delete, color: APP_RED_COLOR,)
+                ],))
+              ],
+            ):Container()
+          ],
+        )
+            : Container()
+      ],
+    );
+  }
 }
+
+
 
 InputDecoration decoration() {
   return InputDecoration(

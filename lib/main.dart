@@ -16,6 +16,7 @@ import 'package:kartenz/ui/pages/splash_screen_page.dart';
 import 'package:kartenz/ui/pages/transaction_page.dart';
 import 'package:kartenz/ui/widgets/Accepted_Form_Widget/accepted_detail_widget.dart';
 import 'package:kartenz/ui/widgets/Accepted_Form_Widget/expanded_accepted_widget.dart';
+import 'package:kartenz/ui/widgets/Car_Images_Tab/car_images_widget.dart';
 import 'package:kartenz/ui/widgets/Submitted_Form_widget/expand_details-page.dart';
 import 'package:kartenz/ui/widgets/Submitted_Form_widget/submitted_detail_page.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +43,8 @@ class MyApp extends StatelessWidget {
     TRANSACTION_PAGE : (context) => TransactionPage(),
     SOLD_CAR_PAGE : (context) => SoldCarPage(),
     ADD_TRANSACTION_PAGE : (context) => AddTransactionPage(),
-    CAR_REPORT_PAGE : (context) => CarReportPage()
+    CAR_REPORT_PAGE : (context) => CarReportPage(),
+    CAR_IMAGES_WIDGET : (context) => CarImagesWidget()
   };
 
   @override
