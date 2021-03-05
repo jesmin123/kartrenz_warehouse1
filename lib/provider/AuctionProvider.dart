@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kartenz/api/api.dart';
 import 'package:kartenz/model/BuyModel.dart';
@@ -53,7 +54,6 @@ String get id => _id;
 
 set buyAll(List<BuyModel> value) {
   _buyAll = value;
-  notifyListeners();
 }
 
 List<Transaction> get transactions => _transactions;
@@ -105,6 +105,7 @@ List<Transaction> get transactions => _transactions;
       }
       transactions=temp;
       allTransaction = temp;
+      allTransactions = temp;
     } );
   }
   Future getBuyAllPurchase(String token,String id)async{
@@ -252,6 +253,21 @@ List<BuyModel> allBuyNow = [];
     auction = auctionTemp;
   }
 
+  List<Transaction> allTransactions;
+  serachSoldCar(String keyword){
+    if(keyword==null || keyword.isEmpty){
+      transactions = allTransactions;
+    }
+    List<Transaction> transactionTemp = [];
+    transactions.forEach((element) {
+      if(element.carWarehouseModel.regNo.toUpperCase().contains(keyword.toUpperCase())){
+        transactionTemp.add(element);
+      }
+    });
+    transactions = transactionTemp;
+  }
+
+
 List<ImageModel> _images;
 
 List<ImageModel> get images => _images;
@@ -284,15 +300,19 @@ Map get carImages => _carImages;
         data.forEach((element) {
           ImageModel imageModel=ImageModel.fromJSON(element);
           if(imageModel!=null){
-            if(imageModel.name!=null || imageModel.name.isNotEmpty){
+            if(imageModel.name!=null && imageModel.name.isNotEmpty){
               if(carImagesTemp.containsKey(imageModel.name)){
                 carImagesTemp[imageModel.name].add(imageModel);
-              }else if (carImagesTemp.containsKey(imageModel.type)) {
-                carImagesTemp[imageModel.type]
-                    .add(imageModel);
               }
               else{
                 carImagesTemp.putIfAbsent(imageModel.name, () => [imageModel]);
+              }
+            }else{
+              if (carImagesTemp.containsKey(imageModel.type)) {
+                carImagesTemp[imageModel.type]
+                    .add(imageModel);
+              }else{
+                carImagesTemp.putIfAbsent(imageModel.type, () => [imageModel]);
               }
             }
           }
@@ -304,4 +324,14 @@ Map get carImages => _carImages;
     } );
 }
 
+  searchBetweenDate(DateTime startDate , DateTime endDate){
+    List<Transaction> transtemp = [];
+    transactions.forEach((element) {
+      DateTime dt = DateTime.parse(element.date);
+      if(dt.isBefore(endDate) &&  dt.isAfter(startDate)){
+        transtemp.add(element);
+      }
+    });
+    transactions = transtemp;
+  }
 }

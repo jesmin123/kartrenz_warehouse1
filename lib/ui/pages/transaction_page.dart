@@ -6,6 +6,7 @@ import 'package:kartenz/constants/constant_widgets.dart';
 import 'package:kartenz/constants/strings.dart';
 import 'package:kartenz/provider/AuctionProvider.dart';
 import 'package:provider/provider.dart';
+import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
 
 class TransactionPage extends StatefulWidget {
   @override
@@ -20,6 +21,11 @@ class _TransactionPageState extends State<TransactionPage> {
   bool sort=false;
   int column;
 
+  @override
+  void initState() {
+    initData();
+    super.initState();
+  }
 
 
   @override
@@ -60,16 +66,20 @@ class _TransactionPageState extends State<TransactionPage> {
             ),
                 SizedBox(height: 12,),
                 TextFormField(
-                  onTap:() async {
-                    FocusScope.of(context).requestFocus(new FocusNode());
-                    DateTime dt = await showMDatePicker();
-                    _dateController.text = dt.toIso8601String().substring(0,10);
-                  },
                     controller: _dateController,
                   decoration: InputDecoration(
+                      prefixIcon: IconButton(icon:Icon(Icons.calendar_today_outlined, color: APP_GREY_COLOR,),onPressed: () async {
+                        FocusScope.of(context).requestFocus(new FocusNode());
+                        List<DateTime> dt = await DateRagePicker.showDatePicker(context: context, initialFirstDate: DateTime.now(), initialLastDate: DateTime.now().add(Duration(days: 3)), firstDate: DateTime(2015), lastDate: DateTime(2030));
+                        _dateController.text = "${dt.first.toIso8601String().substring(0,10)} - ${dt.last.toIso8601String().substring(0,10)}";
+                        auctionProvider.searchBetweenDate(dt.first, dt.last);
+                      },),
                       hintText: "Select Date Range",
                       hintStyle: AppFontStyle.regularTextStyle2(APP_GREY_COLOR),
-                      suffixIcon: Icon(Icons.calendar_today_outlined, color: APP_GREY_COLOR,),
+                      suffixIcon: IconButton(icon: Icon(Icons.clear_rounded), onPressed: (){
+                        auctionProvider.transactions = auctionProvider.allTransactions;
+                        _dateController.clear();
+                      }),
                       focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide(color: Colors.grey[200])),
                       enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide(color: Colors.grey[200])),
                       contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -87,7 +97,7 @@ class _TransactionPageState extends State<TransactionPage> {
                           controller: _brokerNameController,
                             decoration: InputDecoration(
                                 hintText: "Select by Broker Name",
-                                suffix: IconButton(icon: Icon(Icons.clear_rounded), onPressed: (){
+                                suffixIcon: IconButton(icon: Icon(Icons.clear_rounded), onPressed: (){
                                   auctionProvider.transactions = auctionProvider.allTransaction;
                                   _brokerNameController.clear();
                                 }),
@@ -188,6 +198,12 @@ class _TransactionPageState extends State<TransactionPage> {
       }
       break;
     }
+  }
+
+  void initData() {
+    AuctionProvider auctionProvider = Provider.of(context, listen: false);
+    auctionProvider.transactions = auctionProvider.allTransaction;
+
   }
 
 }

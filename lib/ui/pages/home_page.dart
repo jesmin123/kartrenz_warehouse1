@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/strings.dart';
+import 'package:kartenz/provider/AuctionProvider.dart';
+import 'package:kartenz/provider/SubmittedCarsProvider.dart';
 import 'package:kartenz/provider/auth_provider.dart';
 import 'package:kartenz/provider/basic_providers.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
@@ -32,64 +34,91 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     BasicProvider basicProvider = Provider.of(context);
+    SubmittedCarsProvider submittedCarsProvider = Provider.of(context);
+    AuctionProvider auctionProvider = Provider.of(context);
+    AuthProvider authProvider = Provider.of(context);
 
 
     return WillPopScope(
       onWillPop: ()async{
         showAlert(context);
       },
-      child: Scaffold(
-        key: _Key,
-        appBar: AppBar(
-          backgroundColor: APP_WHITE_COLOR,
-          leading: IconButton(icon: Icon(Icons.menu_outlined,color: APP_BLACK_COLOR,), onPressed: (){_Key.currentState.openDrawer();}),
-          title: Text("Dashboard", style: AppFontStyle.titleAppBarStyle(PRIMARY_COLOR),),
-        ),
-        drawer: drawer(context),
-        body: Column(
-          children: [
-            SizedBox(height: 20,),
-            CarouselSlider(
-              items: [
-                DashboardWidget(CAROUSEL1, "Cars Uploaded", "5"),
-                DashboardWidget(CAROUSEL2, "Cars Sold", "5"),
-                DashboardWidget(CAROUSEL3, "Transactions", "5")
-              ],
-              options: CarouselOptions(
-                height: 220,
-                aspectRatio: 16/10,initialPage: 0,
-                enlargeCenterPage: true,
-                viewportFraction: .5,
-                enableInfiniteScroll: false,
+      child: RefreshIndicator(
+        onRefresh: (){
+          auctionProvider.getAuctionsBuyAll(authProvider.loginModel.token,authProvider.loginModel.id);
+          auctionProvider.getTransaction(authProvider.loginModel.id, authProvider.loginModel.token);
+          auctionProvider.getBuyAllPurchase( authProvider.loginModel.token,authProvider.loginModel.id);
+          auctionProvider.getStateList(authProvider.loginModel.token);
+          auctionProvider.postListRt(authProvider.loginModel.token, "5fd8459b3121f4001fe2722b");
+          submittedCarsProvider.getSubmittedCars(authProvider.loginModel.token);
+          auctionProvider.postUploadNewCar(authProvider.loginModel.token);
+          return;
+        },
+        child: Scaffold(
+          key: _Key,
+          appBar: AppBar(
+            backgroundColor: APP_WHITE_COLOR,
+            leading: IconButton(icon: Icon(Icons.menu_outlined,color: APP_BLACK_COLOR,), onPressed: (){_Key.currentState.openDrawer();}),
+            title: Text("Dashboard", style: AppFontStyle.titleAppBarStyle(PRIMARY_COLOR),),
+            actions: [
+              IconButton(icon: Icon(Icons.refresh,color: Colors.green,), onPressed: (){
+                auctionProvider.getAuctionsBuyAll(authProvider.loginModel.token,authProvider.loginModel.id);
+                auctionProvider.getTransaction(authProvider.loginModel.id, authProvider.loginModel.token);
+                auctionProvider.getBuyAllPurchase( authProvider.loginModel.token,authProvider.loginModel.id);
+                auctionProvider.getStateList(authProvider.loginModel.token);
+                auctionProvider.postListRt(authProvider.loginModel.token, "5fd8459b3121f4001fe2722b");
+                submittedCarsProvider.getSubmittedCars(authProvider.loginModel.token);
+                auctionProvider.postUploadNewCar(authProvider.loginModel.token);
+                auctionProvider.postCarImage(authProvider.loginModel.token, "6040bacc8bec32002b58a758");
+              })
+            ],
+          ),
+          drawer: drawer(context),
+          body: Column(
+            children: [
+              SizedBox(height: 20,),
+              CarouselSlider(
+                items: [
+                  DashboardWidget(CAROUSEL1, "Cars Uploaded", submittedCarsProvider.submittedCars!=null?(submittedCarsProvider.submittedCars.length+submittedCarsProvider.acceptedCars.length+submittedCarsProvider.rejectedCars.length+submittedCarsProvider.modifyCars.length).toString():"0"),
+                  DashboardWidget(CAROUSEL2, "Cars Sold", auctionProvider.transactions!=null?auctionProvider.transactions.length.toString():"0"),
+                  DashboardWidget(CAROUSEL3, "Transactions", auctionProvider.transactions!=null?auctionProvider.transactions.length.toString():"0")
+                ],
+                options: CarouselOptions(
+                  height: 220,
+                  aspectRatio: 16/10,initialPage: 0,
+                  enlargeCenterPage: true,
+                  viewportFraction: .5,
+                  enableInfiniteScroll: false,
+                ),
               ),
-            ),
-            SizedBox(height: 32,),
-            TabBar(
-              tabs: <Widget>[
-                Tab(text: "My Profile info",),
-                Tab(text: "Admin Contact",),
-              ],
-              labelStyle: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
-              controller: _tabController,
-              dragStartBehavior: DragStartBehavior.down,
-              indicatorColor: PRIMARY_COLOR,
-              labelColor: APP_BLACK_COLOR,
-              indicatorSize: TabBarIndicatorSize.label,
-              isScrollable: true,
-              unselectedLabelColor: APP_BLACK_COLOR,
+              SizedBox(height: 32,),
+              TabBar(
+                tabs: <Widget>[
+                  Tab(text: "My Profile info",),
+                  Tab(text: "Admin Contact",),
+                ],
+                labelStyle: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
+                controller: _tabController,
+                dragStartBehavior: DragStartBehavior.down,
+                indicatorColor: PRIMARY_COLOR,
+                labelColor: APP_BLACK_COLOR,
+                indicatorSize: TabBarIndicatorSize.label,
+                isScrollable: true,
+                unselectedLabelColor: APP_BLACK_COLOR,
 
-            ),
-            Expanded(
-                child: TabBarView(
-                  children: [
-                    MyProfileTab(),
-                    AdminContactTab()
-                  ],
-                  controller: _tabController,
-                )
-            )
-          ],
-        )
+              ),
+              Expanded(
+                  child: TabBarView(
+                    children: [
+                      MyProfileTab(),
+                      AdminContactTab()
+                    ],
+                    controller: _tabController,
+                  )
+              )
+            ],
+          )
+        ),
       ),
     );
 
@@ -199,6 +228,7 @@ Widget drawer(BuildContext context){
                 children: [
                   GestureDetector(
                     onTap: (){
+                      Navigator.pop(context);
                       Navigator.pushNamed(context, HOME_PAGE);
                     },
                     child: Row(
@@ -212,6 +242,7 @@ Widget drawer(BuildContext context){
                   SizedBox(height: 24,),
                   GestureDetector(
                     onTap: (){
+                      Navigator.pop(context);
                       formData.selectedCars= null;
                       Navigator.pushNamed(context, CARS_PAGE);
                     },
@@ -226,6 +257,7 @@ Widget drawer(BuildContext context){
                   SizedBox(height: 24,),
                   GestureDetector(
                     onTap: (){
+                      Navigator.pop(context);
                       Navigator.pushNamed(context, CAR_REPORT_PAGE);
                     },
                     child: Row(
@@ -239,6 +271,7 @@ Widget drawer(BuildContext context){
                   SizedBox(height: 24,),
                   GestureDetector(
                     onTap: (){
+                      Navigator.pop(context);
                       Navigator.pushNamed(context, SOLD_CAR_PAGE);
                     },
                     child: Row(
@@ -252,6 +285,7 @@ Widget drawer(BuildContext context){
                   SizedBox(height: 24,),
                   GestureDetector(
                     onTap: (){
+                      Navigator.pop(context);
                       Navigator.pushNamed(context, TRANSACTION_PAGE);
                     },
                     child: Row(

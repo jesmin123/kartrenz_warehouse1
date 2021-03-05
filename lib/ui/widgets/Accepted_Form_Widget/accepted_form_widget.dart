@@ -34,6 +34,7 @@ class _AcceptedFormWidgetState extends State<AcceptedFormWidget> {
                 child: Column(
                   children: [
                     SizedBox(height: 6,),
+                    //TODO all images are same in all cars
                     ImageUtil.banner(car.getMainImage()),
                     SizedBox(height: 12,),
                     Row(

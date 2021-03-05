@@ -93,7 +93,7 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
                 Wrap(
                   children: [
                    radioWidget(formData, "petrol", "Petrol"),
-                    radioWidget(formData, "Diseal", "Diesel"),
+                    radioWidget(formData, "Diesel", "Diesel"),
                     radioWidget(formData, "CNG", "CNG"),
                     radioWidget(formData, "Electric", "Electric"),
                     radioWidget(formData, "LPG", "LPG"),
@@ -429,7 +429,6 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
       ),
     );
   }
-
 
   Future<FilePickerResult> pickImages(bool allowMutiple) async {
     List<String> extensions =  ['jpg', 'png', 'jpeg'];
