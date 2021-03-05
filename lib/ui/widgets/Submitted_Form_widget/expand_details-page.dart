@@ -6,6 +6,7 @@ import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/constant_widgets.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:kartenz/constants/strings.dart';
 import 'package:kartenz/model/CarWareHouse1Model.dart';
 import 'package:kartenz/model/ImageModel.dart';
 import 'package:kartenz/provider/AuctionProvider.dart';
@@ -202,6 +203,7 @@ class _ExpandDetailPageState extends State<ExpandDetailPage> {
                           Divider(),
                           airWidget("reverseCamera", car.getElectricDetail().reverseCamera, images: auctionProvider.carImages['reverseCamera']),
                           Divider(),
+                          //TODO implement electrical and interior
                           airWidget("electrical", car.getElectricDetail().electrical, images: auctionProvider.carImages['BlowerMotorNoise']),
                           Divider(),
                           airWidget("interior", car.getElectricDetail().interior, images: auctionProvider.carImages['BlowerMotorNoise']),
@@ -411,48 +413,16 @@ class _ExpandDetailPageState extends State<ExpandDetailPage> {
                 ),
               ],
             ),
-            SizedBox(height: 32,),
-            Text("Images", style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR, textSize: 20.0) ),
-            SizedBox(height: 16,),
-            Scrollbar(
-              radius: Radius.circular(4),
-              child: CarouselSlider(
-                options: CarouselOptions(
-                  autoPlay: false,
-                  enlargeCenterPage: true,
-                    enableInfiniteScroll: false,
-                  initialPage: 0,
-                  height: 300,
-                  onPageChanged: (index, reason){
-                    formData.current = index;
-                  }
-
-                ),
-                items: car.imageModel.map((img){
-                   return Builder(
-                       builder: (context){
-                         return Container(
-                           width: MediaQuery.of(context).size.width,
-                           margin: EdgeInsets.symmetric(horizontal: 10),
-
-                           child: Column(
-                             children: [
-                               Container(
-                                 width: MediaQuery.of(context).size.width,
-                                 height: 220,
-                                 child: ImageUtil.network(img.image),
-                               ),
-                               SizedBox(height: 4,),
-                               img!=null?Text("${img.name}", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),):Text("12")
-                             ],
-                           )
-                         );
-                       }
-                   );
-                }).toList()
-              ),
-            ),
-            SizedBox(height: 16,),
+            SizedBox(height: 22,),
+            FlatButton(onPressed: (){
+              Navigator.pushNamed(context, CAR_IMAGES_WIDGET);
+            }, child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text("View Images", style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR)),
+                Icon(Icons.arrow_forward_ios_outlined, size: 18,)
+              ],
+            )),
 
 
           ]

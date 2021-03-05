@@ -88,7 +88,7 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
                 Wrap(
                   children: [
                    radioWidget(formData, "petrol", "Petrol"),
-                    radioWidget(formData, "Diseal", "Diseal"),
+                    radioWidget(formData, "Diesel", "Diesel"),
                     radioWidget(formData, "CNG", "CNG"),
                     radioWidget(formData, "Electric", "Electric"),
                     radioWidget(formData, "LPG", "LPG"),

@@ -17,6 +17,11 @@ class _AuctionwidgetState extends State<Auctionwidget> {
   bool sort=false;
   int column;
   @override
+  void initState() {
+    initData();
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     AuctionProvider auctionProvider = Provider.of(context);
     return SingleChildScrollView(
@@ -129,6 +134,11 @@ class _AuctionwidgetState extends State<Auctionwidget> {
           )
       ),
     );
+  }
+
+  void initData() {
+    AuctionProvider auctionProvider = Provider.of(context, listen: false);
+    auctionProvider.auction = auctionProvider.allAuction;
   }
 }
 

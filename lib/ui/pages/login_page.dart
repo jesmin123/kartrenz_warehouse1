@@ -121,7 +121,6 @@ class _LoginPageState extends State<LoginPage> {
                           auctionProvider.postListRt(authProvider.loginModel.token, "5fd8459b3121f4001fe2722b");
                           submittedCarsProvider.getSubmittedCars(authProvider.loginModel.token);
                           auctionProvider.postUploadNewCar(authProvider.loginModel.token);
-                          auctionProvider.postCarImage(authProvider.loginModel.token, "6040bacc8bec32002b58a758");
 
 
                           Navigator.pushNamed(context, HOME_PAGE);

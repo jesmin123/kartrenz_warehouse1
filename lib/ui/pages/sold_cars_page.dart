@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kartenz/api/api.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/constant_widgets.dart';
@@ -11,7 +12,13 @@ class SoldCarPage extends StatefulWidget {
 }
 
 class _SoldCarPageState extends State<SoldCarPage> {
+  TextEditingController _regNoController = TextEditingController();
   bool sort=false;
+  @override
+  void initState() {
+    initData();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     AuctionProvider auctionProvider = Provider.of(context);
@@ -34,7 +41,12 @@ class _SoldCarPageState extends State<SoldCarPage> {
                     Flexible(
                       flex: 2,
                       child: TextFormField(
+                        controller: _regNoController,
                           decoration: InputDecoration(
+                            suffixIcon: IconButton(icon: Icon(Icons.clear_rounded), onPressed: (){
+                              auctionProvider.transactions = auctionProvider.allTransactions;
+                              _regNoController.clear();
+                            }),
                               hintText: "Search...",
                               hintStyle: AppFontStyle.regularTextStyle2(APP_GREY_COLOR),
                               focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide(color: Colors.grey[200])),
@@ -49,7 +61,9 @@ class _SoldCarPageState extends State<SoldCarPage> {
                     Flexible(
                         flex: 1,
                         child: RaisedButton(
-                          onPressed: (){},
+                          onPressed: (){
+                            auctionProvider.serachSoldCar(_regNoController.text);
+                          },
                           child: Text("SEARCH", style: AppFontStyle.headingTextStyle(APP_WHITE_COLOR, textSize: 18.0),),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                           color: PRIMARY_COLOR,
@@ -111,6 +125,11 @@ class _SoldCarPageState extends State<SoldCarPage> {
         } else {
           auctionProvider.transactions.sort((a,b)=>b.amount.compareTo(a.amount));
         }
+  }
+
+  void initData() {
+    AuctionProvider auctionProvider = Provider.of(context, listen: false);
+    auctionProvider.transactions = auctionProvider.allTransactions;
   }
 
 }
