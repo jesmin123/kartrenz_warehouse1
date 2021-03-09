@@ -247,7 +247,7 @@ class _EnginetransmissionFormWidgetState extends State<EnginetransmissionFormWid
             onRatingUpdate: (rating) {
               print(rating);
               basicProvider.engineRating = rating;
-
+              formData.uploadCar.ratingEngine = rating.toString();
             },
           ),
           SizedBox(height: 32,),

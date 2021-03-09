@@ -68,7 +68,6 @@ class FormData extends ChangeNotifier{
 
   set dropdownValue(String value) {
     _dropdownValue = value;
-    notifyListeners();
   }
 
   List<String> _features;
@@ -266,6 +265,12 @@ int _current = 0;
     notifyListeners();
   }
 
-  UploadCar uploadCar;
+  UploadCar _uploadCar;
+
+  UploadCar get uploadCar => _uploadCar;
+
+  set uploadCar(UploadCar value) {
+    _uploadCar = value;
+  }
 }
 

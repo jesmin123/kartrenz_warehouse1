@@ -242,6 +242,7 @@ class _DocumentsFormWidetState extends State<DocumentsFormWidet> {
                    onRatingUpdate: (rating) {
                    print(rating);
                    formData.rating = rating;
+                   formData.uploadCar.documentData.rating = rating.toString();
                     },
                     ),
             SizedBox(height: 32,),
