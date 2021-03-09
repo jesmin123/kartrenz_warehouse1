@@ -10,6 +10,7 @@ import 'package:kartenz/model/ImageModel.dart';
 import 'package:kartenz/model/RTOfficeModel.dart';
 import 'package:kartenz/model/StateModel.dart';
 import 'package:kartenz/model/TransactionModel.dart';
+import 'package:kartenz/model/Upload_Model/Upload_car_model.dart';
 import 'package:kartenz/model/uploadedCars.dart';
 
 class AuctionProvider extends ChangeNotifier{
@@ -21,8 +22,16 @@ List<StateModel> _stateList;
 List<RTOfficeModel> _listRtOffice;
 List<CarWarehouseModel> _carReport;
 String _id;
+CarWarehouseModel _uploaded;
 
-String get id => _id;
+CarWarehouseModel get uploaded => _uploaded;
+
+  set uploaded(CarWarehouseModel value) {
+    _uploaded = value;
+    notifyListeners();
+  }
+
+  String get id => _id;
 
   set id(String value) {
     _id = value;
@@ -331,5 +340,16 @@ Map get carImages => _carImages;
       }
     });
     transactions = transtemp;
+  }
+
+  Future postUploadCar(String token, UploadCar uploadCar) async{
+    api.postData("carwarehouse",mBody: jsonEncode(uploadCar),header: token,).then((respObj) {
+      if(respObj.status){
+        dynamic data=respObj.data;
+        CarWarehouseModel carWarehouseModel=CarWarehouseModel.fromJSON(data);
+        uploaded=carWarehouseModel;
+
+      }
+    } );
   }
 }
