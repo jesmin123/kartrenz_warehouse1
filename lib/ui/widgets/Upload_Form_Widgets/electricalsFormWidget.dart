@@ -4,10 +4,12 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/provider/electrical_form_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
+import 'package:kartenz/ui/widgets/Upload_Form_Widgets/documents_form_widget.dart';
 import 'package:provider/provider.dart';
 
 class ElectricalsFormWidget extends StatefulWidget {
@@ -40,35 +42,35 @@ class _ElectricalsFormWidgetState extends State<ElectricalsFormWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          radioRow(key: "LHS Front", controller: _lhsFrontController, groupValue: "LHS Front", tittle: "LHS Front", electricalFormProvider: electricalFormProvider),
+          radioRow(context, key: "LHS Front", controller: _lhsFrontController, groupValue: "LHS Front", tittle: "LHS Front", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "LHS Rear", controller: _lhsFrontController, groupValue: "LHS Rear", tittle: "LHS Rear", electricalFormProvider: electricalFormProvider),
+          radioRow(context,key: "LHS Rear", controller: _lhsFrontController, groupValue: "LHS Rear", tittle: "LHS Rear", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "RHS Front", controller: _lhsFrontController, groupValue: "RHS Front", tittle: "RHS Front", electricalFormProvider: electricalFormProvider),
+          radioRow(context,key: "RHS Front", controller: _lhsFrontController, groupValue: "RHS Front", tittle: "RHS Front", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "RHS Rear", controller: _lhsFrontController, groupValue: "RHS Rear", tittle: "RHS Rear", electricalFormProvider: electricalFormProvider),
+          radioRow(context,key: "RHS Rear", controller: _lhsFrontController, groupValue: "RHS Rear", tittle: "RHS Rear", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "Airbag Feature", controller: _lhsFrontController, groupValue: "Airbag Feature", tittle: "Airbag Feature", electricalFormProvider: electricalFormProvider),
+          radioRow(context,key: "Airbag Feature", controller: _lhsFrontController, groupValue: "Airbag Feature", tittle: "Airbag Feature", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "Music System", controller: _lhsFrontController, groupValue: "Music System", tittle: "Music System", electricalFormProvider: electricalFormProvider),
+          radioRow(context,key: "Music System", controller: _lhsFrontController, groupValue: "Music System", tittle: "Music System", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "Leather Seat", controller: _lhsFrontController, groupValue: "Leather Seat", tittle: "Leather Seat", electricalFormProvider: electricalFormProvider),
+          radioRow(context,key: "Leather Seat", controller: _lhsFrontController, groupValue: "Leather Seat", tittle: "Leather Seat", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "Fabric Seat", controller: _lhsFrontController, groupValue: "Fabric Seat", tittle: "Fabric Seat", electricalFormProvider: electricalFormProvider),
+          radioRow(context,key: "Fabric Seat", controller: _lhsFrontController, groupValue: "Fabric Seat", tittle: "Fabric Seat", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "Sun Roof", controller: _lhsFrontController, groupValue: "Sun Roof", tittle: "Sun Roof", electricalFormProvider: electricalFormProvider),
+          radioRow(context,key: "Sun Roof", controller: _lhsFrontController, groupValue: "Sun Roof", tittle: "Sun Roof", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "Steering Mounted", controller: _lhsFrontController, groupValue: "Steering Mounted", tittle: "Steering MountedAudio Control", electricalFormProvider: electricalFormProvider),
+          radioRow(context,key: "Steering Mounted", controller: _lhsFrontController, groupValue: "Steering Mounted", tittle: "Steering MountedAudio Control", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "ABS", controller: _lhsFrontController, groupValue: "ABS", tittle: "ABS", electricalFormProvider: electricalFormProvider),
+          radioRow(context,key: "ABS", controller: _lhsFrontController, groupValue: "ABS", tittle: "ABS", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "Rear Defogger", controller: _lhsFrontController, groupValue: "Rear Defogger", tittle: "Rear Defogger", electricalFormProvider: electricalFormProvider),
+          radioRow(context,key: "Rear Defogger", controller: _lhsFrontController, groupValue: "Rear Defogger", tittle: "Rear Defogger", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "Reverse Camera", controller: _lhsFrontController, groupValue: "Reverse Camera", tittle: "Reverse Camera", electricalFormProvider: electricalFormProvider),
+          radioRow(context,key: "Reverse Camera", controller: _lhsFrontController, groupValue: "Reverse Camera", tittle: "Reverse Camera", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "Electrical", controller: _lhsFrontController, groupValue: "Electrical", tittle: "Electrical", electricalFormProvider: electricalFormProvider),
+          radioRow(context,key: "Electrical", controller: _lhsFrontController, groupValue: "Electrical", tittle: "Electrical", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(key: "Interior", controller: _lhsFrontController, groupValue: "Interior", tittle: "Interior", electricalFormProvider: electricalFormProvider),
+          radioRow(context,key: "Interior", controller: _lhsFrontController, groupValue: "Interior", tittle: "Interior", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 32,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -76,11 +78,19 @@ class _ElectricalsFormWidgetState extends State<ElectricalsFormWidget> {
               Text("Damages Images :", style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR),),
               RaisedButton(
                 onPressed: () async {
-                  print("Entered");
-                  FilePickerResult filePickerResult =  await pickImages(false);
-                  if(filePickerResult!=null){
-                    electricalFormProvider.addToDamageImage(filePickerResult.files);
-                  }
+                  Navigator.pop(context);
+                  showBottom(context, () async {
+                    PickedFile result = await pickCameraImages();
+                    if(result!=null){
+                      electricalFormProvider.addToDamageImage([PlatformFile(path: result.path)]);
+                    }
+                  }, () async {
+                    Navigator.pop(context);
+                    FilePickerResult filePickerResult =  await pickImages(false);
+                    if(filePickerResult!=null){
+                      electricalFormProvider.addToDamageImage(filePickerResult.files);
+                    }
+                  });
                 },
                 color: PRIMARY_COLOR,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -168,7 +178,7 @@ class _ElectricalsFormWidgetState extends State<ElectricalsFormWidget> {
   }
 }
 
-radioRow(
+radioRow(BuildContext context,
     {String tittle,
       ElectricalFormProvider electricalFormProvider,
       String groupValue,
@@ -251,10 +261,19 @@ radioRow(
               Flexible(
                 child: RaisedButton(
                   onPressed: () {
-                    pickImages(false).then((filePickerResult){
-                      if(filePickerResult!=null){
-                        electricalFormProvider.updateImage(key, filePickerResult.files.first);
+                    showBottom(context, () async {
+                      Navigator.pop(context);
+                      PickedFile result = await pickCameraImages();
+                      if(result!=null){
+                        electricalFormProvider.updateImage(key, PlatformFile(path: result.path));
                       }
+                    }, (){
+                      Navigator.pop(context);
+                      pickImages(false).then((filePickerResult){
+                        if(filePickerResult!=null){
+                          electricalFormProvider.updateImage(key, filePickerResult.files.first);
+                        }
+  });
                     });
                   },
                   color: PRIMARY_COLOR,
@@ -289,6 +308,57 @@ radioRow(
       )
           : Container()
     ],
+  );
+}
+
+Widget showBottom(BuildContext context, Function() ontap, Function() ontap2){
+  showModalBottomSheet(
+      context: context,
+      builder: (builder){
+        return Container(
+          decoration: BoxDecoration(borderRadius:
+          BorderRadius.only(
+              topLeft: const Radius.circular(10.0),
+              topRight: const Radius.circular(10.0))),
+          height: 160,
+          child: Column(
+            children: [
+              SizedBox(height: 8,),
+              Text("Choose an action", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
+              SizedBox(height: 22,),
+              Padding(
+                padding: const EdgeInsets.only(left: 32),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: ontap,
+                      child: Column(
+                        children: [
+                          Image.asset("assets/images/camera.png", width: 50, height: 50,),
+                          SizedBox(height: 8,),
+                          Text("Camera", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: 24,),
+                    GestureDetector(
+                      onTap: ontap2,
+                      child: Column(
+                        children: [
+                          Image.asset("assets/images/gallery1.png", width: 50, height: 50,),
+                          SizedBox(height: 8,),
+                          Text("Gallery", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+
+        );
+      }
   );
 }
 

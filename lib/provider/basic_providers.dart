@@ -12,6 +12,9 @@ class BasicProvider extends ChangeNotifier{
     notifyListeners();
   }
 
+  void removeEngineVideo(){
+  }
+
   List<PlatformFile> _engineImages;
 
   List<PlatformFile> get engineImages => _engineImages!=null?_engineImages:[];

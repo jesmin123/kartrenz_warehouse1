@@ -3,6 +3,7 @@ import 'package:chewie/chewie.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/model/CarWareHouse1Model.dart';
@@ -13,6 +14,8 @@ import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
+import 'documents_form_widget.dart';
+
 
 class EnginetransmissionFormWidget extends StatefulWidget {
   @override
@@ -20,6 +23,16 @@ class EnginetransmissionFormWidget extends StatefulWidget {
 }
 
 class _EnginetransmissionFormWidgetState extends State<EnginetransmissionFormWidget> {
+  TextEditingController _engineController = TextEditingController();
+  TextEditingController _engineSoundController = TextEditingController();
+  TextEditingController _exhaustSmokeController = TextEditingController();
+  TextEditingController _engineMountingController = TextEditingController();
+  TextEditingController _clutchController = TextEditingController();
+  TextEditingController _gearShiftingController = TextEditingController();
+  TextEditingController _engineOilController = TextEditingController();
+  TextEditingController _engineOilLevelController = TextEditingController();
+  TextEditingController _batteryController = TextEditingController();
+  TextEditingController _coolantController = TextEditingController();
 
 
   ChewieController _chewieController;
@@ -30,16 +43,7 @@ class _EnginetransmissionFormWidgetState extends State<EnginetransmissionFormWid
   Widget build(BuildContext context) {
     FormData formData = Provider.of<FormData>(context);
     CarWarehouseModel1 cars = formData.selectedCars;
-    TextEditingController _engineController = TextEditingController(text: cars.engine!=null?cars.engine:"");
-    TextEditingController _engineSoundController = TextEditingController(text: cars.engineSound!=null?cars.engineSound:"");
-    TextEditingController _exhaustSmokeController = TextEditingController(text: cars.exhaustSmoke!=null?cars.exhaustSmoke:"");
-    TextEditingController _engineMountingController = TextEditingController(text: cars.engineMounting!=null?cars.engineMounting:"");
-    TextEditingController _clutchController = TextEditingController(text: cars.clutch!=null?cars.clutch:"");
-    TextEditingController _gearShiftingController = TextEditingController(text: cars.gearShifting!=null?cars.gearShifting:"");
-    TextEditingController _engineOilController = TextEditingController(text: cars.engineOil!=null?cars.engineOil:"");
-    TextEditingController _engineOilLevelController = TextEditingController(text: cars.engineOilLevelDipstick!=null?cars.engineOilLevelDipstick:"");
-    TextEditingController _batteryController = TextEditingController(text: cars.battery!=null?cars.battery:"");
-    TextEditingController _coolantController = TextEditingController(text: cars.coolant!=null?cars.coolant:"");
+
     BasicProvider basicProvider = Provider.of<BasicProvider>(context);
 
     _videoPlayerController = VideoPlayerController.file(File(basicProvider.engineVideo!=null?basicProvider.engineVideo.path:""));
@@ -116,13 +120,21 @@ class _EnginetransmissionFormWidgetState extends State<EnginetransmissionFormWid
                     Text("Engine videos :", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
                     RaisedButton(
                       onPressed: (){
-                        print("Entered");
-                        pickImages([".mp4", ".3gp", ".avi", "wmv", ".flv", ".mpeg"], false).then((value){
-                          if(value!=null){
-                            basicProvider.engineVideo = value.files.first;
+                       showBottom(context, () async {
+                         Navigator.pop(context);
+                         PickedFile result = await pickCameraVideo();
+                         if(result!=null){
+                             basicProvider.engineVideo = PlatformFile(path: result.path,);
+                       }}, (){
+                         Navigator.pop(context);
+                         pickImages([".mp4", ".3gp", ".avi", "wmv", ".flv", ".mpeg"], false).then((value){
+                           if(value!=null){
+                             basicProvider.engineVideo = value.files.first;
                           }
                         });
-                      },
+                      }
+                      );
+                       },
                       color: PRIMARY_COLOR,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                       child: Text("Upload", style: AppFontStyle.titleAppBarStyle2(APP_WHITE_COLOR),),
@@ -149,11 +161,18 @@ class _EnginetransmissionFormWidgetState extends State<EnginetransmissionFormWid
                     Text("Images :", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
                     RaisedButton(
                       onPressed: () async {
-                        print("Entered");
-                       FilePickerResult filePickerResult = await pickImages(['jpg', 'png', 'jpeg'], true);
-                       if(filePickerResult!=null){
-                         basicProvider.addToEngineImages(filePickerResult.files);
-                       }
+                        showBottom(context, () async {
+                          Navigator.pop(context);
+                          PickedFile result = await pickCameraImages();
+                          if(result!=null){
+                            basicProvider.addToEngineImages([PlatformFile(path: result.path)]);
+                          }
+                        }, () async {
+                          Navigator.pop(context);
+                        FilePickerResult filePickerResult = await pickImages(['jpg', 'png', 'jpeg'], true);
+                        if(filePickerResult!=null){
+                        basicProvider.addToEngineImages(filePickerResult.files);
+                       }});
                       },
                       color: PRIMARY_COLOR,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -258,6 +277,56 @@ class _EnginetransmissionFormWidgetState extends State<EnginetransmissionFormWid
       return null;
     }
   }
+  Widget showBottom(BuildContext context, Function() ontap, Function() ontap2){
+    showModalBottomSheet(
+        context: context,
+        builder: (builder){
+          return Container(
+            decoration: BoxDecoration(borderRadius:
+            BorderRadius.only(
+                topLeft: const Radius.circular(10.0),
+                topRight: const Radius.circular(10.0))),
+            height: 160,
+            child: Column(
+              children: [
+                SizedBox(height: 8,),
+                Text("Choose an action", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
+                SizedBox(height: 22,),
+                Padding(
+                  padding: const EdgeInsets.only(left: 32),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: ontap,
+                        child: Column(
+                          children: [
+                            Image.asset("assets/images/camera.png", width: 50, height: 50,),
+                            SizedBox(height: 8,),
+                            Text("Camera", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 24,),
+                      GestureDetector(
+                        onTap: ontap2,
+                        child: Column(
+                          children: [
+                            Image.asset("assets/images/gallery1.png", width: 50, height: 50,),
+                            SizedBox(height: 8,),
+                            Text("Gallery", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+
+          );
+        }
+    );
+  }
 }
 
 InputDecoration decoration(String label){
@@ -270,3 +339,12 @@ InputDecoration decoration(String label){
     ),
   );
 }
+
+ Future<PickedFile> pickCameraVideo() async {
+   PickedFile file = await ImagePicker().getVideo(source: ImageSource.camera);
+   if(file!=null){
+     return file;
+   }else{
+     return null;
+   }
+ }

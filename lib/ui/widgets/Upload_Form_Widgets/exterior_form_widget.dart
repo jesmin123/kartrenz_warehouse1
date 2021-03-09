@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/provider/electrical_form_provider.dart';
@@ -10,6 +11,7 @@ import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'air_conditioning_form_widget.dart';
+import 'documents_form_widget.dart';
 
 class ExteriorFormWidget extends StatefulWidget {
   @override
@@ -165,15 +167,15 @@ class _ExteriorFormWidgetState extends State<ExteriorFormWidget> {
           SizedBox(height: 24,),
           Text('Tyre', style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR),),
           SizedBox(height: 12,),
-          tyreWidget(_lhsFrontTyreController, "LHS Front Tyre", electricalFormProvider, "LHS Front Tyre"),
+          tyreWidget(context, _lhsFrontTyreController, "LHS Front Tyre", electricalFormProvider, "LHS Front Tyre"),
           SizedBox(height: 12,),
-          tyreWidget(_rhsFrontTyreController, "RHS Front Tyre", electricalFormProvider, "RHS Front Tyre"),
+          tyreWidget(context, _rhsFrontTyreController, "RHS Front Tyre", electricalFormProvider, "RHS Front Tyre"),
           SizedBox(height: 12,),
-          tyreWidget(_lhsrearTyreController, "LHS Rear Tyre", electricalFormProvider, "LHS Rear Tyre"),
+          tyreWidget(context, _lhsrearTyreController, "LHS Rear Tyre", electricalFormProvider, "LHS Rear Tyre"),
           SizedBox(height: 12,),
-          tyreWidget(_rhsRearTyreController, "RHS Rear Tyre", electricalFormProvider, "RHS Rear Tyre"),
+          tyreWidget(context, _rhsRearTyreController, "RHS Rear Tyre", electricalFormProvider, "RHS Rear Tyre"),
           SizedBox(height: 12,),
-          tyreWidget(_spareTyreController, "Spare Tyre", electricalFormProvider, "Spare Tyre"),
+          tyreWidget(context, _spareTyreController, "Spare Tyre", electricalFormProvider, "Spare Tyre"),
           SizedBox(height: 24,),
           RatingBar.builder(
             initialRating: 3,
@@ -280,12 +282,19 @@ radioRow(
               Flexible(
                 child: RaisedButton(
                   onPressed: () {
-                    pickImages().then((filePickerResult){
-                      if(filePickerResult!=null){
-                        electricalFormProvider.updateExteriorImage(key, filePickerResult.files.first);
+                    showBottom(context, () async {
+                      Navigator.pop(context);
+                      PickedFile result = await pickCameraImages();
+                      if(result!=null){
+                        electricalFormProvider.updateExteriorImage(key, PlatformFile(path: result.path));
                       }
-                    });
-                  },
+                    }, (){
+                      Navigator.pop(context);
+                        pickImages().then((filePickerResult){
+                        if(filePickerResult!=null){
+                        electricalFormProvider.updateExteriorImage(key, filePickerResult.files.first);
+                    }});
+                      },);},
                   color: PRIMARY_COLOR,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16)),
@@ -321,6 +330,8 @@ radioRow(
   );
 }
 
+
+
 InputDecoration decoration({String label}) {
   return InputDecoration(
     labelText: label,
@@ -347,7 +358,7 @@ Future<FilePickerResult> pickImages() async {
 }
 
 
-tyreWidget(TextEditingController controller, String label, ElectricalFormProvider electricalFormProvider, String key){
+tyreWidget(BuildContext context,TextEditingController controller, String label, ElectricalFormProvider electricalFormProvider, String key){
   return Column(
     children: [
       Row(
@@ -372,9 +383,18 @@ tyreWidget(TextEditingController controller, String label, ElectricalFormProvide
                 minWidth: 24,
                 height: 24,
                 child: Icon(Icons.add, color: PRIMARY_COLOR, size: 16,),
-                onPressed: () async {
-                FilePickerResult result = await pickImages();
-                electricalFormProvider.updateTyreImage(key, result.files.first);
+                onPressed: (){
+                showBottom(context, () async {
+                  Navigator.pop(context);
+                  PickedFile result = await pickCameraImages();
+                  if(result!=null){
+                    electricalFormProvider.updateTyreImage(key, PlatformFile(path: result.path));
+                  }
+                }, () async {
+                  Navigator.pop(context);
+                  FilePickerResult result = await pickImages();
+                  electricalFormProvider.updateTyreImage(key, result.files.first);
+                });
               },
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16), side: BorderSide(color: PRIMARY_COLOR)),
               )
@@ -399,5 +419,56 @@ tyreWidget(TextEditingController controller, String label, ElectricalFormProvide
         ],
       ):Container()
     ],
+  );
+}
+
+Widget showBottom(BuildContext context, Function() ontap, Function() ontap2){
+  showModalBottomSheet(
+      context: context,
+      builder: (builder){
+        return Container(
+          decoration: BoxDecoration(borderRadius:
+          BorderRadius.only(
+              topLeft: const Radius.circular(10.0),
+              topRight: const Radius.circular(10.0))),
+          height: 160,
+          child: Column(
+            children: [
+              SizedBox(height: 8,),
+              Text("Choose an action", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
+              SizedBox(height: 22,),
+              Padding(
+                padding: const EdgeInsets.only(left: 32),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: ontap,
+                      child: Column(
+                        children: [
+                          Image.asset("assets/images/camera.png", width: 50, height: 50,),
+                          SizedBox(height: 8,),
+                          Text("Camera", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: 24,),
+                    GestureDetector(
+                      onTap: ontap2,
+                      child: Column(
+                        children: [
+                          Image.asset("assets/images/gallery1.png", width: 50, height: 50,),
+                          SizedBox(height: 8,),
+                          Text("Gallery", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+
+        );
+      }
   );
 }

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/model/CarWareHouse1Model.dart';
@@ -215,13 +216,20 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
                       Text("Main Image :", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
                       RaisedButton(
                         onPressed: (){
-                          print("Entered");
-                           pickImages(false).then((filePickerResult){
-                            if(filePickerResult!=null){
-                              formData.mainImage = filePickerResult.files.first;
+                          showBottom(context, () async {
+                            Navigator.pop(context);
+                            PickedFile result = await pickCameraImages();
+                            if(result!=null){
+                              formData.mainImage = PlatformFile(path: result.path);
                             }
+                          } , (){
+                            Navigator.pop(context);
+                            pickImages(false).then((filePickerResult){
+                              if(filePickerResult!=null){
+                                formData.mainImage = filePickerResult.files.first;
+                              }
+                            });
                           });
-
                         },
                         color: PRIMARY_COLOR,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -261,10 +269,20 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
                       Text("Interior Images :", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
                       RaisedButton(
                         onPressed: () async {
-                          FilePickerResult filePickerResult  = await pickImages(true);
-                          if(filePickerResult!=null){
-                            formData.addToInteriorImage(filePickerResult.files);
-                          }
+                          showBottom(context, () async {
+                            Navigator.pop(context);
+                            PickedFile result = await pickCameraImages();
+                            if(result!=null){
+                              formData.addToInteriorImage([PlatformFile(path: result.path)]);
+                            }
+                          }, () async {
+                            Navigator.pop(context);
+                            FilePickerResult filePickerResult  = await pickImages(true);
+                            if(filePickerResult!=null){
+                              formData.addToInteriorImage(filePickerResult.files);
+                            }
+                          });
+
                         },
                         color: PRIMARY_COLOR,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -314,11 +332,20 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
                     children: [
                       Text("Exterior Images :", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
                       RaisedButton(
-                        onPressed: () async {
+                        onPressed: () {
+                        showBottom(context, () async {
+                          Navigator.pop(context);
+                          PickedFile result = await pickCameraImages();
+                          if(result!=null){
+                            formData.addToDocumentImages([PlatformFile(path: result.path)]);
+                          }
+                        }, () async {
+                          Navigator.pop(context);
                           FilePickerResult filePickerResult  = await pickImages(true);
                           if(filePickerResult!=null){
                             formData.addToExteriorImage(filePickerResult.files);
                           }
+                        });
                         },
                         color: PRIMARY_COLOR,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -415,6 +442,67 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
     }else{
      return null;
     }
+  }
+
+  Future<PickedFile> pickCameraImages() async {
+    PickedFile file = await ImagePicker().getImage(source: ImageSource.camera,);
+    if(file!=null){
+      return file;
+    }else{
+      return null;
+    }
+  }
+
+
+  Widget showBottom(BuildContext context, Function() ontap, Function() ontap2){
+     showModalBottomSheet(
+        context: context,
+        builder: (builder){
+          return Container(
+            decoration: BoxDecoration(borderRadius:
+            BorderRadius.only(
+                topLeft: const Radius.circular(10.0),
+                topRight: const Radius.circular(10.0))),
+            height: 160,
+            child: Column(
+              children: [
+                SizedBox(height: 8,),
+                Text("Choose an action", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
+                SizedBox(height: 22,),
+                Padding(
+                  padding: const EdgeInsets.only(left: 32),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: ontap,
+                        child: Column(
+                          children: [
+                            Image.asset("assets/images/camera.png", width: 50, height: 50,),
+                            SizedBox(height: 8,),
+                            Text("Camera", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 24,),
+                      GestureDetector(
+                        onTap: ontap2,
+                        child: Column(
+                          children: [
+                            Image.asset("assets/images/gallery1.png", width: 50, height: 50,),
+                            SizedBox(height: 8,),
+                            Text("Gallery", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+
+          );
+        }
+    );
   }
 
 }

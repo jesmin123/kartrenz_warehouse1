@@ -44,6 +44,7 @@ dependencies:
   cached_network_image: ^2.5.0
   date_range_picker: ^1.0.6
   syncfusion_flutter_datepicker: ^18.4.46-beta
+  image_picker: ^0.6.7+20
 
 
 
