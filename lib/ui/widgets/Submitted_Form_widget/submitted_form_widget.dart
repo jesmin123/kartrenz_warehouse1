@@ -107,8 +107,13 @@ class _SubmittedFormWidgetState extends State<SubmittedFormWidget> {
             },
 
         ),
-        FloatingActionButton(
-          onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>UploadTabWidget())),
+        Positioned(
+          bottom: 8,right: 8,
+          child: FloatingActionButton(
+            backgroundColor: Colors.green,
+            child: Icon(Icons.add,color: Colors.white,),
+            onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>UploadTabWidget())),
+          ),
         )
       ],
     ):Center(child: Text("No Data"));

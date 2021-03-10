@@ -343,7 +343,8 @@ Map get carImages => _carImages;
   }
 
   Future postUploadCar(String token, UploadCar uploadCar) async{
-    api.postData("carwarehouse",mBody: jsonEncode(uploadCar),header: token,).then((respObj) {
+    Map data = uploadCar.toJson();
+    api.postData("carwarehouse",mBody: jsonEncode(data),header: token,).then((respObj) {
       if(respObj.status){
         dynamic data=respObj.data;
         CarWarehouseModel carWarehouseModel=CarWarehouseModel.fromJSON(data);
