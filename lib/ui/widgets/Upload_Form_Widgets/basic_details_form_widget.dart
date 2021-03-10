@@ -269,13 +269,20 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
                         Text("Main Image :", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
                         RaisedButton(
                           onPressed: (){
-                            print("Entered");
-                             pickImages(false).then((filePickerResult){
-                              if(filePickerResult!=null){
-                                formData.mainImage = filePickerResult.files.first;
+                            showBottom(context, () async {
+                              Navigator.pop(context);
+                              PickedFile result = await pickCameraImages();
+                              if(result!=null){
+                                formData.mainImage = PlatformFile(path: result.path);
                               }
+                            }, (){
+                              Navigator.pop(context);
+                              pickImages(false).then((filePickerResult){
+                                if(filePickerResult!=null){
+                                  formData.mainImage = filePickerResult.files.first;
+                                }
+                              });
                             });
-
                           },
                           color: PRIMARY_COLOR,
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -315,10 +322,19 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
                         Text("Interior Images :", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
                         RaisedButton(
                           onPressed: () async {
-                            FilePickerResult filePickerResult  = await pickImages(true);
-                            if(filePickerResult!=null){
-                              formData.addToInteriorImage(filePickerResult.files);
-                            }
+                           showBottom(context, () async {
+                             Navigator.pop(context);
+                             PickedFile result = await pickCameraImages();
+                             if(result!=null){
+                               formData.addToInteriorImage([PlatformFile(path: result.path)]);
+                             }
+                           }, () async {
+                             Navigator.pop(context);
+                             FilePickerResult filePickerResult  = await pickImages(true);
+                             if(filePickerResult!=null){
+                               formData.addToInteriorImage(filePickerResult.files);
+                             }
+                           });
                           },
                           color: PRIMARY_COLOR,
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -373,7 +389,7 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
                           Navigator.pop(context);
                           PickedFile result = await pickCameraImages();
                           if(result!=null){
-                            formData.addToDocumentImages([PlatformFile(path: result.path)]);
+                            formData.addToExteriorImage([PlatformFile(path: result.path)]);
                           }
                         }, () async {
                           Navigator.pop(context);
