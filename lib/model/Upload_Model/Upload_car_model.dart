@@ -88,7 +88,7 @@ class UploadCar{
 
   Map toJson()=>{
     "createdBy":createdBy,"isApproved":false,"isAuction":false,"supportNo":supportNo,"documentDetails":documentData.toJson(),"car":car,"carMake":"sample",
-    "year":year,"fuel":fuel,"variant":variant,"kilometers":kilometers,"regNo":regNo,"rCNo":regNo,"description":description,"highlights":["sample"],"basePrice":basePrice,
+    "year":year,"fuel":fuel,"variant":variant,"kilometers":kilometers,"regNo":regNo,"rCNo":regNo,"description":description,"highlights":highlights,"basePrice":basePrice,
     "expectedPrice":expectedPrice,"engine":engine,"engineVideo":engineVideo,"engineSound":engineSound,"exhaustSmoke":exhaustSmoke,"engineMounting":engineMounting,"clutch":clutch,
     "gearShifting":gearShifting,"engineOil":engineOil,"engineOilLevelDipstick":engineOilLevelDipstick,"battery":battery,"coolant":coolant,"airConditioning":acModel.toJson(),
   "electricals":electricModel.toJson(),"exteriorPlusTyres":exteriorTyresModel.toJson(),"steeringSuspensionAndBrakes":steeringModel.toJson(),"state":state,"office":office,

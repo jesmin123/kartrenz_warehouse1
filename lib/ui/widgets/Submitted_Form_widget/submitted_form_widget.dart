@@ -112,7 +112,7 @@ class _SubmittedFormWidgetState extends State<SubmittedFormWidget> {
           child: FloatingActionButton(
             backgroundColor: Colors.green,
             child: Icon(Icons.add,color: Colors.white,),
-            onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>UploadTabWidget())),
+            onPressed: ()=>Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>UploadTabWidget())),
           ),
         )
       ],
