@@ -18,7 +18,7 @@ class _CarsPageState extends State<CarsPage> with SingleTickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-    _tabController = new TabController(length: 5, vsync: this);
+    _tabController = new TabController(length: 4, vsync: this);
   }
   @override
   Widget build(BuildContext context) {
@@ -26,35 +26,39 @@ class _CarsPageState extends State<CarsPage> with SingleTickerProviderStateMixin
       appBar: AppBar(
         backgroundColor: APP_WHITE_COLOR,
         leading: IconButton(icon: Icon(Icons.arrow_back,color: APP_BLACK_COLOR,), onPressed: (){Navigator.pop(context);}),
-        title: Text("Cars", style: AppFontStyle.titleAppBarStyle(PRIMARY_COLOR),),
-        bottom: TabBar(
-          tabs: <Widget>[
-            Tab(text: "Upload",),
-            Tab(text: "Submitted",),
-            Tab(text: "Accepted ",),
-            Tab(text: "Modify",),
-            Tab(text: "Rejected",),
-          ],
-          labelStyle: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
-          controller: _tabController,
-          dragStartBehavior: DragStartBehavior.down,
-          indicatorColor: PRIMARY_COLOR,
-          labelColor: APP_BLACK_COLOR,
-          indicatorSize: TabBarIndicatorSize.label,
-          isScrollable: true,
-          unselectedLabelColor: APP_BLACK_COLOR,
-
-        ),
+        title: Text("Cars", style: AppFontStyle.titleAppBarStyle(PRIMARY_COLOR),)
       ),
-      body: TabBarView(
+      body: Column(
         children: [
-          UploadTabWidget() ,
-          SubmittedFormWidget(),
-          AcceptedFormWidget(),
-          ModifyFormWidget(),
-          RejectedFormWidget(),
+          TabBar(
+            tabs: <Widget>[
+              Tab(text: "Submitted",),
+              Tab(text: "Accepted ",),
+              Tab(text: "Modify",),
+              Tab(text: "Rejected",),
+            ],
+            labelStyle: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
+            controller: _tabController,
+            dragStartBehavior: DragStartBehavior.down,
+            indicatorColor: PRIMARY_COLOR,
+            labelColor: APP_BLACK_COLOR,
+            indicatorSize: TabBarIndicatorSize.label,
+            isScrollable: true,
+            unselectedLabelColor: APP_BLACK_COLOR,
+
+          ),
+          Expanded(
+            child: TabBarView(
+              children: [
+                SubmittedFormWidget(),
+                AcceptedFormWidget(),
+                ModifyFormWidget(),
+                RejectedFormWidget(),
+              ],
+              controller: _tabController,
+            ),
+          ),
         ],
-        controller: _tabController,
       ),
 
     );

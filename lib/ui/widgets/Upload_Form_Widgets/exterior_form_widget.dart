@@ -6,11 +6,10 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
+import 'package:kartenz/model/ExteriorTyresModel.dart';
 import 'package:kartenz/provider/electrical_form_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:provider/provider.dart';
-
-import 'air_conditioning_form_widget.dart';
 import 'documents_form_widget.dart';
 
 class ExteriorFormWidget extends StatefulWidget {
@@ -213,6 +212,21 @@ class _ExteriorFormWidgetState extends State<ExteriorFormWidget> {
     );
 }
 
+Map exteriorDataMap = {};
+
+saveValue(String key,String value){
+    if(exteriorDataMap.containsKey(key)){
+      exteriorDataMap[key] = value;
+    }else{
+      exteriorDataMap.putIfAbsent(key, () => value);
+    }
+    ExteriorTyresModel exteriorTyresModel = ExteriorTyresModel.fromJSON(exteriorDataMap);
+    if(exteriorTyresModel!=null){
+      FormData formData = Provider.of(context,listen: false);
+      formData.uploadCar.exteriorTyresModel = exteriorTyresModel;
+    }
+}
+
 
 radioRow(
     {String tittle,
@@ -238,8 +252,10 @@ radioRow(
                   activeColor: PRIMARY_COLOR,
                   value: "yes",
                   groupValue: electricalFormProvider.exteriorRadioItem[groupValue],
-                  onChanged: (val) =>
-                      electricalFormProvider.updateExteriorradioItem(groupValue, val),
+                  onChanged: (val){
+                    saveValue(key, "No");
+                    electricalFormProvider.updateExteriorradioItem(groupValue, val);
+                  }
                 ),
                 Text(
                   "yes",
@@ -254,8 +270,13 @@ radioRow(
                   activeColor: PRIMARY_COLOR,
                   value: "No",
                   groupValue: electricalFormProvider.exteriorRadioItem[groupValue],
-                  onChanged: (val) =>
-                      electricalFormProvider.updateExteriorradioItem(groupValue, val),
+                  onChanged: (val){
+                    if(val=="No"){
+                        saveValue(key, "No");
+                    }
+                    electricalFormProvider.updateExteriorradioItem(groupValue, val);
+                  }
+
                 ),
                 Text(
                   text,
@@ -277,6 +298,9 @@ radioRow(
                 child: TextFormField(
                   decoration: decoration(),
                   controller: controller,
+                  onChanged: (val){
+                    saveValue(key, val);
+                  },
                 ),
               ),
               Flexible(
@@ -329,8 +353,6 @@ radioRow(
     ],
   );
 }
-
-
 
 InputDecoration decoration({String label}) {
   return InputDecoration(
@@ -422,6 +444,7 @@ tyreWidget(BuildContext context,TextEditingController controller, String label, 
   );
 }
 
+
 Widget showBottom(BuildContext context, Function() ontap, Function() ontap2){
   showModalBottomSheet(
       context: context,
@@ -471,4 +494,17 @@ Widget showBottom(BuildContext context, Function() ontap, Function() ontap2){
         );
       }
   );
+}
+Future<FilePickerResult> pickImages() async {
+  List<String> extensions =  ['jpg', 'png', 'jpeg'];
+  FilePickerResult result = await FilePicker.platform.pickFiles(
+    allowMultiple: true,
+    type: FileType.custom,
+    allowedExtensions: extensions,
+  );
+  if(result!=null){
+    return result;
+  }else{
+    return null;
+  }
 }

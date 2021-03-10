@@ -26,7 +26,7 @@ String get id => _id;
 
   set id(String value) {
     _id = value;
-    notifyListeners();
+
   }
 
   List<CarWarehouseModel> get carReport => _carReport;
@@ -40,14 +40,12 @@ String get id => _id;
 
   set listRtOffice(List<RTOfficeModel> value) {
     _listRtOffice = value;
-    notifyListeners();
   }
 
   List<StateModel> get stateList => _stateList;
 
   set stateList(List<StateModel> value) {
     _stateList = value;
-    notifyListeners();
   }
 
   List<BuyModel> get buyAll => _buyAll;

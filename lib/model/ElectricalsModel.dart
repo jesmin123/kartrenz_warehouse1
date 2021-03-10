@@ -37,6 +37,21 @@ class ElectricModel{
       return null;
     }
   }
+
+  factory ElectricModel.fromJSONR(Map<dynamic,dynamic> json){
+    try{
+      return ElectricModel(airbagFeature: json['airbagFeature'],ABS: json['airbagFeature'],electrical: json['electrical'],
+          fabricSeat: json['fabricSeat'],interior: json['interior'],leatherSeat: json['leatherSeat'],musicSystem: json['musicSystem'],
+          rearDefogger: json['rearDefogger'],reverseCamera: json['reverseCamera'],steelMountedAudioControl: json['steelMountedAudioControl'],
+          sunroof: json['sunroof'],powerWindowLHSFront: json['LHSFront'],powerWindowLHSRear:  json['LHSRear'],
+          powerWindowRHSFront: json['RHSFront'],powerWindowRHSRear: json['RHSRear'],rating: json["rating"]
+      );
+    }catch(e){
+      print('Exceptio ElectricModelClass e:'+e.toString());
+      return null;
+    }
+  }
+
   Map toJson()=>{
         "powerWindow":{"LHSFront":powerWindowLHSFront,"LHSRear":powerWindowLHSRear,"RHSFront":powerWindowRHSFront,"RHSRear":powerWindowRHSRear},"airbagFeature":airbagFeature,
     "musicSystem":musicSystem,"leatherSeat":leatherSeat,"fabricSeat":fabricSeat,"sunroof":sunroof,"steelMountedAudioControl":steelMountedAudioControl,"ABS":ABS,

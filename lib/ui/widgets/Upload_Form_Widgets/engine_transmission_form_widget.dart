@@ -8,6 +8,7 @@ import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/model/CarWareHouse1Model.dart';
 import 'package:kartenz/model/Upload_Model/EngineModel.dart';
+import 'package:kartenz/model/Upload_Model/Upload_car_model.dart';
 
 import 'package:kartenz/provider/basic_providers.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
@@ -38,7 +39,6 @@ class _EnginetransmissionFormWidgetState extends State<EnginetransmissionFormWid
   ChewieController _chewieController;
   VideoPlayerController _videoPlayerController;
 
-
   @override
   Widget build(BuildContext context) {
     FormData formData = Provider.of<FormData>(context);
@@ -62,51 +62,81 @@ class _EnginetransmissionFormWidgetState extends State<EnginetransmissionFormWid
           TextFormField(
             decoration: decoration("Engine"),
             controller: _engineController,
+            onChanged: (val){
+              formData.uploadCar.engine = val;
+            },
           ),
           SizedBox(height: 12,),
           TextFormField(
             decoration: decoration("Engine sound"),
             controller: _engineSoundController,
+            onChanged: (val){
+              formData.uploadCar.engineSound = val;
+            },
           ),
           SizedBox(height: 12,),
           TextFormField(
             decoration: decoration("Exhaust Smoke"),
             controller: _exhaustSmokeController,
+            onChanged: (val){
+              formData.uploadCar.exhaustSmoke = val;
+            },
           ),
           SizedBox(height: 12,),
           TextFormField(
             decoration: decoration("Engine mounting"),
             controller: _engineMountingController,
+            onChanged: (val){
+              formData.uploadCar.engineMounting = val;
+            },
           ),
           SizedBox(height: 12,),
           TextFormField(
             decoration: decoration("Clutch"),
             controller: _clutchController,
+            onChanged: (val){
+              formData.uploadCar.clutch = val;
+            },
           ),
           SizedBox(height: 12,),
           TextFormField(
             decoration: decoration("Gear shifting"),
             controller: _gearShiftingController,
+            onChanged: (val){
+              formData.uploadCar.gearShifting = val;
+            },
           ),
           SizedBox(height: 12,),
           TextFormField(
             decoration: decoration("Engine oil"),
             controller: _engineOilController,
+            onChanged: (val){
+              formData.uploadCar.engineOil = val;
+            },
           ),
           SizedBox(height: 12,),
           TextFormField(
             decoration: decoration("Engine oil level dipstick"),
             controller: _engineOilLevelController,
+            onChanged: (val){
+              formData.uploadCar.engineOilLevelDipstick = val;
+            },
           ),
           SizedBox(height: 12,),
           TextFormField(
             decoration: decoration("Battery"),
             controller: _batteryController,
+            onChanged: (val){
+              formData.uploadCar.battery = val;
+            },
           ),
           SizedBox(height: 12,),
           TextFormField(
             decoration: decoration("Coolant"),
             controller: _coolantController,
+            onChanged: (val){
+              formData.uploadCar.coolant = val;
+            },
           ),
           SizedBox(height: 24,),
           Text("Images or videos", style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR),),
@@ -202,6 +232,7 @@ class _EnginetransmissionFormWidgetState extends State<EnginetransmissionFormWid
                         Flexible(
                           child: TextFormField(
                             decoration: decoration("Description"),
+                            //TODO
                           ),
                         ),
                         Flexible(
@@ -234,7 +265,7 @@ class _EnginetransmissionFormWidgetState extends State<EnginetransmissionFormWid
             onRatingUpdate: (rating) {
               print(rating);
               basicProvider.engineRating = rating;
-
+              formData.uploadCar.ratingEngine = rating.toString();
             },
           ),
           SizedBox(height: 32,),

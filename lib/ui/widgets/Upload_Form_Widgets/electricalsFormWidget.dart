@@ -7,6 +7,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
+import 'package:kartenz/model/ElectricalsModel.dart';
+import 'package:kartenz/model/Upload_Model/Upload_car_model.dart';
 import 'package:kartenz/provider/electrical_form_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:kartenz/ui/widgets/Upload_Form_Widgets/documents_form_widget.dart';
@@ -18,6 +20,7 @@ class ElectricalsFormWidget extends StatefulWidget {
 }
 
 class _ElectricalsFormWidgetState extends State<ElectricalsFormWidget> {
+
   TextEditingController _lhsFrontController = TextEditingController(text: "yes");
   TextEditingController _lhsRearController = TextEditingController(text: "yes");
   TextEditingController _rhsFrontController = TextEditingController(text: "yes");
@@ -176,212 +179,227 @@ class _ElectricalsFormWidgetState extends State<ElectricalsFormWidget> {
       ),
     );
   }
-}
 
-radioRow(BuildContext context,
-    {String tittle,
-      ElectricalFormProvider electricalFormProvider,
-      String groupValue,
-      TextEditingController controller, String key}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        tittle,
-        style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(left: 32),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Radio(
-                  activeColor: PRIMARY_COLOR,
-                  value: "yes",
-                  groupValue: electricalFormProvider.radioItems[groupValue],
-                  onChanged: (val) =>
-                      electricalFormProvider.updateRadioItems(groupValue, val),
-                ),
-                Text(
-                  "yes",
-                  style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
-                )
-              ],
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Radio(
-                  activeColor: PRIMARY_COLOR,
-                  value: "No",
-                  groupValue: electricalFormProvider.radioItems[groupValue],
-                  onChanged: (val) =>
-                      electricalFormProvider.updateRadioItems(groupValue, val),
-                ),
-                Text(
-                  "no",
-                  style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
-                )
-              ],
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Radio(
-                  activeColor: PRIMARY_COLOR,
-                  value: "n/a",
-                  groupValue: electricalFormProvider.radioItems[groupValue],
-                  onChanged: (val) =>
-                      electricalFormProvider.updateRadioItems(groupValue, val),
-                ),
-                Text(
-                  "N/A",
-                  style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
-                )
-              ],
-            ),
-          ],
-        ),
-      ),
-      electricalFormProvider.radioItems[groupValue] == "yes"
-          ? Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Flexible(
-                child: TextFormField(
-                  decoration: decoration(),
-                  controller: controller,
-                ),
-              ),
-              Flexible(
-                child: RaisedButton(
-                  onPressed: () {
-                    showBottom(context, () async {
-                      Navigator.pop(context);
-                      PickedFile result = await pickCameraImages();
-                      if(result!=null){
-                        electricalFormProvider.updateImage(key, PlatformFile(path: result.path));
-                      }
-                    }, (){
-                      Navigator.pop(context);
-                      pickImages(false).then((filePickerResult){
-                        if(filePickerResult!=null){
-                          electricalFormProvider.updateImage(key, filePickerResult.files.first);
-                        }
-  });
-                    });
-                  },
-                  color: PRIMARY_COLOR,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16)),
-                  child: Text(
-                    "Upload",
-                    style: AppFontStyle.titleAppBarStyle2(APP_WHITE_COLOR),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 12,),
-         electricalFormProvider.electricalImages[key]!=null?Column(
-            children: [
-              Container(
-                  height: 300,
-                  width: 300,
-                  child: Image.file(File(electricalFormProvider.electricalImages[key].path),
-                  )
-              ),
-              FlatButton(onPressed: (){
-                electricalFormProvider.removeFromImage(key);
-              }, child: Row(children: [
-                Text("Delete", style: AppFontStyle.headingTextStyle2(APP_RED_COLOR),),
-                Icon(Icons.delete, color: APP_RED_COLOR,)
-              ],))
-            ],
-          ):Container()
-        ],
-      )
-          : Container()
-    ],
-  );
-}
+        Map electricalDataMap = {};
 
-Widget showBottom(BuildContext context, Function() ontap, Function() ontap2){
-  showModalBottomSheet(
-      context: context,
-      builder: (builder){
-        return Container(
-          decoration: BoxDecoration(borderRadius:
-          BorderRadius.only(
-              topLeft: const Radius.circular(10.0),
-              topRight: const Radius.circular(10.0))),
-          height: 160,
-          child: Column(
+        saveValue(String key,String value){
+          if(electricalDataMap.containsKey(key)){
+            electricalDataMap[key] = value;
+          }else{
+            electricalDataMap.putIfAbsent(key, () => value);
+          }
+          ElectricModel electricModel = ElectricModel.fromJSONR(electricalDataMap);
+          if(electricModel!=null){
+            FormData formData = Provider.of(context,listen: false);
+            formData.uploadCar.electricModel = electricModel;
+          }
+        }
+
+        radioRow(BuildContext context,
+            {String tittle,
+              ElectricalFormProvider electricalFormProvider,
+              String groupValue,
+              TextEditingController controller, String key}) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 8,),
-              Text("Choose an action", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
-              SizedBox(height: 22,),
+              Text(
+                tittle,
+                style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 32),
                 child: Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    GestureDetector(
-                      onTap: ontap,
-                      child: Column(
-                        children: [
-                          Image.asset("assets/images/camera.png", width: 50, height: 50,),
-                          SizedBox(height: 8,),
-                          Text("Camera", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
-                        ],
-                      ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Radio(
+                          activeColor: PRIMARY_COLOR,
+                          value: "yes",
+                          groupValue: electricalFormProvider.radioItems[groupValue],
+                          onChanged: (val) =>
+                              electricalFormProvider.updateRadioItems(groupValue, val),
+                        ),
+                        Text(
+                          "yes",
+                          style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
+                        )
+                      ],
                     ),
-                    SizedBox(width: 24,),
-                    GestureDetector(
-                      onTap: ontap2,
-                      child: Column(
-                        children: [
-                          Image.asset("assets/images/gallery1.png", width: 50, height: 50,),
-                          SizedBox(height: 8,),
-                          Text("Gallery", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
-                        ],
-                      ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Radio(
+                          activeColor: PRIMARY_COLOR,
+                          value: "No",
+                          groupValue: electricalFormProvider.radioItems[groupValue],
+                          onChanged: (val) =>
+                              electricalFormProvider.updateRadioItems(groupValue, val),
+                        ),
+                        Text(
+                          "no",
+                          style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
+                        )
+                      ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Radio(
+                          activeColor: PRIMARY_COLOR,
+                          value: "n/a",
+                          groupValue: electricalFormProvider.radioItems[groupValue],
+                          onChanged: (val) =>
+                              electricalFormProvider.updateRadioItems(groupValue, val),
+                        ),
+                        Text(
+                          "N/A",
+                          style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),
+                        )
+                      ],
                     ),
                   ],
                 ),
+              ),
+              electricalFormProvider.radioItems[groupValue] == "yes"
+                  ? Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Flexible(
+                        child: TextFormField(
+                          decoration: decoration(),
+                          controller: controller,
+                        ),
+                      ),
+                      Flexible(
+                        child: RaisedButton(
+                          onPressed: () {
+                            showBottom(context, () async {
+                              Navigator.pop(context);
+                              PickedFile result = await pickCameraImages();
+                              if(result!=null){
+                                electricalFormProvider.updateImage(key, PlatformFile(path: result.path));
+                              }
+                            }, (){
+                              Navigator.pop(context);
+                              pickImages(false).then((filePickerResult){
+                                if(filePickerResult!=null){
+                                  electricalFormProvider.updateImage(key, filePickerResult.files.first);
+                                }
+          });
+                            });
+                          },
+                          color: PRIMARY_COLOR,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16)),
+                          child: Text(
+                            "Upload",
+                            style: AppFontStyle.titleAppBarStyle2(APP_WHITE_COLOR),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 12,),
+                 electricalFormProvider.electricalImages[key]!=null?Column(
+                    children: [
+                      Container(
+                          height: 300,
+                          width: 300,
+                          child: Image.file(File(electricalFormProvider.electricalImages[key].path),
+                          )
+                      ),
+                      FlatButton(onPressed: (){
+                        electricalFormProvider.removeFromImage(key);
+                      }, child: Row(children: [
+                        Text("Delete", style: AppFontStyle.headingTextStyle2(APP_RED_COLOR),),
+                        Icon(Icons.delete, color: APP_RED_COLOR,)
+                      ],))
+                    ],
+                  ):Container()
+                ],
               )
+                  : Container()
             ],
-          ),
+          );
+        }
 
-        );
-      }
-  );
-}
+        Widget showBottom(BuildContext context, Function() ontap, Function() ontap2){
+          showModalBottomSheet(
+              context: context,
+              builder: (builder){
+                return Container(
+                  decoration: BoxDecoration(borderRadius:
+                  BorderRadius.only(
+                      topLeft: const Radius.circular(10.0),
+                      topRight: const Radius.circular(10.0))),
+                  height: 160,
+                  child: Column(
+                    children: [
+                      SizedBox(height: 8,),
+                      Text("Choose an action", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
+                      SizedBox(height: 22,),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 32),
+                        child: Row(
+                          children: [
+                            GestureDetector(
+                              onTap: ontap,
+                              child: Column(
+                                children: [
+                                  Image.asset("assets/images/camera.png", width: 50, height: 50,),
+                                  SizedBox(height: 8,),
+                                  Text("Camera", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 24,),
+                            GestureDetector(
+                              onTap: ontap2,
+                              child: Column(
+                                children: [
+                                  Image.asset("assets/images/gallery1.png", width: 50, height: 50,),
+                                  SizedBox(height: 8,),
+                                  Text("Gallery", style: AppFontStyle.regularTextStyle(APP_BLACK_COLOR),),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
 
-InputDecoration decoration({String label}) {
-  return InputDecoration(
-    labelText: label,
-    labelStyle: AppFontStyle.bodyTextStyle2(APP_BLACK_COLOR),
-    focusedBorder: UnderlineInputBorder(
-      borderSide: BorderSide(color: PRIMARY_COLOR),
-    ),
-  );
-}
+                );
+              }
+          );
+        }
 
-Future<FilePickerResult> pickImages(bool allowMultiple) async {
-  List<String> extensions = ['jpg', 'png', 'jpeg'];
-  FilePickerResult result = await FilePicker.platform.pickFiles(
-    allowMultiple: allowMultiple,
-    type: FileType.custom,
-    allowedExtensions: extensions,
-  );
-  if (result != null) {
-    return result;
-  } else {
-    return null;
-  }
+        InputDecoration decoration({String label}) {
+          return InputDecoration(
+            labelText: label,
+            labelStyle: AppFontStyle.bodyTextStyle2(APP_BLACK_COLOR),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: PRIMARY_COLOR),
+            ),
+          );
+        }
+
+        Future<FilePickerResult> pickImages(bool allowMultiple) async {
+          List<String> extensions = ['jpg', 'png', 'jpeg'];
+          FilePickerResult result = await FilePicker.platform.pickFiles(
+            allowMultiple: allowMultiple,
+            type: FileType.custom,
+            allowedExtensions: extensions,
+          );
+          if (result != null) {
+            return result;
+          } else {
+            return null;
+          }
+        }
 }
