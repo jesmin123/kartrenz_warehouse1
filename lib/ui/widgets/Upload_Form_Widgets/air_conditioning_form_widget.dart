@@ -53,6 +53,7 @@ class _AirConditionFormWidgetState extends State<AirConditionFormWidget> {
             ),
             onRatingUpdate: (rating) {
               print(rating);
+              formData.uploadCar.acModel.rating = rating.round();
              basicProvider.airConditionRating = rating;
             },
           ),

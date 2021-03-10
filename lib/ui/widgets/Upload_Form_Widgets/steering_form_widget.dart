@@ -8,6 +8,8 @@ import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/strings.dart';
 import 'package:kartenz/model/SteeringModel.dart';
+import 'package:kartenz/provider/AuctionProvider.dart';
+import 'package:kartenz/provider/auth_provider.dart';
 import 'package:kartenz/provider/electrical_form_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +29,9 @@ class _SteeringFormWidgetState extends State<SteeringFormWidget> {
   @override
   Widget build(BuildContext context) {
     ElectricalFormProvider electricalFormProvider = Provider.of(context);
+    AuctionProvider auctionProvider=Provider.of(context);
+    AuthProvider authProvider=Provider.of(context);
+    FormData formData = Provider.of(context);
     return Form(
       child: Column(
         children: [
@@ -51,12 +56,15 @@ class _SteeringFormWidgetState extends State<SteeringFormWidget> {
             onRatingUpdate: (rating) {
               print(rating);
               electricalFormProvider.steeringRating = rating;
+              formData.uploadCar.steeringModel.rating = rating.round();
             },
           ),
           SizedBox(height: 24,),
           RaisedButton(
             onPressed:(){
               showAlert(context);
+              formData.uploadCar.createdBy = authProvider.loginModel.id;
+              auctionProvider.postUploadCar(authProvider.loginModel.token, formData.uploadCar);
             },
             child: Text("Submit", style: AppFontStyle.headingTextStyle2(APP_WHITE_COLOR),),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

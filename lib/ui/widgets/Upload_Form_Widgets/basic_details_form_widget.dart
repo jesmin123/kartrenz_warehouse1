@@ -85,7 +85,7 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
              DropdownButtonFormField(
                   items:  formData.company!=null?formData.company.map((e) {
                     return DropdownMenuItem(child: (Text(e.name)), value: e.id,);
-                  }).toList():[DropdownMenuItem(child: (Text("")), value: "")],
+                  }).toList():[DropdownMenuItem(child: (Text("")), value: "sample")],
                   onChanged: (newValue) {
                   formData.selectedCarMakeId = newValue;
                   },

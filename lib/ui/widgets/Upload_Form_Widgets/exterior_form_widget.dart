@@ -190,6 +190,7 @@ class _ExteriorFormWidgetState extends State<ExteriorFormWidget> {
             onRatingUpdate: (rating) {
               print(rating);
               electricalFormProvider.exteriorRating = rating;
+              formData.uploadCar.exteriorTyresModel.rating = rating.round();
             },
           ),
           SizedBox(height: 24,),
