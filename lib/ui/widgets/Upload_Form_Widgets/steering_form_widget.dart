@@ -9,6 +9,7 @@ import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/strings.dart';
 import 'package:kartenz/model/SteeringModel.dart';
 import 'package:kartenz/provider/AuctionProvider.dart';
+import 'package:kartenz/provider/SubmittedCarsProvider.dart';
 import 'package:kartenz/provider/auth_provider.dart';
 import 'package:kartenz/provider/electrical_form_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
@@ -31,6 +32,7 @@ class _SteeringFormWidgetState extends State<SteeringFormWidget> {
     ElectricalFormProvider electricalFormProvider = Provider.of(context);
     AuctionProvider auctionProvider=Provider.of(context);
     AuthProvider authProvider=Provider.of(context);
+    SubmittedCarsProvider submittedCarsProvider=Provider.of(context);
     FormData formData = Provider.of(context);
     return Form(
       child: Column(
@@ -61,10 +63,13 @@ class _SteeringFormWidgetState extends State<SteeringFormWidget> {
           ),
           SizedBox(height: 24,),
           RaisedButton(
-            onPressed:(){
+            onPressed:() async{
               showAlert(context);
               formData.uploadCar.createdBy = authProvider.loginModel.id;
-              auctionProvider.postUploadCar(authProvider.loginModel.token, formData.uploadCar);
+              bool status = await auctionProvider.postUploadCar(authProvider.loginModel.token, formData.uploadCar);
+              if(status){
+                submittedCarsProvider.getSubmittedCars(authProvider.loginModel.token);
+              }
             },
             child: Text("Submit", style: AppFontStyle.headingTextStyle2(APP_WHITE_COLOR),),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
