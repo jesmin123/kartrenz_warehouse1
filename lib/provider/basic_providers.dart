@@ -67,10 +67,10 @@ class BasicProvider extends ChangeNotifier{
     radioItem = radioItemTemp;
   }
   Map<String, PlatformFile> _images = {
-    "AC Cooling" : null,
+    "ACCooling" : null,
     "Heater" : null,
-    "Climate" : null,
-    "Blower" : null,
+    "ClimateChangeControlAC" : null,
+    "BlowerMotorNoise" : null,
   };
 
 

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 
 import 'package:flutter/cupertino.dart';
@@ -8,10 +9,12 @@ import 'package:kartenz/model/BuyModel.dart';
 import 'package:kartenz/model/CarWarehouseModel.dart';
 import 'package:kartenz/model/ImageModel.dart';
 import 'package:kartenz/model/RTOfficeModel.dart';
+import 'package:kartenz/model/RespObj.dart';
 import 'package:kartenz/model/StateModel.dart';
 import 'package:kartenz/model/TransactionModel.dart';
 import 'package:kartenz/model/Upload_Model/Upload_car_model.dart';
 import 'package:kartenz/model/uploadedCars.dart';
+import 'package:kartenz/provider/form_data_provider.dart';
 
 class AuctionProvider extends ChangeNotifier{
 
@@ -342,13 +345,27 @@ Map get carImages => _carImages;
     transactions = transtemp;
   }
 
-  Future postUploadCar(String token, UploadCar uploadCar) async{
+  Future<RespObj> postUploadCar(String token, UploadCar uploadCar, String name, FormData formData) async{
     Map data = uploadCar.toJson();
     api.postData("carwarehouse",mBody: jsonEncode(data),header: token,).then((respObj) {
       if(respObj.status){
         dynamic data=respObj.data;
         CarWarehouseModel carWarehouseModel=CarWarehouseModel.fromJSON(data);
         uploaded=carWarehouseModel;
+        Map sendData = {"car":uploaded.id,"type":0,"name":name};
+        api.postData("carimage",header: token,mBody: jsonEncode(sendData)).then((value){
+          if(respObj.status){
+            String id = respObj.data["_id"];
+            api.fileUplaod("carimage/image/upload", File(formData.mainImage.path), formData.mainImage.name).then((value) => null);
+          }
+        });
+        // Engine Video -http://kartrenz.com:4000/carwarehouse/engineVideo/upload
+
+        //To upload file
+        // First fire at http://kartrenz.com:4000/carimage  {"car":"6049b439c5e7f7002b6f4db1","type":0,"name":""}
+        // Get the id from above route
+        // Then fire to http://kartrenz.com:4000/carimage/image/upload   id:kkk  image:"file"
+        // Check if upload is success
 
       }
     } );

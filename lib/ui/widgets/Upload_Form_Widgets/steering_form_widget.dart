@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/constants/strings.dart';
+import 'package:kartenz/model/RespObj.dart';
 import 'package:kartenz/model/SteeringModel.dart';
 import 'package:kartenz/provider/AuctionProvider.dart';
 import 'package:kartenz/provider/SubmittedCarsProvider.dart';
@@ -38,11 +39,11 @@ class _SteeringFormWidgetState extends State<SteeringFormWidget> {
       child: Column(
         children: [
 
-          tyreWidget(context, _steeringController, "Steering", electricalFormProvider, "Steering"),
+          tyreWidget(context, _steeringController, "Steering", electricalFormProvider, "steering"),
           SizedBox(height: 12,),
-          tyreWidget(context, _suspensionController, "Suspension", electricalFormProvider, "Suspension"),
+          tyreWidget(context, _suspensionController, "Suspension", electricalFormProvider, "suspension"),
           SizedBox(height: 12,),
-          tyreWidget(context, _brakeController, "Brake", electricalFormProvider, "Brake"),
+          tyreWidget(context, _brakeController, "Brake", electricalFormProvider, "brake"),
           SizedBox(height: 24,),
           RatingBar.builder(
             initialRating: 3,
@@ -66,8 +67,8 @@ class _SteeringFormWidgetState extends State<SteeringFormWidget> {
             onPressed:() async{
               showAlert(context);
               formData.uploadCar.createdBy = authProvider.loginModel.id;
-              bool status = await auctionProvider.postUploadCar(authProvider.loginModel.token, formData.uploadCar);
-              if(status){
+              RespObj status = await auctionProvider.postUploadCar(authProvider.loginModel.token, formData.uploadCar,,formData,  );
+              if(status.status){
                 submittedCarsProvider.getSubmittedCars(authProvider.loginModel.token);
               }
             },

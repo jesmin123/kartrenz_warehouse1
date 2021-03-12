@@ -39,19 +39,19 @@ class ElectricalFormProvider extends ChangeNotifier{
   }
 
   Map<String, PlatformFile> _electricalImages = {
-    "LHS Front" : null,
-    "LHS Rear" : null,
-    "RHS Front" : null,
-    "RHS Rear" : null,
-    "Reverse Camera" : null,
-    "Airbag Feature" : null,
-    "Music System" : null,
-    "Leather Seat" : null,
-    "Fabric Seat" : null,
-    "Sun Roof" : null,
+    "powerWindowLHSFront" : null,
+    "powerWindowLHSRear" : null,
+    "powerWindowRHSFront" : null,
+    "powerWindowRHSRear" : null,
+    "reverseCamera" : null,
+    "airbagFeature" : null,
+    "musicSystem" : null,
+    "leatherSeat" : null,
+    "fabricSeat" : null,
+    "sunroof" : null,
     "Steering Mounted" : null,
     "ABS" : null,
-    "Rear Defogger" : null,
+    "rearDefogger" : null,
     "Electrical" : null,
     "Interior" : null,
   };
@@ -161,38 +161,38 @@ class ElectricalFormProvider extends ChangeNotifier{
 
   Map<String, PlatformFile> _exteriorImage = {
     "Roof" : null,
-    "Bonnet" : null,
-    "Dicky Door" : null,
-    "Quarter LHS" : null,
-    "Quarter RHS" : null,
-    "Fender LHS" : null,
-    "Fender RHS" : null,
+    "BonnetorHood" : null,
+    "DickyDoororBootDoor" : null,
+    "QuarterPanelLHS" : null,
+    "QuarterPanelRHS" : null,
+    "FenderLHS" : null,
+    "FenderRHS" : null,
     "Pillar" : null,
     "Apron" : null,
     "Firewall" : null,
     "CowlTop" : null,
-    "Upper Cross" : null,
-    "Lower Cross" : null,
-    "Radiator" : null,
-    "Running LHS" : null,
-    "Running RHS" : null,
-    "RHS Front" : null,
-    "RHS Rear" : null,
-    "LHS Front" : null,
-    "LHS Rear" : null,
-    "Bumper Front" : null,
-    "Bumper Rear" : null,
-    "Wind Shield Front" : null,
-    "Wind Shield Rear" : null,
-    "LHS Fog" : null,
-    "RHS Fog" : null,
-    "LHS Headlight" : null,
-    "LHS Taillight" : null,
-    "RHS Headlight" : null,
-    "RHS Taillight" : null,
-    "ORVM LHS" : null,
-    "ORVM RHS" : null,
-    "Alloy Wheels" : null,
+    "UpperCrossMember" : null,
+    "LowerCrossMember" : null,
+    "RadiatorSupport" : null,
+    "RunningBorderLHS" : null,
+    "RunningBorderRHS" : null,
+    "DoorRHSFront" : null,
+    "DoorRHSRear" : null,
+    "DoorLHSFront" : null,
+    "DoorLHSRear" : null,
+    "BumperFront" : null,
+    "BumperRear" : null,
+    "WindshieldFront" : null,
+    "WindshieldBack" : null,
+    "LHSFogLight" : null,
+    "RHSFogLight" : null,
+    "LHSHeadlight" : null,
+    "LHSTaillight" : null,
+    "RHSHeadlight" : null,
+    "RHSTaillight" : null,
+    "ORVMLHS" : null,
+    "ORVMRHS" : null,
+    "AlloyWheels" : null,
   };
 
 
@@ -219,11 +219,11 @@ class ElectricalFormProvider extends ChangeNotifier{
   }
 
   Map<String, PlatformFile> _tyreImage = {
-    "LHS Front Tyre": null,
-    "RHS Front Tyre": null,
-    "LHS Rear Tyre": null,
-    "RHS Rear Tyre": null,
-    "Spare Tyre": null,
+    "LHSFrontTyre": null,
+    "RHSFrontTyre": null,
+    "LHSRearTyre": null,
+    "RHSRearTyre": null,
+    "SpareTyre": null,
   };
 
   Map<String, PlatformFile> get tyreImage => _tyreImage;
@@ -258,9 +258,9 @@ class ElectricalFormProvider extends ChangeNotifier{
   }
 
   Map<String, PlatformFile> _steeringImage = {
-    "Steering" : null,
-    "Suspension" : null,
-    "Brake" : null
+    "steering" : null,
+    "suspension" : null,
+    "brake" : null
   };
 
   Map<String, PlatformFile> get steeringImage => _steeringImage;

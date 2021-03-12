@@ -32,13 +32,13 @@ class _AirConditionFormWidgetState extends State<AirConditionFormWidget> {
     return Form(
       child: Column(
         children: [
-          radioRow(context, tittle: "AC Cooling", basicProvider: basicProvider, groupValue: "AC Cooling", controller: _acCoolingController, key: "AC Cooling"),
+          radioRow(context, tittle: "AC Cooling", basicProvider: basicProvider, groupValue: "AC Cooling", controller: _acCoolingController, key: "ACCooling"),
           SizedBox(height: 24,),
           radioRow(context, tittle: "Heater", basicProvider: basicProvider, groupValue: "Heater", controller: _heaterController, key: "Heater"),
           SizedBox(height: 24,),
-          radioRow(context, tittle: "Climate Automatic Control AC", basicProvider: basicProvider, groupValue: "Climate", controller: _climateController, key: "Climate"),
+          radioRow(context, tittle: "Climate Automatic Control AC", basicProvider: basicProvider, groupValue: "Climate", controller: _climateController, key: "ClimateChangeControlAC"),
           SizedBox(height: 24,),
-          radioRow(context, tittle: "Blower Motor Noise", basicProvider: basicProvider, groupValue: "Blower", controller: _blowerController, key: "Blower"),
+          radioRow(context, tittle: "Blower Motor Noise", basicProvider: basicProvider, groupValue: "Blower", controller: _blowerController, key: "BlowerMotorNoise"),
           SizedBox(height: 32,),
           RatingBar.builder(
             initialRating: 3,

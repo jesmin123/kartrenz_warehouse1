@@ -334,6 +334,8 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
                              if(filePickerResult!=null){
                                formData.addToInteriorImage(filePickerResult.files);
                              }
+
+
                            });
                           },
                           color: PRIMARY_COLOR,
