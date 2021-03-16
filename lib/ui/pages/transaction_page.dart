@@ -115,6 +115,7 @@ class _TransactionPageState extends State<TransactionPage> {
                       flex: 1,
                         child: RaisedButton(
                           onPressed: (){
+                            auctionProvider.transactions = auctionProvider.allTransaction;
                             auctionProvider.searchTransaction(_brokerNameController.text);
                           },
                           child: Text("SEARCH", style: AppFontStyle.headingTextStyle(APP_WHITE_COLOR, textSize: 18.0),),

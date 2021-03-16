@@ -72,6 +72,7 @@ class _AuctionwidgetState extends State<Auctionwidget> {
                                 flex: 1,
                                 child: RaisedButton(
                                   onPressed: (){
+                                    auctionProvider.auction = auctionProvider.allAuction;
                                     auctionProvider.searchAuction(_regNoController.text);
                                   },
                                   child: Text("SEARCH", style: AppFontStyle.headingTextStyle(APP_WHITE_COLOR, textSize: 18.0),),

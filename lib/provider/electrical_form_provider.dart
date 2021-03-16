@@ -154,7 +154,7 @@ class ElectricalFormProvider extends ChangeNotifier{
   updateExteriorradioItem(String key, String value){
     Map<String, dynamic>  exteriorRadioItemTemp = exteriorRadioItem;
     if(exteriorRadioItemTemp.containsKey(key)){
-      _exteriorRadioItem[key] = value;
+      exteriorRadioItemTemp[key] = value;
     }
     exteriorRadioItem = exteriorRadioItemTemp;
   }

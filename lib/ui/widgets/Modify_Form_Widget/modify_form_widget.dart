@@ -5,6 +5,7 @@ import 'package:kartenz/model/CarWareHouse1Model.dart';
 import 'package:kartenz/provider/SubmittedCarsProvider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:kartenz/ui/pages/modify_page.dart';
+import 'package:kartenz/ui/utilis/no_image_utilis.dart';
 import 'package:provider/provider.dart';
 
 class ModifyFormWidget extends StatefulWidget {
@@ -30,10 +31,7 @@ class _ModifyFormWidgetState extends State<ModifyFormWidget> {
               child: Column(
                 children: [
                   SizedBox(height: 6,),
-                  Image.asset(
-                    "assets/images/222.jpg",
-                    width: MediaQuery.of(context).size.width,
-                  ),
+                  ImageUtil.banner(car.getMainImage()),
                   SizedBox(height: 12,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

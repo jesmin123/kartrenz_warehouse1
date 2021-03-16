@@ -71,6 +71,7 @@ class _BuyNowWidgetState extends State<BuyNowWidget> {
                 flex: 1,
                 child: RaisedButton(
                   onPressed: (){
+                    auctionProvider.buyAll = auctionProvider.allBuyNow;
                     auctionProvider.searchBuyNow(_regNoController.text);
                   },
                   child: Text("SEARCH", style: AppFontStyle.headingTextStyle(APP_WHITE_COLOR, textSize: 18.0),),

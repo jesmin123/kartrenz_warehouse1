@@ -92,7 +92,7 @@ class UploadCar{
     "expectedPrice":expectedPrice,"engine":engine,"engineVideo":engineVideo,"engineSound":engineSound,"exhaustSmoke":exhaustSmoke,"engineMounting":engineMounting,"clutch":clutch,
     "gearShifting":gearShifting,"engineOil":engineOil,"engineOilLevelDipstick":engineOilLevelDipstick,"battery":battery,"coolant":coolant,"airConditioning":acModel.toJson(),
   "electricals":electricModel.toJson(),"exteriorPlusTyres":exteriorTyresModel.toJson(),"steeringSuspensionAndBrakes":steeringModel.toJson(),"state":state,"office":office,
-    "reno":reno,"ratingDetails":ratingDetails,"ratingEngine":ratingEngine
+    "reno":reno,"ratingDetails":ratingDetails,"ratingEngine":"4"
   };
 
   initConstructor(){

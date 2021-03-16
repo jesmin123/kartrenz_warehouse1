@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:http/http.dart';
 import 'package:kartenz/model/RespObj.dart';
 
@@ -47,16 +48,15 @@ class ApiUtils {
   }
 
 
-  Future<RespObj> fileUplaod(String route,File file, String fileName,{String header,String id}) async{
+  Future<RespObj> fileUplaod(String route,PlatformFile file, String fileName,{String header,String id}) async{
 
     print('ID Api : '+id);
-    var request = MultipartRequest("POST", Uri.parse(baseUrl+route));
+    var request = MultipartRequest("POST", Uri.parse(imagebaseUrl+route));
     request.fields["id"] = id;
     var image = await MultipartFile.fromPath(fileName, file.path);
     request.files.add(image);
 
     var resp = await request.send();
-    print("Raw resp"+resp.toString());
     var responseData = await resp.stream.toBytes();
     print("Resp Data"+responseData.toString());
     var responseString = String.fromCharCodes(responseData);

@@ -33,6 +33,7 @@ class _AddTransactionPageState extends State<AddTransactionPage> {
     FormData formData = Provider.of(context);
     PurchaseProvider purchaseProvider = Provider.of(context);
     AuthProvider authProvider = Provider.of(context);
+    FocusNode f1 = FocusNode();
 
     return Scaffold(
         appBar: appBar(context, "Add New Transaction"),
@@ -61,8 +62,10 @@ class _AddTransactionPageState extends State<AddTransactionPage> {
                         Flexible(
                           flex: 2,
                           child: TextFormField(
+                            focusNode: f1,
                             controller: _textController,
                               decoration: InputDecoration(
+
                                   hintText: "Enter transaction ID",
                                   hintStyle: AppFontStyle.regularTextStyle2(APP_GREY_COLOR),
                                   focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide(color: Colors.grey[200])),
@@ -77,6 +80,7 @@ class _AddTransactionPageState extends State<AddTransactionPage> {
                             flex: 1,
                             child: RaisedButton(
                               onPressed: () async {
+                                f1.unfocus();
                                 purchaseProvider.isResultReady = false;
                                 Loader.getLoader(context).show();
                                 bool status = await purchaseProvider.getTrnsactionDetail(authProvider.loginModel.token, _textController.text, formData.radioList);

@@ -3,6 +3,7 @@ import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/model/CarWareHouse1Model.dart';
 import 'package:kartenz/provider/SubmittedCarsProvider.dart';
+import 'package:kartenz/ui/utilis/no_image_utilis.dart';
 import 'package:provider/provider.dart';
 
 class RejectedFormWidget extends StatefulWidget {
@@ -28,10 +29,7 @@ class _RejectedFormWidgetState extends State<RejectedFormWidget> {
               child: Column(
                 children: [
                   SizedBox(height: 6,),
-                  Image.asset(
-                    "assets/images/222.jpg",
-                    width: MediaQuery.of(context).size.width,
-                  ),
+                  ImageUtil.banner(car.getMainImage()),
                   SizedBox(height: 12,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

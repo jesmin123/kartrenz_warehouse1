@@ -65,10 +65,10 @@ class _SteeringFormWidgetState extends State<SteeringFormWidget> {
           SizedBox(height: 24,),
           RaisedButton(
             onPressed:() async{
-              showAlert(context);
               formData.uploadCar.createdBy = authProvider.loginModel.id;
-              RespObj status = await auctionProvider.postUploadCar(authProvider.loginModel.token, formData.uploadCar,,formData,  );
-              if(status.status){
+              RespObj status = await auctionProvider.postUploadCar(authProvider.loginModel.token, formData.uploadCar,formData,  );
+             if(status.status){
+               showAlert(context);
                 submittedCarsProvider.getSubmittedCars(authProvider.loginModel.token);
               }
             },

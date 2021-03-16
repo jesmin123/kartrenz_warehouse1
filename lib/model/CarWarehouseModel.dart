@@ -66,7 +66,7 @@ class CarWarehouseModel{
     try{
       LoginModel loginModel;
       if(json.containsKey("createdBy")){
-        loginModel = LoginModel.fromJSON(json['createdBy']);
+        //loginModel = LoginModel.fromJSON(json['createdBy']);
       }
 
       return CarWarehouseModel(loginModel:loginModel,supportNo:json['supportNo'],id:json['_id'],engineSound: json['engineSound'],isSold:json['isSold'],auctionBidPrice: json['basePrice'],car: Car.fromJSON(json['car']),company: Company.fromJSON(json['car']),year: json['year'],fuel: json['fuel'],variant: json['variant'],basePrice: json['basePrice'],

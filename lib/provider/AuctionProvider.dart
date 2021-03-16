@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kartenz/api/File_Uploader.dart';
 import 'package:kartenz/api/api.dart';
 import 'package:kartenz/model/BuyModel.dart';
 import 'package:kartenz/model/CarWarehouseModel.dart';
@@ -64,6 +65,7 @@ CarWarehouseModel get uploaded => _uploaded;
 
 set buyAll(List<BuyModel> value) {
   _buyAll = value;
+  notifyListeners();
 }
 
 List<Transaction> get transactions => _transactions;
@@ -345,19 +347,20 @@ Map get carImages => _carImages;
     transactions = transtemp;
   }
 
-  Future<RespObj> postUploadCar(String token, UploadCar uploadCar, String name, FormData formData) async{
+  Future<RespObj> postUploadCar(String token, UploadCar uploadCar, FormData formData) async{
     Map data = uploadCar.toJson();
-    api.postData("carwarehouse",mBody: jsonEncode(data),header: token,).then((respObj) {
-      if(respObj.status){
+    RespObj respObj = await api.postData("carwarehouse",mBody: jsonEncode(data),header: token,);
+    if(respObj.status){
         dynamic data=respObj.data;
-        CarWarehouseModel carWarehouseModel=CarWarehouseModel.fromJSON(data);
-        uploaded=carWarehouseModel;
-        Map sendData = {"car":uploaded.id,"type":0,"name":name};
-        api.postData("carimage",header: token,mBody: jsonEncode(sendData)).then((value){
-          if(respObj.status){
-            String id = respObj.data["_id"];
-            api.fileUplaod("carimage/image/upload", File(formData.mainImage.path), formData.mainImage.name).then((value) => null);
-          }
+        String  id = data['_id'];
+        Map sendData = {"car":id,"type":0,"name":""};
+        api.postData("carimage",header: token,mBody: jsonEncode(sendData)).then((value) async {
+          if(value.status){
+              String id = value.data["_id"];
+              fileUploader.uploadFile("carimage/image/upload/", formData.mainImage, formData.mainImage.name,id: id);
+            //  api.fileUplaod("carimage/image/upload", formData.mainImage,formData.mainImage.name,id: id);
+            }
+
         });
         // Engine Video -http://kartrenz.com:4000/carwarehouse/engineVideo/upload
 
@@ -368,6 +371,6 @@ Map get carImages => _carImages;
         // Check if upload is success
 
       }
-    } );
+    return respObj;
   }
 }

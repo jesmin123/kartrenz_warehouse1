@@ -47,7 +47,7 @@ class _SoldCarPageState extends State<SoldCarPage> {
                               auctionProvider.transactions = auctionProvider.allTransactions;
                               _regNoController.clear();
                             }),
-                              hintText: "Search...",
+                              hintText: "Search by regno",
                               hintStyle: AppFontStyle.regularTextStyle2(APP_GREY_COLOR),
                               focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide(color: Colors.grey[200])),
                               enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide(color: Colors.grey[200])),
@@ -62,6 +62,7 @@ class _SoldCarPageState extends State<SoldCarPage> {
                         flex: 1,
                         child: RaisedButton(
                           onPressed: (){
+                            auctionProvider.transactions = auctionProvider.allTransactions;
                             auctionProvider.serachSoldCar(_regNoController.text);
                           },
                           child: Text("SEARCH", style: AppFontStyle.headingTextStyle(APP_WHITE_COLOR, textSize: 18.0),),
