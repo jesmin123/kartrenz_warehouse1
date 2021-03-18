@@ -17,14 +17,18 @@ class FileUploader{
   }
 
   Future<RespObj> uploadFile(String route,PlatformFile file, String fileName,{String header,String id})  async {
+    MultipartFile fileX = await MultipartFile.fromFile(file.path);
+
     FormData formData = FormData.fromMap({
-      "id":id,
-      fileName: await MultipartFile.fromFile(file.path)
+      "id":"605090c250e448002a98c862",
+      "image":fileX
     });
-    formData.fields.add(MapEntry("id", id));
-    formData.files.add(MapEntry("image", await MultipartFile.fromFile(file.path)));
+    // formData.fields.add(MapEntry("id", "605090c250e448002a98c862"));
+    //
+    // formData.files.add(MapEntry("image", fileX));
+    dio.options.headers["x-auth-token"]= header;
     try{
-      Response response = await dio.post(dio.options.baseUrl+route, data: formData);
+      Response response = await dio.post(dio.options.baseUrl+route, data: formData,);
       if(response!=null){
         String respString = response.toString();
         print(respString);

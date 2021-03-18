@@ -357,7 +357,7 @@ Map get carImages => _carImages;
         api.postData("carimage",header: token,mBody: jsonEncode(sendData)).then((value) async {
           if(value.status){
               String id = value.data["_id"];
-              fileUploader.uploadFile("carimage/image/upload/", formData.mainImage, formData.mainImage.name,id: id);
+              fileUploader.uploadFile("carimage/image/upload", formData.mainImage, formData.mainImage.name,id: id,header: token);
             //  api.fileUplaod("carimage/image/upload", formData.mainImage,formData.mainImage.name,id: id);
             }
 

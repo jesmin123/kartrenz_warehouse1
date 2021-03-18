@@ -49,7 +49,7 @@ class DocumentData {
     'manufacturingYr':manufacturingYr,'chassisNoEmossing':chassisNoEmossing,'CNGLPGFitment':CNGLPGFitment,"registrationDate":registrationDate,"insuranceType":insuranceType,
     "insuranceExpiryDate":insuranceExpiryDate,"noclaimBonus":noclaimBonus,"noclaimBonusPercentage":noclaimBonusPercentage,"fitnessupto":fitnessupto,"RCavailability":RCavailability,
     "RCCondition":RCCondition,"RTO":RTO,"partipheshiRequest":partipheshiRequest,"roadTaxpaid":roadTaxpaid,"RTONOCissued":RTONOCissued,"underHypothecation":underHypothecation,
-    "duplicateKey":duplicateKey,"rating":rating,
+    "duplicateKey":duplicateKey,"rating":4,
   };
 
   List <Widget>getCustmoWidgets(){

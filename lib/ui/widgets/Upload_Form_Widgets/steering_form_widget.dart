@@ -66,7 +66,8 @@ class _SteeringFormWidgetState extends State<SteeringFormWidget> {
           RaisedButton(
             onPressed:() async{
               formData.uploadCar.createdBy = authProvider.loginModel.id;
-              RespObj status = await auctionProvider.postUploadCar(authProvider.loginModel.token, formData.uploadCar,formData,  );
+              RespObj status = await auctionProvider.
+              postUploadCar(authProvider.loginModel.token, formData.uploadCar,formData,  );
              if(status.status){
                showAlert(context);
                 submittedCarsProvider.getSubmittedCars(authProvider.loginModel.token);
@@ -247,7 +248,7 @@ Widget showAlert(BuildContext context){
               Divider(),
               FlatButton(
                   onPressed: (){
-                    Navigator.pushNamed(context, HOME_PAGE);
+             //       Navigator.pushNamed(context, HOME_PAGE);
                   },
                   child: Text("Ok", style: AppFontStyle.labelTextStyle2(PRIMARY_COLOR),)
               ),
