@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/model/ExteriorTyresModel.dart';
+import 'package:kartenz/provider/basic_providers.dart';
 import 'package:kartenz/provider/electrical_form_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:provider/provider.dart';
@@ -61,91 +62,93 @@ class _ExteriorFormWidgetState extends State<ExteriorFormWidget> {
   Widget build(BuildContext context) {
     ElectricalFormProvider electricalFormProvider = Provider.of(context);
     FormData formData = Provider.of(context);
+    BasicProvider basicProvider = Provider.of(context);
+
     return Form(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          radioRow(tittle: "Roof", groupValue: "Roof", key: "Roof", controller: _roofController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "Roof", groupValue: "Roof", key: "Roof", controller: _roofController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(tittle: "Bonnet / Hood", groupValue: "Bonnet", key: "BonnetorHood", controller: _bonnetController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "Bonnet / Hood", groupValue: "Bonnet", key: "BonnetorHood", controller: _bonnetController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(tittle: "Dicky Door / Boot Door", groupValue: "Dicky Door", key: "DickyDoororBootDoor", controller: _dickyDoortController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "Dicky Door / Boot Door", groupValue: "Dicky Door", key: "DickyDoororBootDoor", controller: _dickyDoortController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
           Text('Quarter Panel', style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR),),
           SizedBox(height: 8,),
-          radioRow(tittle: "LHS", groupValue: "Quarter LHS", key: "QuarterPanelLHS", controller: _quarterLHSController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "LHS", groupValue: "Quarter LHS", key: "QuarterPanelLHS", controller: _quarterLHSController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(tittle: "RHS", groupValue: "Quarter RHS", key: "QuarterPanelRHS", controller: _quarterRHSController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "RHS", groupValue: "Quarter RHS", key: "QuarterPanelRHS", controller: _quarterRHSController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
           Text('Fender', style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR),),
           SizedBox(height: 12,),
-          radioRow(tittle: "LHS", groupValue: "Fender LHS", key: "FenderLHS", controller: _fenderLHSController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "LHS", groupValue: "Fender LHS", key: "FenderLHS", controller: _fenderLHSController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(tittle: "RHS", groupValue: "Fender RHS", key: "FenderRHS", controller: _fenderRHSController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "RHS", groupValue: "Fender RHS", key: "FenderRHS", controller: _fenderRHSController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(tittle: "Pillar", groupValue: "Pillar", key: "Pillar", controller: _pillarController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "Pillar", groupValue: "Pillar", key: "Pillar", controller: _pillarController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(tittle: "Apron", groupValue: "Apron", key: "Apron", controller: _apronController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "Apron", groupValue: "Apron", key: "Apron", controller: _apronController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(tittle: "Firewall", groupValue: "Firewall", key: "Firewall", controller: _firewallController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "Firewall", groupValue: "Firewall", key: "Firewall", controller: _firewallController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(tittle: "CowlTop", groupValue: "CowlTop", key: "CowlTop", controller: _cowlTopController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "CowlTop", groupValue: "CowlTop", key: "CowlTop", controller: _cowlTopController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(tittle: "Upper Cross Member", groupValue: "Upper Cross", key: "UpperCrossMember", controller: _upperCrossController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "Upper Cross Member", groupValue: "Upper Cross", key: "UpperCrossMember", controller: _upperCrossController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(tittle: "Lower Cross Member", groupValue: "Lower Cross", key: "LowerCrossMember", controller: _lowerCrossController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "Lower Cross Member", groupValue: "Lower Cross", key: "LowerCrossMember", controller: _lowerCrossController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(tittle: "Radiator Support", groupValue: "Radiator", key: "RadiatorSupport", controller: _radiatorController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "Radiator Support", groupValue: "Radiator", key: "RadiatorSupport", controller: _radiatorController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
           Text('Running Border', style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR),),
           SizedBox(height: 12,),
-          radioRow(tittle: "LHS", groupValue: "Running LHS", key: "RunningBorderLHS", controller: _runningLHSController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "LHS", groupValue: "Running LHS", key: "RunningBorderLHS", controller: _runningLHSController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(tittle: "RHS", groupValue: "Running RHS", key: "RunningBorderRHS", controller: _runningRHSController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "RHS", groupValue: "Running RHS", key: "RunningBorderRHS", controller: _runningRHSController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
           Text('Door', style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR),),
           SizedBox(height: 12,),
-          radioRow(tittle: "RHS Front", groupValue: "RHS Front", key: "DoorRHSFront", controller: _doorRHSFrontController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "RHS Front", groupValue: "RHS Front", key: "DoorRHSFront", controller: _doorRHSFrontController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(tittle: "RHS Rear", groupValue: "RHS Rear", key: "DoorRHSRear", controller: _doorRHSRearController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "RHS Rear", groupValue: "RHS Rear", key: "DoorRHSRear", controller: _doorRHSRearController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(tittle: "LHS Front", groupValue: "LHS Front", key: "DoorLHSFront", controller: _doorLHSFrontController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "LHS Front", groupValue: "LHS Front", key: "DoorLHSFront", controller: _doorLHSFrontController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(tittle: "LHS Rear", groupValue: "LHS Rear", key: "DoorLHSRear", controller: _doorLHSRearController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "LHS Rear", groupValue: "LHS Rear", key: "DoorLHSRear", controller: _doorLHSRearController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
           Text('Bumper', style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR),),
           SizedBox(height: 12,),
-          radioRow(tittle: "Front", groupValue: "Bumper Front", key: "BumperFront", controller: _bumperFrontController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "Front", groupValue: "Bumper Front", key: "BumperFront", controller: _bumperFrontController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(tittle: "Rear", groupValue: "Bumper Rear", key: "BumperRear", controller: _bumperRearController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "Rear", groupValue: "Bumper Rear", key: "BumperRear", controller: _bumperRearController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
           Text('Wind Shield', style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR),),
           SizedBox(height: 12,),
-          radioRow(tittle: "Front", groupValue: "Wind Shield Front", key: "WindshieldFront", controller: _windShieldFrontController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "Front", groupValue: "Wind Shield Front", key: "WindshieldFront", controller: _windShieldFrontController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(tittle: "Rear", groupValue: "Wind Shield Rear", key: "WindshieldBack", controller: _windShieldRearController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "Rear", groupValue: "Wind Shield Rear", key: "WindshieldBack", controller: _windShieldRearController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
           Text('Light', style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR),),
           SizedBox(height: 12,),
-          radioRow(tittle: "LHS Fog Light", groupValue: "LHS Fog", key: "LHSFogLight", controller: _lhsFogController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "LHS Fog Light", groupValue: "LHS Fog", key: "LHSFogLight", controller: _lhsFogController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(tittle: "RHS Fog Light", groupValue: "RHS Fog", key: "RHSFogLight", controller: _rhsFogController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "RHS Fog Light", groupValue: "RHS Fog", key: "RHSFogLight", controller: _rhsFogController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(tittle: "LHS Headlight", groupValue: "LHS Headlight", key: "LHSHeadlight", controller: _lhsHeadlightController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "LHS Headlight", groupValue: "LHS Headlight", key: "LHSHeadlight", controller: _lhsHeadlightController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(tittle: "LHS Taillight", groupValue: "LHS Taillight", key: "LHS Taillight", controller: _lhsTailightController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "LHS Taillight", groupValue: "LHS Taillight", key: "LHSTaillight", controller: _lhsTailightController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(tittle: "RHS Headlight", groupValue: "RHS Headlight", key: "RHSHeadlight", controller: _rhsHeadlightController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "RHS Headlight", groupValue: "RHS Headlight", key: "RHSHeadlight", controller: _rhsHeadlightController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(tittle: "RHS Taillight", groupValue: "RHS Taillight", key: "RHS Taillight", controller: _rhsTaillightController, text: "No", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "RHS Taillight", groupValue: "RHS Taillight", key: "RHStaillight", controller: _rhsTaillightController, text: "No", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
           Text('ORVM - Manual / Electrical', style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR),),
           SizedBox(height: 12,),
-          radioRow(tittle: "LHS", groupValue: "ORVM LHS", key: "ORVMLHS", controller: _orvmLHSController, text: "NA", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "LHS", groupValue: "ORVM LHS", key: "ORVMLHS", controller: _orvmLHSController, text: "NA", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(tittle: "RHS", groupValue: "ORVM RHS", key: "ORVMRHS", controller: _orvmRHSController, text: "NA", electricalFormProvider: electricalFormProvider),
+          radioRow(basicProvider, tittle: "RHS", groupValue: "ORVM RHS", key: "ORVMRHS", controller: _orvmRHSController, text: "NA", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(tittle: "Alloy Wheels", groupValue: "Alloy Wheels", key: "AlloyWheels", controller: _alloyWheelController, text: "No", electricalFormProvider: electricalFormProvider,
+          radioRow(basicProvider, tittle: "Alloy Wheels", groupValue: "Alloy Wheels", key: "AlloyWheels", controller: _alloyWheelController, text: "No", electricalFormProvider: electricalFormProvider,
           na: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -166,15 +169,15 @@ class _ExteriorFormWidgetState extends State<ExteriorFormWidget> {
           SizedBox(height: 24,),
           Text('Tyre', style: AppFontStyle.headingTextStyle2(APP_BLACK_COLOR),),
           SizedBox(height: 12,),
-          tyreWidget(context, _lhsFrontTyreController, "LHS Front Tyre", electricalFormProvider, "LHSFrontTyre"),
+          tyreWidget(context, basicProvider, _lhsFrontTyreController, "LHS Front Tyre", electricalFormProvider, "LHSFrontTyre"),
           SizedBox(height: 12,),
-          tyreWidget(context, _rhsFrontTyreController, "RHS Front Tyre", electricalFormProvider, "RHSFrontTyre"),
+          tyreWidget(context, basicProvider, _rhsFrontTyreController, "RHS Front Tyre", electricalFormProvider, "RHSFrontTyre"),
           SizedBox(height: 12,),
-          tyreWidget(context, _lhsrearTyreController, "LHS Rear Tyre", electricalFormProvider, "LHSRearTyre"),
+          tyreWidget(context, basicProvider, _lhsrearTyreController, "LHS Rear Tyre", electricalFormProvider, "LHSRearTyre"),
           SizedBox(height: 12,),
-          tyreWidget(context, _rhsRearTyreController, "RHS Rear Tyre", electricalFormProvider, "RHSRearTyree"),
+          tyreWidget(context, basicProvider, _rhsRearTyreController, "RHS Rear Tyre", electricalFormProvider, "RHSRearTyree"),
           SizedBox(height: 12,),
-          tyreWidget(context, _spareTyreController, "Spare Tyre", electricalFormProvider, "SpareTyre"),
+          tyreWidget(context, basicProvider, _spareTyreController, "Spare Tyre", electricalFormProvider, "SpareTyre"),
           SizedBox(height: 24,),
           RatingBar.builder(
             initialRating: 3,
@@ -229,7 +232,7 @@ saveValue(String key,String value){
 }
 
 
-radioRow(
+radioRow(BasicProvider basicProvider,
     {String tittle,
       ElectricalFormProvider electricalFormProvider,
       String groupValue,
@@ -312,12 +315,14 @@ radioRow(
                       PickedFile result = await pickCameraImages();
                       if(result!=null){
                         electricalFormProvider.updateExteriorImage(key, PlatformFile(path: result.path));
+                        basicProvider.addToimages(key,PlatformFile(path: result.path));
                       }
                     }, (){
                       Navigator.pop(context);
                         pickImages().then((filePickerResult){
                         if(filePickerResult!=null){
                         electricalFormProvider.updateExteriorImage(key, filePickerResult.files.first);
+                        basicProvider.addToimages(key,filePickerResult.files.first);
                     }});
                       },);},
                   color: PRIMARY_COLOR,
@@ -381,7 +386,7 @@ Future<FilePickerResult> pickImages() async {
 }
 
 
-tyreWidget(BuildContext context,TextEditingController controller, String label, ElectricalFormProvider electricalFormProvider, String key){
+tyreWidget(BuildContext context, BasicProvider basicProvider, TextEditingController controller, String label, ElectricalFormProvider electricalFormProvider, String key){
   return Column(
     children: [
       Row(
@@ -412,11 +417,13 @@ tyreWidget(BuildContext context,TextEditingController controller, String label, 
                   PickedFile result = await pickCameraImages();
                   if(result!=null){
                     electricalFormProvider.updateTyreImage(key, PlatformFile(path: result.path));
+                    basicProvider.addToimages(key, PlatformFile(path: result.path));
                   }
                 }, () async {
                   Navigator.pop(context);
                   FilePickerResult result = await pickImages();
                   electricalFormProvider.updateTyreImage(key, result.files.first);
+                  basicProvider.addToimages(key, result.files.first);
                 });
               },
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16), side: BorderSide(color: PRIMARY_COLOR)),

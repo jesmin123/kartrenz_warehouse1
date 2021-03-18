@@ -103,4 +103,15 @@ class BasicProvider extends ChangeNotifier{
     _airConditionRating = value;
     notifyListeners();
   }
+
+  Map imagesDatat = {};
+
+  addToimages(String key,PlatformFile value){
+    if(imagesDatat.containsKey(key)){
+      imagesDatat[key] = value;
+    }else{
+      imagesDatat.putIfAbsent(key, () => value);
+    }
+  }
+
 }

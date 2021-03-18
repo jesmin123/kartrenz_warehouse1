@@ -12,6 +12,7 @@ import 'package:kartenz/model/SteeringModel.dart';
 import 'package:kartenz/provider/AuctionProvider.dart';
 import 'package:kartenz/provider/SubmittedCarsProvider.dart';
 import 'package:kartenz/provider/auth_provider.dart';
+import 'package:kartenz/provider/basic_providers.dart';
 import 'package:kartenz/provider/electrical_form_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +32,7 @@ class _SteeringFormWidgetState extends State<SteeringFormWidget> {
   @override
   Widget build(BuildContext context) {
     ElectricalFormProvider electricalFormProvider = Provider.of(context);
+    BasicProvider basicProvider = Provider.of(context);
     AuctionProvider auctionProvider=Provider.of(context);
     AuthProvider authProvider=Provider.of(context);
     SubmittedCarsProvider submittedCarsProvider=Provider.of(context);
@@ -39,11 +41,11 @@ class _SteeringFormWidgetState extends State<SteeringFormWidget> {
       child: Column(
         children: [
 
-          tyreWidget(context, _steeringController, "Steering", electricalFormProvider, "steering"),
+          tyreWidget(context, basicProvider, _steeringController, "Steering", electricalFormProvider, "steering"),
           SizedBox(height: 12,),
-          tyreWidget(context, _suspensionController, "Suspension", electricalFormProvider, "suspension"),
+          tyreWidget(context, basicProvider,_suspensionController, "Suspension", electricalFormProvider, "suspension"),
           SizedBox(height: 12,),
-          tyreWidget(context, _brakeController, "Brake", electricalFormProvider, "brake"),
+          tyreWidget(context, basicProvider,_brakeController, "Brake", electricalFormProvider, "brake"),
           SizedBox(height: 24,),
           RatingBar.builder(
             initialRating: 3,
@@ -67,7 +69,7 @@ class _SteeringFormWidgetState extends State<SteeringFormWidget> {
             onPressed:() async{
               formData.uploadCar.createdBy = authProvider.loginModel.id;
               RespObj status = await auctionProvider.
-              postUploadCar(authProvider.loginModel.token, formData.uploadCar,formData,  );
+              postUploadCar(authProvider.loginModel.token, formData.uploadCar,formData, basicProvider, electricalFormProvider );
              if(status.status){
                showAlert(context);
                 submittedCarsProvider.getSubmittedCars(authProvider.loginModel.token);
@@ -98,7 +100,7 @@ class _SteeringFormWidgetState extends State<SteeringFormWidget> {
     }
   }
 
-tyreWidget(BuildContext context,TextEditingController controller, String label, ElectricalFormProvider electricalFormProvider, String key){
+tyreWidget(BuildContext context, BasicProvider basicProvider, TextEditingController controller, String label, ElectricalFormProvider electricalFormProvider, String key){
   return Column(
     children: [
       Row(
@@ -129,11 +131,13 @@ tyreWidget(BuildContext context,TextEditingController controller, String label, 
                     PickedFile result = await pickCameraImages();
                     if(result!=null){
                       electricalFormProvider.updateSteeringImage(key, PlatformFile(path: result.path));
+                      basicProvider.addToimages(key, PlatformFile(path: result.path));
                     }
                   }, () async {
                     Navigator.pop(context);
                     FilePickerResult result = await pickImages();
                     electricalFormProvider.updateSteeringImage(key, result.files.first);
+                    basicProvider.addToimages(key, result.files.first);
                   });
                 },
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16), side: BorderSide(color: PRIMARY_COLOR)),

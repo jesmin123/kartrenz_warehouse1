@@ -47,6 +47,7 @@ class _DocumentsFormWidetState extends State<DocumentsFormWidet> {
         child:Column(
           children: [
             TextFormField(
+              keyboardType: TextInputType.datetime,
               decoration: decoration("Manufacturing Month / Year"),
               controller: _manufacturingController,
               onChanged: (val){
@@ -71,6 +72,7 @@ class _DocumentsFormWidetState extends State<DocumentsFormWidet> {
             ),
             SizedBox(height: 12,),
             TextFormField(
+              keyboardType: TextInputType.datetime,
               decoration: decoration("Registration Date"),
               controller: _registrationController,
               onChanged: (val){

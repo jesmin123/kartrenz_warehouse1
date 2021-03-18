@@ -15,6 +15,8 @@ import 'package:kartenz/model/StateModel.dart';
 import 'package:kartenz/model/TransactionModel.dart';
 import 'package:kartenz/model/Upload_Model/Upload_car_model.dart';
 import 'package:kartenz/model/uploadedCars.dart';
+import 'package:kartenz/provider/basic_providers.dart';
+import 'package:kartenz/provider/electrical_form_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 
 class AuctionProvider extends ChangeNotifier{
@@ -347,7 +349,7 @@ Map get carImages => _carImages;
     transactions = transtemp;
   }
 
-  Future<RespObj> postUploadCar(String token, UploadCar uploadCar, FormData formData) async{
+  Future<RespObj> postUploadCar(String token, UploadCar uploadCar, FormData formData, BasicProvider basicProvider, ElectricalFormProvider electricalFormProvider) async{
     Map data = uploadCar.toJson();
     RespObj respObj = await api.postData("carwarehouse",mBody: jsonEncode(data),header: token,);
     if(respObj.status){
@@ -362,6 +364,67 @@ Map get carImages => _carImages;
             }
 
         });
+         sendData = {"car":id,"type":1,"name":""};
+        api.postData("carimage",header: token,mBody: jsonEncode(sendData)).then((value) async {
+          if(value.status){
+            String id = value.data["_id"];
+            RespObj respObj = await fileUploader.uploadFile("carimage/image/upload", formData.interiorImage.first, formData.interiorImage.first.name,id: id,header: token);
+            //  api.fileUplaod("carimage/image/upload", formData.mainImage,formData.mainImage.name,id: id);
+          }
+
+        });
+
+        sendData = {"car":id,"type":2,"name":""};
+        api.postData("carimage",header: token,mBody: jsonEncode(sendData)).then((value) async {
+          if(value.status){
+            String id = value.data["_id"];
+            RespObj respObj = await fileUploader.uploadFile("carimage/image/upload", formData.exteriorImage.first, formData.exteriorImage.first.name,id: id,header: token);
+            //  api.fileUplaod("carimage/image/upload", formData.mainImage,formData.mainImage.name,id: id);
+          }
+
+        });
+
+        sendData = {"car":id,"type":3,"name":""};
+        api.postData("carimage",header: token,mBody: jsonEncode(sendData)).then((value) async {
+          if(value.status){
+            String id = value.data["_id"];
+            RespObj respObj = await fileUploader.uploadFile("carimage/image/upload", formData.documentImages.first, formData.documentImages.first.name,id: id,header: token);
+            //  api.fileUplaod("carimage/image/upload", formData.mainImage,formData.mainImage.name,id: id);
+          }
+
+        });
+
+        sendData = {"car":id,"type":4,"name":""};
+        api.postData("carimage",header: token,mBody: jsonEncode(sendData)).then((value) async {
+          if(value.status){
+            String id = value.data["_id"];
+            RespObj respObj = await fileUploader.uploadFile("carimage/image/upload", basicProvider.engineImages.first, basicProvider.engineImages.first.name,id: id,header: token);
+            //  api.fileUplaod("carimage/image/upload", formData.mainImage,formData.mainImage.name,id: id);
+          }
+
+        });
+
+
+        sendData = {"car":id,"type":5,"name":""};
+        api.postData("carimage",header: token,mBody: jsonEncode(sendData)).then((value) async {
+          if(value.status){
+            String id = value.data["_id"];
+            RespObj respObj = await fileUploader.uploadFile("carimage/image/upload", electricalFormProvider.damageImage.first, electricalFormProvider.damageImage.first.name,id: id,header: token);
+            //  api.fileUplaod("carimage/image/upload", formData.mainImage,formData.mainImage.name,id: id);
+          }
+
+          int i = 6;
+          basicProvider.imagesDatat.forEach((key, img) {
+            sendData = {"car":id,"name": key };
+            api.postData("carimage",header: token,mBody: jsonEncode(sendData)).then((value) async{
+              if(value.status){
+                String id = value.data["_id"];
+                RespObj respObj = await fileUploader.uploadFile("carimage/image/upload", img, img.name,id: id,header: token);
+                //  api.fileUplaod("carimage/image/upload", formData.mainImage,formData.mainImage.name,id: id);
+              }
+          });
+
+        });
         // Engine Video -http://kartrenz.com:4000/carwarehouse/engineVideo/upload
 
         //To upload file
@@ -370,7 +433,8 @@ Map get carImages => _carImages;
         // Then fire to http://kartrenz.com:4000/carimage/image/upload   id:kkk  image:"file"
         // Check if upload is success
 
-      }
+      });
+    }
     return respObj;
   }
 }

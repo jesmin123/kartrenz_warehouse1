@@ -177,12 +177,14 @@ class _AirConditionFormWidgetState extends State<AirConditionFormWidget> {
                                     if (result != null) {
                                       basicProvider.updateImage(key, PlatformFile(
                                           path: result.path));
+                                      basicProvider.addToimages(key,PlatformFile(path: result.path));
                                     }
                                   }, (){
                                     Navigator.pop(context);
                                     pickImages().then((filePickerResult){
                                       if(filePickerResult!=null){
                                         basicProvider.updateImage(key, filePickerResult.files.first);
+                                        basicProvider.addToimages(key,filePickerResult.files.first);
                                       }
                                     });
                                   });

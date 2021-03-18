@@ -9,6 +9,7 @@ import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/model/ElectricalsModel.dart';
 import 'package:kartenz/model/Upload_Model/Upload_car_model.dart';
+import 'package:kartenz/provider/basic_providers.dart';
 import 'package:kartenz/provider/electrical_form_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
 import 'package:kartenz/ui/widgets/Upload_Form_Widgets/documents_form_widget.dart';
@@ -41,40 +42,41 @@ class _ElectricalsFormWidgetState extends State<ElectricalsFormWidget> {
   Widget build(BuildContext context) {
     ElectricalFormProvider electricalFormProvider = Provider.of(context);
     FormData formData = Provider.of(context);
+    BasicProvider basicProvider = Provider.of(context);
     return Form(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          radioRow(context, key: "powerWindowLHSFront", controller: _lhsFrontController, groupValue: "LHS Front", tittle: "LHS Front", electricalFormProvider: electricalFormProvider),
+          radioRow(context, basicProvider, key: "powerWindowLHSFront", controller: _lhsFrontController, groupValue: "LHS Front", tittle: "LHS Front", electricalFormProvider: electricalFormProvider, ),
           SizedBox(height: 24,),
-          radioRow(context,key: "powerWindowLHSRear", controller: _lhsFrontController, groupValue: "LHS Rear", tittle: "LHS Rear", electricalFormProvider: electricalFormProvider),
+          radioRow(context, basicProvider,key: "powerWindowLHSRear", controller: _lhsFrontController, groupValue: "LHS Rear", tittle: "LHS Rear", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(context,key: "powerWindowRHSFront", controller: _lhsFrontController, groupValue: "RHS Front", tittle: "RHS Front", electricalFormProvider: electricalFormProvider),
+          radioRow(context, basicProvider,key: "powerWindowRHSFront", controller: _lhsFrontController, groupValue: "RHS Front", tittle: "RHS Front", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(context,key: "powerWindowRHSRear", controller: _lhsFrontController, groupValue: "RHS Rear", tittle: "RHS Rear", electricalFormProvider: electricalFormProvider),
+          radioRow(context, basicProvider,key: "powerWindowRHSRear", controller: _lhsFrontController, groupValue: "RHS Rear", tittle: "RHS Rear", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(context,key: "airbagFeature", controller: _lhsFrontController, groupValue: "Airbag Feature", tittle: "Airbag Feature", electricalFormProvider: electricalFormProvider),
+          radioRow(context, basicProvider,key: "airbagFeature", controller: _lhsFrontController, groupValue: "Airbag Feature", tittle: "Airbag Feature", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(context,key: "musicSystem", controller: _lhsFrontController, groupValue: "Music System", tittle: "Music System", electricalFormProvider: electricalFormProvider),
+          radioRow(context, basicProvider,key: "musicSystem", controller: _lhsFrontController, groupValue: "Music System", tittle: "Music System", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(context,key: "leatherSeat", controller: _lhsFrontController, groupValue: "Leather Seat", tittle: "Leather Seat", electricalFormProvider: electricalFormProvider),
+          radioRow(context, basicProvider,key: "leatherSeat", controller: _lhsFrontController, groupValue: "Leather Seat", tittle: "Leather Seat", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(context,key: "fabricSeat", controller: _lhsFrontController, groupValue: "Fabric Seat", tittle: "Fabric Seat", electricalFormProvider: electricalFormProvider),
+          radioRow(context, basicProvider,key: "fabricSeat", controller: _lhsFrontController, groupValue: "Fabric Seat", tittle: "Fabric Seat", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(context,key: "sunroof", controller: _lhsFrontController, groupValue: "Sun Roof", tittle: "Sun Roof", electricalFormProvider: electricalFormProvider),
+          radioRow(context, basicProvider,key: "sunroof", controller: _lhsFrontController, groupValue: "Sun Roof", tittle: "Sun Roof", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(context,key: "steelMountedAudioControl", controller: _lhsFrontController, groupValue: "Steering Mounted", tittle: "Steering MountedAudio Control", electricalFormProvider: electricalFormProvider),
+          radioRow(context, basicProvider,key: "steelMountedAudioControl", controller: _lhsFrontController, groupValue: "Steering Mounted", tittle: "Steering MountedAudio Control", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(context,key: "ABS", controller: _lhsFrontController, groupValue: "ABS", tittle: "ABS", electricalFormProvider: electricalFormProvider),
+          radioRow(context, basicProvider,key: "ABS", controller: _lhsFrontController, groupValue: "ABS", tittle: "ABS", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(context,key: "rearDefogger", controller: _lhsFrontController, groupValue: "Rear Defogger", tittle: "Rear Defogger", electricalFormProvider: electricalFormProvider),
+          radioRow(context, basicProvider,key: "rearDefogger", controller: _lhsFrontController, groupValue: "Rear Defogger", tittle: "Rear Defogger", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(context,key: "reverseCamera", controller: _lhsFrontController, groupValue: "Reverse Camera", tittle: "Reverse Camera", electricalFormProvider: electricalFormProvider),
+          radioRow(context, basicProvider,key: "reverseCamera", controller: _lhsFrontController, groupValue: "Reverse Camera", tittle: "Reverse Camera", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
           //TODO key electrical and interior
-          radioRow(context,key: "Electrical", controller: _lhsFrontController, groupValue: "Electrical", tittle: "Electrical", electricalFormProvider: electricalFormProvider),
+          radioRow(context, basicProvider,key: "Electrical", controller: _lhsFrontController, groupValue: "Electrical", tittle: "Electrical", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 24,),
-          radioRow(context,key: "Interior", controller: _lhsFrontController, groupValue: "Interior", tittle: "Interior", electricalFormProvider: electricalFormProvider),
+          radioRow(context, basicProvider,key: "Interior", controller: _lhsFrontController, groupValue: "Interior", tittle: "Interior", electricalFormProvider: electricalFormProvider),
           SizedBox(height: 32,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -196,7 +198,7 @@ class _ElectricalsFormWidgetState extends State<ElectricalsFormWidget> {
           }
         }
 
-        radioRow(BuildContext context,
+        radioRow(BuildContext context, BasicProvider basicProvider,
             {String tittle,
               ElectricalFormProvider electricalFormProvider,
               String groupValue,
@@ -284,12 +286,15 @@ class _ElectricalsFormWidgetState extends State<ElectricalsFormWidget> {
                               PickedFile result = await pickCameraImages();
                               if(result!=null){
                                 electricalFormProvider.updateImage(key, PlatformFile(path: result.path));
+                                basicProvider.addToimages(key, PlatformFile(path: result.path));
+
                               }
                             }, (){
                               Navigator.pop(context);
                               pickImages(false).then((filePickerResult){
                                 if(filePickerResult!=null){
                                   electricalFormProvider.updateImage(key, filePickerResult.files.first);
+                                  basicProvider.addToimages(key, filePickerResult.files.first);
                                 }
           });
                             });

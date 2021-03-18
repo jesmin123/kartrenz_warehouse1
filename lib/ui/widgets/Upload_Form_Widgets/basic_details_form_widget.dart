@@ -136,6 +136,7 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
               ),
               SizedBox(height: 12,),
               TextFormField(
+                keyboardType: TextInputType.number,
                 decoration: decoration("Kms"),
                 controller: _kmsController,
                 onChanged: (val){
@@ -144,6 +145,7 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
               ),
               SizedBox(height: 12,),
               TextFormField(
+                keyboardType: TextInputType.number,
                 decoration: decoration("Year of manufacture"),
                 controller: _yearOfManufactureController,
                 onChanged: (val){
@@ -152,6 +154,7 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
               ),
               SizedBox(height: 12,),
               TextFormField(
+                keyboardType: TextInputType.number,
                 decoration: decoration("Base price "),
                 controller: _basePriceController,
                 onChanged: (val){
@@ -160,6 +163,7 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
               ),
               SizedBox(height: 12,),
               TextFormField(
+                keyboardType: TextInputType.number,
                 decoration: decoration("Expected price "),
                 controller: _expectedPriceController,
                 onChanged: (val){
@@ -199,7 +203,8 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
               ),
               SizedBox(height: 12,),
               TextFormField(
-                decoration: decoration("Reg no"),
+                keyboardType: TextInputType.number,
+                decoration: decoration("Reg no (last 4 digits)"),
                 // controller: _regNoController,
                 onChanged: (val){
                   formData.uploadCar.regNo = val;
@@ -215,6 +220,7 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
               ),
               SizedBox(height: 12,),
               TextFormField(
+                keyboardType: TextInputType.phone,
                 decoration: decoration("Support number"),
                 // controller: _supportNoController,
                 onChanged: (val){

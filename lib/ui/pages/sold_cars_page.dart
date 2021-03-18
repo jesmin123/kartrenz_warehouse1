@@ -13,6 +13,7 @@ class SoldCarPage extends StatefulWidget {
 
 class _SoldCarPageState extends State<SoldCarPage> {
   TextEditingController _regNoController = TextEditingController();
+  final _scrollController = ScrollController();
   bool sort=false;
   @override
   void initState() {
@@ -73,43 +74,48 @@ class _SoldCarPageState extends State<SoldCarPage> {
                   ],
                 ),
                 SizedBox(height: 16,),
-                auctionProvider.transactions!=null?SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: DataTable(
-                    sortColumnIndex: 6,
-                      sortAscending: sort,
-                      columns: [
-                        DataColumn(label: Text('Cars', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
-                        DataColumn(label: Text('Varient', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
-                        DataColumn(label: Text('Gear', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
-                        DataColumn(label: Text('Year', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
-                        DataColumn(label: Text('Fuel', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
-                        DataColumn(label: Text('Reg No', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
-                        DataColumn(label: Text('Amount', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR)),onSort:  (columnIndex,ascending){
-                          setState(() {
-                            sort = !sort;
+                if (auctionProvider.transactions!=null) Scrollbar(
+                  controller: _scrollController,
+                  isAlwaysShown: true,
+                  child: SingleChildScrollView(
+                    controller: _scrollController,
+                    scrollDirection: Axis.horizontal,
+                    child: DataTable(
+                      sortColumnIndex: 6,
+                        sortAscending: sort,
+                        columns: [
+                          DataColumn(label: Text('Cars', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
+                          DataColumn(label: Text('Varient', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
+                          DataColumn(label: Text('Gear', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
+                          DataColumn(label: Text('Year', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
+                          DataColumn(label: Text('Fuel', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
+                          DataColumn(label: Text('Reg No', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
+                          DataColumn(label: Text('Amount', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR)),onSort:  (columnIndex,ascending){
+                            setState(() {
+                              sort = !sort;
 
-                          });
-                          onSortColum(columnIndex, ascending,auctionProvider);
-                        }),
-                        DataColumn(label: Text('Broker', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
-                      ],
-                      rows: auctionProvider.transactions.map((e) => DataRow(
-                          cells: [
+                            });
+                            onSortColum(columnIndex, ascending,auctionProvider);
+                          }),
+                          DataColumn(label: Text('Broker', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
+                        ],
+                        rows: auctionProvider.transactions.map((e) => DataRow(
+                            cells: [
 
-                            DataCell(Text("${e.carWarehouseModel.car.name}")),
-                            DataCell(Text("${e.carWarehouseModel.variant}")),
-                            DataCell(Text("${e.carWarehouseModel.gearShifting}")),
-                            DataCell(Text("${e.carWarehouseModel.year}")),
-                            DataCell(Text("${e.carWarehouseModel.fuel}")),
-                            DataCell(Text("${e.carWarehouseModel.regNo}")),
-                            DataCell(Text("${e.amount}")),
-                            DataCell(Text("${e.broker.name}")),
+                              DataCell(Text("${e.carWarehouseModel.car.name}")),
+                              DataCell(Text("${e.carWarehouseModel.variant}")),
+                              DataCell(Text("${e.carWarehouseModel.gearShifting}")),
+                              DataCell(Text("${e.carWarehouseModel.year}")),
+                              DataCell(Text("${e.carWarehouseModel.fuel}")),
+                              DataCell(Text("${e.carWarehouseModel.regNo}")),
+                              DataCell(Text("${e.amount}")),
+                              DataCell(Text("${e.broker.name}")),
 
-                          ]
-                      )).toList()
+                            ]
+                        )).toList()
+                    ),
                   ),
-                ):Text("No data")
+                ) else Text("No data")
 
               ],
             ),

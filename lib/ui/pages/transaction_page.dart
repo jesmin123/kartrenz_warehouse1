@@ -11,6 +11,7 @@ import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
 class TransactionPage extends StatefulWidget {
   @override
   _TransactionPageState createState() => _TransactionPageState();
+
 }
 
 class _TransactionPageState extends State<TransactionPage> {
@@ -18,6 +19,7 @@ class _TransactionPageState extends State<TransactionPage> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _dateController = TextEditingController();
   TextEditingController _brokerNameController = TextEditingController();
+  final _scrollController = ScrollController();
   bool sort=false;
   int column;
 
@@ -126,43 +128,48 @@ class _TransactionPageState extends State<TransactionPage> {
                   ],
                 ),
                 SizedBox(height: 16,),
-                auctionProvider.transactions!=null?SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: DataTable(
-                    sortAscending: sort,
-                      sortColumnIndex: column,
-                      columns: [
-                              DataColumn(label: Text('Transaction Id', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
-                              DataColumn(label: Text('Broker Name', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
-                              DataColumn(label: Text('Date/Time', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR)),
-                                  onSort: (columnIndex,ascending){
-                                setState(() {
-                                  sort = !sort;
-                                  column=2;
-                                });
-                                onSortColum(columnIndex, ascending,auctionProvider);
-                              }),
-                              DataColumn(label: Text('Amount', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR)),
-                                  onSort:
-                                  (columnIndex,ascending){
-                                setState(() {
-                                  sort = !sort;
-                                  column=3;
-                                });
-                                onSortColum(columnIndex, ascending,auctionProvider);
-                              }),
-                      ],
-                      rows: auctionProvider.transactions.map((e) => DataRow(
-                          cells: [
-                            DataCell(Text(e.ltransactionID)),
-                            DataCell(Text(e.broker.name)),
-                            DataCell(Text(e.date)),
-                            DataCell(Text(e.amount)),
+                auctionProvider.transactions!=null?Scrollbar(
+                  controller: _scrollController,
+                  isAlwaysShown: true,
+                  child: SingleChildScrollView(
+                    controller: _scrollController,
+                    scrollDirection: Axis.horizontal,
+                    child: DataTable(
+                      sortAscending: sort,
+                        sortColumnIndex: column,
+                        columns: [
+                                DataColumn(label: Text('Transaction Id', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
+                                DataColumn(label: Text('Broker Name', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR))),
+                                DataColumn(label: Text('Date/Time', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR)),
+                                    onSort: (columnIndex,ascending){
+                                  setState(() {
+                                    sort = !sort;
+                                    column=2;
+                                  });
+                                  onSortColum(columnIndex, ascending,auctionProvider);
+                                }),
+                                DataColumn(label: Text('Amount', style: AppFontStyle.headingTextStyle(APP_BLACK_COLOR)),
+                                    onSort:
+                                    (columnIndex,ascending){
+                                  setState(() {
+                                    sort = !sort;
+                                    column=3;
+                                  });
+                                  onSortColum(columnIndex, ascending,auctionProvider);
+                                }),
+                        ],
+                        rows: auctionProvider.transactions.map((e) => DataRow(
+                            cells: [
+                              DataCell(Text(e.ltransactionID)),
+                              DataCell(Text(e.broker.name)),
+                              DataCell(Text(e.date)),
+                              DataCell(Text(e.amount)),
 
 
-                          ]
-                      )).toList()
+                            ]
+                        )).toList()
             ),
+                  ),
                 ):Text("No data")
     ]
             ),

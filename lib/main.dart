@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
       ],
       child: Consumer<FormData>(
         builder: (context,basicProvider,child)=> MaterialApp(
-          title: 'Flutter Demo',
+          title: 'Kartenz',
           theme: ThemeData(
             primarySwatch: Colors.red,
             backgroundColor: APP_WHITE_COLOR,
