@@ -3,6 +3,7 @@ import 'package:kartenz/constants/app_font_style.dart';
 import 'package:kartenz/constants/colors.dart';
 import 'package:kartenz/model/CarWareHouse1Model.dart';
 import 'package:kartenz/provider/SubmittedCarsProvider.dart';
+import 'package:kartenz/ui/utilis/loader_utilis.dart';
 import 'package:kartenz/ui/utilis/no_image_utilis.dart';
 import 'package:provider/provider.dart';
 
@@ -15,8 +16,7 @@ class _RejectedFormWidgetState extends State<RejectedFormWidget> {
   @override
   Widget build(BuildContext context) {
     SubmittedCarsProvider submittedCarsProvider = Provider.of(context);
-    return ListView.separated(
-
+    return submittedCarsProvider.isDataLoading?submittedCarsProvider.modifyCars.length!=null?ListView.separated(
       separatorBuilder: (_,pos){return SizedBox(height: 12,);},
       itemCount: submittedCarsProvider.modifyCars.length,
       itemBuilder: (_,pos){
@@ -79,7 +79,7 @@ class _RejectedFormWidgetState extends State<RejectedFormWidget> {
         );
       },
 
-    );
+    ):Center(child: Text("No Data"),):Center(child: Text('Loading...'));
   }
 }
 

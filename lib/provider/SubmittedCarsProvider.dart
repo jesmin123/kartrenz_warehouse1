@@ -19,6 +19,15 @@ class SubmittedCarsProvider extends ChangeNotifier{
     _images = value;
 
   }
+  bool _isDataLoading = false;
+
+
+  bool get isDataLoading => _isDataLoading;
+
+  set isDataLoading(bool value) {
+    _isDataLoading = value;
+    notifyListeners();
+  }
 
   List<CarWarehouseModel1> _modifyCars;
   List<CarWarehouseModel1> _rejectedCars;
@@ -38,11 +47,14 @@ class SubmittedCarsProvider extends ChangeNotifier{
     List<CarWarehouseModel1> rejectedTemp=[];
     List<CarWarehouseModel1> modifyTemp=[];
     List<CarWarehouseModel1> submittedTemp=[];
-    api.getData("carwarehouse/cars/my/full",header: token).then((respObj) {
-      if(respObj.status){
-        List<dynamic> data=respObj.        data;
-        data.forEach((element) {
 
+    isDataLoading = true;
+    api.getData("carwarehouse/cars/my/full",header: token).then((respObj) {
+
+      isDataLoading = false;
+      if(respObj.status){
+        List<dynamic> data=respObj.data;
+        data.forEach((element) {
           CarWarehouseModel1 carWarehouseModel=CarWarehouseModel1.fromJSON(element["_doc"]);
           List<dynamic> data1 = element['images'];
           data1.forEach((element) {

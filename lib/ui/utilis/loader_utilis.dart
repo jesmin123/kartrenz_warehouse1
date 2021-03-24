@@ -10,6 +10,7 @@ class Loader{
         borderRadius: 4.0,
         backgroundColor: Colors.white,
         progressWidget: CircularProgressIndicator(
+          strokeWidth: 4,
           valueColor: new AlwaysStoppedAnimation<Color>(PRIMARY_COLOR),
 
         ),

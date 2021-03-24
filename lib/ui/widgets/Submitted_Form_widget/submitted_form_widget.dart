@@ -24,7 +24,7 @@ class _SubmittedFormWidgetState extends State<SubmittedFormWidget> {
   Widget build(BuildContext context) {
     SubmittedCarsProvider submittedCarsProvider = Provider.of(context);
     AuthProvider authProvider=Provider.of(context);
-    return submittedCarsProvider.submittedCars!=null?Stack(
+    return submittedCarsProvider.isDataLoading?submittedCarsProvider.submittedCars.length!=null?Stack(
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -119,7 +119,27 @@ class _SubmittedFormWidgetState extends State<SubmittedFormWidget> {
           ),
         )
       ],
-    ):Center(child: Text("No Data"));
+    ):Stack(children: [
+      Center(child: Text("No Data")),
+      Positioned(
+        bottom: 8,right: 8,
+        child: FloatingActionButton(
+          backgroundColor: Colors.green,
+          child: Icon(Icons.add,color: Colors.white,),
+          onPressed: ()=>Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>UploadTabWidget())),
+        ),
+      )
+    ]):Stack(children: [
+      Center(child: Text("Loading...")),
+      Positioned(
+        bottom: 8,right: 8,
+        child: FloatingActionButton(
+          backgroundColor: Colors.green,
+          child: Icon(Icons.add,color: Colors.white,),
+          onPressed: ()=>Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>UploadTabWidget())),
+        ),
+      )
+    ]);
   }
 }
 
