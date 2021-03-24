@@ -49,29 +49,16 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
 
   void initData() {
     FormData formData = Provider.of(context,listen: false);
-
-     _variantController = TextEditingController(text: formData.uploadCar!=null?"${formData.uploadCar.variant}":"");
-     _kmsController = TextEditingController(text: formData.uploadCar!=null?"${formData.uploadCar.kilometers}":"");
-     _yearOfManufactureController = TextEditingController(text: formData.uploadCar!=null?"${formData.uploadCar.year}":"");
-     _basePriceController = TextEditingController(text: formData.uploadCar!=null?"${formData.uploadCar.basePrice}":"");
-     _expectedPriceController = TextEditingController(text: formData.uploadCar!=null?"${formData.uploadCar.expectedPrice}":"");
-     _regNoController = TextEditingController(text: formData.uploadCar!=null?"${formData.uploadCar.reno}":"");
-     _descriptionController = TextEditingController(text: formData.uploadCar!=null?"${formData.uploadCar.description}":"");
-     _supportNoController = TextEditingController(text: formData.uploadCar!=null?"${formData.uploadCar.supportNo}":"");
-     _highlightController = TextEditingController(text: formData.uploadCar!=null?"${formData.uploadCar.variant}":'');
-     _mainImageController = TextEditingController();
-     _inImageController = TextEditingController();
-     _exImageController = TextEditingController();
   }
 
   final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final FormData formData = Provider.of<FormData>(context);
 
+    final FormData formData = Provider.of<FormData>(context);
     final AuctionProvider auctionProvider = Provider.of(context);
-    final AuthProvider authProvider = Provider.of(context);
+    final AuthProvider authProvider = Provider.of(context,listen: false);
 
     UploadCar uploadCar = formData.uploadCar;
 
@@ -455,22 +442,6 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
                 ),
               ),
               SizedBox(height: 32,),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 64),
-                child: RaisedButton(
-                  onPressed:(){
-                    formData.activeStep=1;
-                   // formData.stepCount=1;
-                  } ,
-                  child: Text("Next", style: AppFontStyle.headingTextStyle2(APP_WHITE_COLOR),),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                  color: PRIMARY_COLOR,
-
-                ),
-              )
-
-
-
             ],
           ),
         ),
@@ -505,7 +476,6 @@ class _BasicDetailsFormState extends State<BasicDetailsForm> {
       return null;
     }
   }
-
 
   Widget showBottom(BuildContext context, Function() ontap, Function() ontap2){
      showModalBottomSheet(

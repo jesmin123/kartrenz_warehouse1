@@ -40,7 +40,6 @@ class _DocumentsFormWidetState extends State<DocumentsFormWidet> {
     FormData formData = Provider.of<FormData>(context);
     CarWarehouseModel1 cars = formData.selectedCars;
 
-
     UploadCar uploadCar = formData.uploadCar;
 
     return Form(
@@ -306,30 +305,6 @@ class _DocumentsFormWidetState extends State<DocumentsFormWidet> {
                     },
                     ),
             SizedBox(height: 32,),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 64),
-              child: RaisedButton(
-                onPressed:(){
-
-                  DocumentData documentData = new DocumentData(
-                      fitnessupto: _fitnessController.text, CNGLPGFitment: _cNGController.text, chassisNoEmossing: _chassisController.text,
-                    duplicateKey: _duplicateKeyController.text, insuranceExpiryDate: _insuranceExpiryController.text,
-                    insuranceType: _insuranceController.text, noclaimBonus: _noClaimController.text, noclaimBonusPercentage: _noClaimPercentController.text,
-                    partipheshiRequest: _partipheshiController.text, registrationDate: _registrationController.text, underHypothecation: _underHypoController.text,
-                    manufacturingYr: _manufacturingController.text, RCavailability: _rcAvailabilityController.text, RCCondition: _rcConditionController.text,
-                    roadTaxpaid: _roadTaxController.text, RTONOCissued: _rTONOCController.text, rating: formData.rating.toString(),
-                  );
-                  formData.activeStep=2;
-                  formData.stepCount=2;
-                },
-                child: Text("Next", style: AppFontStyle.headingTextStyle2(APP_WHITE_COLOR),),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                color: PRIMARY_COLOR,
-
-              ),
-            )
-
-
           ],
         )
     );
@@ -348,6 +323,7 @@ class _DocumentsFormWidetState extends State<DocumentsFormWidet> {
       return null;
     }
   }
+
 }
 
 Future<PickedFile> pickCameraImages() async {

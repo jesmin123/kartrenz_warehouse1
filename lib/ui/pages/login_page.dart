@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
     PurchaseProvider purchaseProvider=Provider.of(context);
     SubmittedCarsProvider submittedCarsProvider=Provider.of(context);
     return Scaffold(
-      resizeToAvoidBottomPadding: true,
+      resizeToAvoidBottomInset: true,
       body: Center(
         child: SingleChildScrollView(
           child: Form(

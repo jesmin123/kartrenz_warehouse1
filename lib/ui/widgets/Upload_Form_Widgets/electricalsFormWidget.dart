@@ -161,21 +161,6 @@ class _ElectricalsFormWidgetState extends State<ElectricalsFormWidget> {
             },
           ),
           SizedBox(height: 24,),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 64),
-            child: RaisedButton(
-              onPressed:(){
-                formData.activeStep=5;
-                formData.stepCount=5;
-              },
-              child: Text("Next", style: AppFontStyle.headingTextStyle2(APP_WHITE_COLOR),),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-              color: PRIMARY_COLOR,
-
-            ),
-          )
-
-
 
         ],
 

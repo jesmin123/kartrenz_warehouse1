@@ -58,16 +58,6 @@ class _AirConditionFormWidgetState extends State<AirConditionFormWidget> {
             },
           ),
           SizedBox(height: 24,),
-          RaisedButton(
-            onPressed:(){
-              formData.activeStep=4;
-              formData.stepCount=4;
-            },
-            child: Text("Next", style: AppFontStyle.headingTextStyle2(APP_WHITE_COLOR),),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            color: PRIMARY_COLOR,
-
-          ),
         ],
       ),
     );

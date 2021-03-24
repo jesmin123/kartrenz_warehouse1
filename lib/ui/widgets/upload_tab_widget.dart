@@ -38,6 +38,7 @@ class _UploadTabWidgetState extends State<UploadTabWidget> {
     return WillPopScope(
       onWillPop: (){
         showAlert(context);
+        return null;
       },
       child: Scaffold(
         appBar: appBar(context, "Upload Car"),
@@ -72,7 +73,7 @@ class _UploadTabWidgetState extends State<UploadTabWidget> {
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text("Are you sure you want to Exit?", style: AppFontStyle.labelTextStyle2(APP_BLACK_COLOR),),
+                Text("You have unsaved changes. Sure to exit?", style: AppFontStyle.labelTextStyle2(APP_BLACK_COLOR),),
                 Divider(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

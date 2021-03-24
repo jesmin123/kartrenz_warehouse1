@@ -197,20 +197,6 @@ class _ExteriorFormWidgetState extends State<ExteriorFormWidget> {
             },
           ),
           SizedBox(height: 24,),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 64),
-            child: RaisedButton(
-              onPressed:(){
-                formData.activeStep=6;
-                formData.stepCount=6;
-              },
-              child: Text("Next", style: AppFontStyle.headingTextStyle2(APP_WHITE_COLOR),),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-              color: PRIMARY_COLOR,
-
-            ),
-          )
-
     ]
     )
     );

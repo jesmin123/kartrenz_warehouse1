@@ -269,27 +269,6 @@ class _EnginetransmissionFormWidgetState extends State<EnginetransmissionFormWid
             },
           ),
           SizedBox(height: 32,),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 64),
-            child: RaisedButton(
-              onPressed:(){
-                EngineModel engineModel = new EngineModel(
-                  rating: basicProvider.engineRating, battery: _batteryController.text, clutch: _clutchController.text,coolant: _coolantController.text,
-                  engine: _engineController.text, engineMounting: _engineMountingController.text, engineOil: _engineOilController.text,
-                  engineOilLevelDipstick: _engineOilLevelController.text, engineSound: _engineSoundController.text, engineVideo:  basicProvider.engineVideo.path,
-                  exhaustSmoke: _exhaustSmokeController.text, gearShifting: _gearShiftingController.text
-
-                );
-                  formData.activeStep=3;
-                  formData.stepCount=3;
-              },
-              child: Text("Next", style: AppFontStyle.headingTextStyle2(APP_WHITE_COLOR),),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-              color: PRIMARY_COLOR,
-
-            ),
-          )
-
         ],
 
       ),

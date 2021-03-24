@@ -15,6 +15,7 @@ import 'package:kartenz/provider/auth_provider.dart';
 import 'package:kartenz/provider/basic_providers.dart';
 import 'package:kartenz/provider/electrical_form_provider.dart';
 import 'package:kartenz/provider/form_data_provider.dart';
+import 'package:kartenz/ui/utilis/AlertBox.dart';
 import 'package:provider/provider.dart';
 
 import 'documents_form_widget.dart';
@@ -68,12 +69,13 @@ class _SteeringFormWidgetState extends State<SteeringFormWidget> {
           RaisedButton(
             onPressed:() async{
               formData.uploadCar.createdBy = authProvider.loginModel.id;
-              RespObj status = await auctionProvider.
-              postUploadCar(authProvider.loginModel.token, formData.uploadCar,formData, basicProvider, electricalFormProvider );
+              RespObj status = await auctionProvider.postUploadCar(authProvider.loginModel.token, formData.uploadCar,formData, basicProvider, electricalFormProvider );
              if(status.status){
                showAlert(context);
                 submittedCarsProvider.getSubmittedCars(authProvider.loginModel.token);
-              }
+              }else{
+               AlertBox.showToast("Car Upload Failed. Try again later.");
+             }
             },
             child: Text("Submit", style: AppFontStyle.headingTextStyle2(APP_WHITE_COLOR),),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -223,8 +225,6 @@ tyreWidget(BuildContext context, BasicProvider basicProvider, TextEditingControl
   }
 }
 
-
-
 Future<FilePickerResult> pickImages() async {
   List<String> extensions = ['jpg', 'png', 'jpeg'];
   FilePickerResult result = await FilePicker.platform.pickFiles(
@@ -252,7 +252,8 @@ Widget showAlert(BuildContext context){
               Divider(),
               FlatButton(
                   onPressed: (){
-             //       Navigator.pushNamed(context, HOME_PAGE);
+                  Navigator.pop(context);
+                  Navigator.pop(context);
                   },
                   child: Text("Ok", style: AppFontStyle.labelTextStyle2(PRIMARY_COLOR),)
               ),

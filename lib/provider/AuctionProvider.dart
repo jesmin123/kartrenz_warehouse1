@@ -355,31 +355,34 @@ Map get carImages => _carImages;
     if(respObj.status){
         dynamic data=respObj.data;
         String  id = data['_id'];
+        fileUploader.uploadVideo("carwarehouse/engineVideo/upload", basicProvider.engineVideo, basicProvider.engineVideo.name,id: id,header: token).then((value) {
+          if(value.status){
+            print("Video Uploaded");
+          }
+        });
+
         Map sendData = {"car":id,"type":0,"name":""};
-        api.postData("carimage",header: token,mBody: jsonEncode(sendData)).then((value) async {
+         api.postData("carimage",header: token,mBody: jsonEncode(sendData)).then((value) async {
           if(value.status){
               String id = value.data["_id"];
               fileUploader.uploadFile("carimage/image/upload", formData.mainImage, formData.mainImage.name,id: id,header: token);
-            //  api.fileUplaod("carimage/image/upload", formData.mainImage,formData.mainImage.name,id: id);
-            }
-
-        });
-         sendData = {"car":id,"type":1,"name":""};
-        api.postData("carimage",header: token,mBody: jsonEncode(sendData)).then((value) async {
-          if(value.status){
-            String id = value.data["_id"];
-            RespObj respObj = await fileUploader.uploadFile("carimage/image/upload", formData.interiorImage.first, formData.interiorImage.first.name,id: id,header: token);
-            //  api.fileUplaod("carimage/image/upload", formData.mainImage,formData.mainImage.name,id: id);
           }
 
+        });
+         
+         sendData = {"car":id,"type":1,"name":""};
+          api.postData("carimage",header: token,mBody: jsonEncode(sendData)).then((value) async {
+            if(value.status){
+              String id = value.data["_id"];
+              RespObj respObj = await fileUploader.uploadFile("carimage/image/upload", formData.interiorImage.length>0?formData.interiorImage.first:null, formData.interiorImage.length>0?formData.interiorImage.first.name:" ",id: id,header: token);
+            }
         });
 
         sendData = {"car":id,"type":2,"name":""};
         api.postData("carimage",header: token,mBody: jsonEncode(sendData)).then((value) async {
           if(value.status){
             String id = value.data["_id"];
-            RespObj respObj = await fileUploader.uploadFile("carimage/image/upload", formData.exteriorImage.first, formData.exteriorImage.first.name,id: id,header: token);
-            //  api.fileUplaod("carimage/image/upload", formData.mainImage,formData.mainImage.name,id: id);
+            RespObj respObj = await fileUploader.uploadFile("carimage/image/upload", formData.exteriorImage.length>0?formData.exteriorImage.first:null, formData.exteriorImage.length>0?formData.exteriorImage.first.name:" ",id: id,header: token);
           }
 
         });
@@ -388,8 +391,7 @@ Map get carImages => _carImages;
         api.postData("carimage",header: token,mBody: jsonEncode(sendData)).then((value) async {
           if(value.status){
             String id = value.data["_id"];
-            RespObj respObj = await fileUploader.uploadFile("carimage/image/upload", formData.documentImages.first, formData.documentImages.first.name,id: id,header: token);
-            //  api.fileUplaod("carimage/image/upload", formData.mainImage,formData.mainImage.name,id: id);
+            RespObj respObj = await fileUploader.uploadFile("carimage/image/upload", formData.documentImages.length>0?formData.documentImages.first:null, formData.documentImages.length>0?formData.documentImages.first.name:" ",id: id,header: token);
           }
 
         });
@@ -398,33 +400,32 @@ Map get carImages => _carImages;
         api.postData("carimage",header: token,mBody: jsonEncode(sendData)).then((value) async {
           if(value.status){
             String id = value.data["_id"];
-            RespObj respObj = await fileUploader.uploadFile("carimage/image/upload", basicProvider.engineImages.first, basicProvider.engineImages.first.name,id: id,header: token);
-            //  api.fileUplaod("carimage/image/upload", formData.mainImage,formData.mainImage.name,id: id);
+            RespObj respObj = await fileUploader.uploadFile("carimage/image/upload", basicProvider.engineImages.length>0?basicProvider.engineImages.first:null, basicProvider.engineImages.length>0?basicProvider.engineImages.first.name:" ",id: id,header: token);
           }
 
         });
-
 
         sendData = {"car":id,"type":5,"name":""};
         api.postData("carimage",header: token,mBody: jsonEncode(sendData)).then((value) async {
           if(value.status){
             String id = value.data["_id"];
-            RespObj respObj = await fileUploader.uploadFile("carimage/image/upload", electricalFormProvider.damageImage.first, electricalFormProvider.damageImage.first.name,id: id,header: token);
-            //  api.fileUplaod("carimage/image/upload", formData.mainImage,formData.mainImage.name,id: id);
+            RespObj respObj = await fileUploader.uploadFile("carimage/image/upload", electricalFormProvider.damageImage.length>0?electricalFormProvider.damageImage.first:null, electricalFormProvider.damageImage.length>0?electricalFormProvider.damageImage.first.name:"",id: id,header: token);
           }
 
           int i = 6;
           basicProvider.imagesDatat.forEach((key, img) {
-            sendData = {"car":id,"name": key };
+            sendData = {"car":id,"name": key,"type":i};
+            i = i+1;
             api.postData("carimage",header: token,mBody: jsonEncode(sendData)).then((value) async{
               if(value.status){
                 String id = value.data["_id"];
                 RespObj respObj = await fileUploader.uploadFile("carimage/image/upload", img, img.name,id: id,header: token);
-                //  api.fileUplaod("carimage/image/upload", formData.mainImage,formData.mainImage.name,id: id);
               }
           });
 
         });
+
+       
         // Engine Video -http://kartrenz.com:4000/carwarehouse/engineVideo/upload
 
         //To upload file

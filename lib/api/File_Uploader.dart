@@ -16,16 +16,41 @@ class FileUploader{
     dio.options.receiveTimeout = 50000;//10s
   }
 
-  Future<RespObj> uploadFile(String route,PlatformFile file, String fileName,{String header,String id})  async {
+  Future<RespObj> uploadVideo(String route,PlatformFile file, String fileName,{String header,String id})  async {
     MultipartFile fileX = await MultipartFile.fromFile(file.path);
 
     FormData formData = FormData.fromMap({
-      "id":"605090c250e448002a98c862",
+      "id":id,
+      "engineVideo":fileX
+    });
+    dio.options.headers["x-auth-token"]= header;
+    try{
+      Response response = await dio.post(dio.options.baseUrl+route, data: formData,);
+      if(response!=null){
+        String respString = response.toString();
+        print(respString);
+        return RespObj(true);
+      }
+      else{
+        return RespObj(false,msg: "Failed to connect");
+      }
+    }catch(ex){
+      print("Exception ex: "+ex.toString());
+      return RespObj(false,msg: "Failed to connect");
+    }
+  }
+
+  Future<RespObj> uploadFile(String route,PlatformFile file, String fileName,{String header,String id})  async {
+    if(file==null){
+      return RespObj(false,msg: "No image");
+    }
+    MultipartFile fileX = await MultipartFile.fromFile(file.path);
+
+
+    FormData formData = FormData.fromMap({
+      "id":id,
       "image":fileX
     });
-    // formData.fields.add(MapEntry("id", "605090c250e448002a98c862"));
-    //
-    // formData.files.add(MapEntry("image", fileX));
     dio.options.headers["x-auth-token"]= header;
     try{
       Response response = await dio.post(dio.options.baseUrl+route, data: formData,);
